@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const LoungeMain = () => {
+const MyPost = () => {
     return(
         <>
-        <h1>여기는 라운지 메인 입니다.</h1>
-
+        <h1>여기는 내작성페이지 입니다.</h1>
         </>
     );
 };
@@ -13,4 +12,4 @@ const LoungeMain = () => {
 
 
 
-export default LoungeMain;
+export default MyPost;

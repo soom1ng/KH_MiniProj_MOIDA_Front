@@ -20,12 +20,17 @@ const search = styled.div`
     border-radius: 4px;
 `;
 
-const button = styled.button`
-    font-size:19px;
-    color: white;
-    background-color: rgb(107, 78, 254);
-    border-radius: 4px;
+const Button = styled.button`
+  width: 80px;
+  font-size:14px;
+  padding: 5px;
+  background-color: rgb(107, 78, 254);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 `;
+
 const blockBox = styled.div`
     background-color : white;
     border-radius: 20px

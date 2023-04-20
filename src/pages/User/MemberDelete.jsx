@@ -1,15 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const StoryPost = () => {
+const MemberDelete = () => {
     return(
         <>
-        <h1>여기는 스토리의 게시물 입니다.</h1>
+        <h1>여기는 회원탈퇴페이지 입니다.</h1>
         </>
     );
 };
 
 
 
-
-export default StoryPost;
+export default MemberDelete;
