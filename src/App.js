@@ -26,6 +26,7 @@ import SearchAll from './pages/Lounge/SearchAll';
 import Mypage from './pages/User/Mypage';
 import SignIn from './pages/User/SignIn';
 import SignUp from './pages/User/SignUp';
+import FindMember from './pages/User/FindMember';
 import MemberDelete from './pages/User/MemberDelete';
 import MyPost from './pages/User/MyPost';
 
@@ -58,8 +59,9 @@ function App() {
         <Route path='/Lounge/SearchAll' element={<SearchAll/>}/>
 
         <Route path='/Mypage' element={<Mypage/>}/>
-        <Route path='/Signln' element={<SignIn/>}/>
+        <Route path='/SignIn' element={<SignIn/>}/>
         <Route path='/SignUp' element={<SignUp/>}/>
+        <Route path='/SignIn/FindMember' element={<FindMember/>}/>
         <Route path='/Mypage/MemberDelete' element={<MemberDelete/>}/>
         <Route path='/Mypage/MyPost' element={<MyPost/>}/>
         </Routes>
