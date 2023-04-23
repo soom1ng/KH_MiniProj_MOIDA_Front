@@ -1,1 +1,17 @@
-/* 스터디룸에서 적용되는 네비바를 만들 파일입니다. */
+import styled from 'styled-components';
+import { Link, NavLink } from 'react-router-dom';
+
+
+const StudyHeader = styled.div`
+    float: left;
+    width: 300px;
+    background-color: white;
+`
+const HeaderStudy = () => {
+    return(
+        <>
+        <StudyHeader></StudyHeader>
+        </>
+    )
+}
+export default HeaderStudy;

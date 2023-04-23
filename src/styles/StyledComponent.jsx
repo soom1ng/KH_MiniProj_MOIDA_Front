@@ -2,7 +2,7 @@ import { Form } from "react-router-dom";
 import styled, {css} from 'styled-components';
 
 const BigTitle = styled.text`
-    font-size: 25px;
+    font-size: 32px;
     color: ${props => props.color || 'black'};
     font-weight: bolder;
 `;

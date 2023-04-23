@@ -7,6 +7,12 @@ import { useState } from 'react';
 import LogOut from '../Images/logout.png'
 import MyPerson from '../Images/user.png'
 
+const NavDefault = styled.div`
+  position : fixed;
+  width: 1200px;
+  background-color: white;
+`;
+
 const HeaderContainer = styled.div`
   margin: 0 auto;
   display: flex;
@@ -180,7 +186,7 @@ const [view, setView] = useState(false);
 
 const Header = () => {
     return (
-
+      <NavDefault>
         <HeaderContainer>
             <LogoNavContainer>
                 <Logo src={logo} alt="로고" />
@@ -205,6 +211,7 @@ const Header = () => {
                
             </SearchLoginContainer>
         </HeaderContainer>
+        </NavDefault>
     );
 };
 export default Header;
