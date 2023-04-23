@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; //브
 import Home from './pages/Home';
 
 
-import StudyCreate from './pages/Study/Main/StudyCreate';
 import StudyList from './pages/Study/Main/StudyList';
 import StudyMain from './pages/Study/Main/StudyMain';
 
@@ -26,8 +25,9 @@ import SearchAll from './pages/Lounge/SearchAll';
 import Mypage from './pages/User/Mypage';
 import SignIn from './pages/User/SignIn';
 import SignUp from './pages/User/SignUp';
-import MemberDelete from './pages/User/MemberDelete';
-import MyPost from './pages/User/MyPost';
+
+import MemberDelete from './pages/User/MemberDelete'
+import StudyWrite from './pages/Study/Main/StudyCreate';
 
 function App() {
   return (
@@ -38,7 +38,6 @@ function App() {
 
 
         <Route path='/Study' element={<StudyMain/>}/>
-        <Route path='/Study/Create' element={<StudyCreate/>}/>
         <Route path='/Study/List' element={<StudyList/>}/>
 
         <Route path='/Study/StudyRoom' element={<StudyRoomMain/>}/>
@@ -61,9 +60,11 @@ function App() {
         <Route path='/Signln' element={<SignIn/>}/>
         <Route path='/SignUp' element={<SignUp/>}/>
         <Route path='/Mypage/MemberDelete' element={<MemberDelete/>}/>
-        <Route path='/Mypage/MyPost' element={<MyPost/>}/>
+        <Route path='/Mypage/MyPost' element={<Mypage/>}/>
+        <Route path='/Study/Create' element={<StudyWrite></StudyWrite>}/>
         </Routes>
     </Router>
+
     </>
   );
 };
