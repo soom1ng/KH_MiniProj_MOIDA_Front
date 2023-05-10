@@ -1,10 +1,46 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import Header from "../../Header";
+import HeaderStudy from "../../HeaderStudy";
+import styled from "styled-components";
+import { StudyRoom, InputButton } from "../../../styles/StyledComponent";
+
+const Content = styled.div`
+display: flex;
+flex-direction: column;
+margin: 100px 0 0 200px;
+align-items: center;
+justify-content: center;
+
+
+`;
 
 const StudyRoomMain = () => {
-    return(
+    const navigate = useNavigate();
+
+    const onClick = () => {
+        navigate(`/Study/Studyroom`)
+    }
+
+    const content = "testteseessteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesttesttesttesestttsesetseteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttestteseessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttestteessttesttesttesttesttestseessttesttesttesttesttesteessttesttesttesttesttesteessttesttesttesttesttesttestt";
+    return (
         <>
-        <h1>여기는 스터디룸의 메인페이지 입니다.</h1>
+            <Header />
+            <HeaderStudy />
+
+            <StudyRoom>
+            
+                <div style={{ fontSize: "18px", width: "900px" }}>{content}</div>
+
+                <Content>
+                    <div className="button" onClick={onClick}>
+                        <InputButton>참가하기</InputButton>
+                    </div>
+                </Content>
+            </StudyRoom>
+
+
         </>
     );
 };

@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
 body{
-  width: 1200px;
   margin: 0 auto;
   font-family: 'Noto Sans KR', sans-serif;
+  width: 1200px;
 }
+
+/* app.js 에는 화면 레이아웃에 대한 css를 많이 넣습니다
+   */

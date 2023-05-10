@@ -1,10 +1,90 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import Header from "../Header";
+import styled from "styled-components";
+import { BigTitle, InputButton } from "../../styles/StyledComponent";
+import { useNavigate } from "react-router-dom";
+import { Editor } from "../Common/Editor";
+
+const StoryWriteContainer = styled.div`
+display: flex;
+
+width: 1200px;
+margin: 0 auto;
+text-align: left;
+margin: 20px auto; /* 전체 마진 20px */
+background-color: white;
+flex-direction: column;
+
+
+
+.StudyList {
+    margin-left: 45px;
+}
+.ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+  min-height: 600px;
+  margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    padding : 20px 150px 20px 150px;
+
+}
+
+.list_box {
+    background-color: #f1f1f1;
+    height: 240px;
+}
+`;
+
+const Title = styled.div` /* 1200 140 */
+    display: flex;
+    font-size: 36px;
+    padding-top: 80px;
+    height: 140px;
+    align-items: center;
+    margin-left: 90px;
+    font-weight: bold;
+    font-family: 'Noto Sans KR', sans-serif;
+    `;
+
+
+
 
 const StoryWrite = () => {
-    return(
+    const navigate = useNavigate();
+
+    const onclickPost = () => {
+        navigate('/Story/Post');
+    };
+
+    return (
         <>
-        <h1>여기는 스토리 작성페이지 입니다.</h1>
+            <Header></Header>
+
+            <StoryWriteContainer>
+                <BigTitle><Title>스토리 🔥</Title></BigTitle>
+
+                <div className="StudyList">
+                    <h2 className="title">스터디 선택</h2>
+                    <div className="list_box">
+                    </div>
+                </div>
+
+                <form>
+                    {/* <InputLabel>제목</InputLabel>
+                    <Input type="post_title" placeholder="제목을 입력해주세요." required /> */}
+
+                    <Editor isTitle={1}></Editor>
+                    {/* <Input type="post_desc" placeholder="내용을 입력해주세요." required /> */}
+
+                    <InputButton type="submit" onClick={onclickPost}>올리기</InputButton>
+                </form>
+
+            </StoryWriteContainer>
         </>
     );
 };
