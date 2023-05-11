@@ -44,7 +44,7 @@ const StudyContainer = styled.div`
     align-items: center;
     width: 1200px;
     background-color: #f1f1f1;
-    height: 1800px;
+    height: 2200px;
     padding-top :50px;
 }
 `;
@@ -87,39 +87,79 @@ const SearchBar = styled.input`
 
 
 const StudyList = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const onClickSearch = () => {
-        navigate('/Study/List');
-    }
+  const onClickSearch = () => {
+    navigate('/Study/List');
+  }
 
-    return (
-        <>
-            <Header></Header>
-            <StudyContainer>
-                <div className="menu">
-                    <h1 className="title">스터디💬</h1>
-                    <div className="menuBlock">
+  return (
+    <>
+      <Header></Header>
+      <StudyContainer>
+        <div className="menu">
+          <h1 className="title">스터디💬</h1>
+          <div className="menuBlock">
 
-                        <Category array='r'
-                        ></Category>
+            <Category array='r'
+            ></Category>
 
-                        <SearchContainer>
-                            <SearchBar type="text" placeholder="태그를 추가해보세요!" />
-                            <SearchIcon src={searchIcon} alt="검색 아이콘" onClick={onClickSearch} />
-                        </SearchContainer>
-                    </div>
-                </div>
+            <SearchContainer>
+              <SearchBar type="text" placeholder="태그를 추가해보세요!" />
+              <SearchIcon src={searchIcon} alt="검색 아이콘" onClick={onClickSearch} />
+            </SearchContainer>
+          </div>
+        </div>
 
-                <div className="list_box">
-                    <Study></Study>
-                    <Study></Study>
-                    <Study></Study>
-                </div>
-            </StudyContainer>
-        </>
+        <div className="list_box">
+          <Study study_title="백준방법대"
+            studydesc="함께 코딩 테스트를 준비하는 스터디입니다!"
+            studytag="#코딩 #자바"
+            date="2023-04-20"
+          ></Study>
+          <Study study_title="백준방법대"
+            studydesc="함께 코딩 테스트를 준비하는 스터디입니다!"
+            studytag="#코딩 #자바"
+            date="2023-04-20"
+          ></Study>
+          <Study study_title="백준방법대"
+            studydesc="함께 코딩 테스트를 준비하는 스터디입니다!"
+            studytag="#코딩 #자바"
+            date="2023-04-20"
+          ></Study>
+          <Study study_title="백준방법대"
+            studydesc="함께 코딩 테스트를 준비하는 스터디입니다!"
+            studytag="#코딩 #자바"
+            date="2023-04-20"
+          ></Study>
+          <Study study_title="백준방법대"
+            studydesc="함께 코딩 테스트를 준비하는 스터디입니다!"
+            studytag="#코딩 #자바"
+            date="2023-04-20"
+          ></Study>
+          <Study study_title="백준방법대"
+            studydesc="함께 코딩 테스트를 준비하는 스터디입니다!"
+            studytag="#코딩 #자바"
+            date="2023-04-20"
+          ></Study>
+          <Study study_title="백준방법대"
+            studydesc="함께 코딩 테스트를 준비하는 스터디입니다!"
+            studytag="#코딩 #자바"
+            date="2023-04-20"
+          ></Study>
+          <Study study_title="백준방법대"
+            studydesc="함께 코딩 테스트를 준비하는 스터디입니다!"
+            studytag="#코딩 #자바"
+            date="2023-04-20"
+          ></Study>
 
-    );
+
+
+        </div>
+      </StudyContainer>
+    </>
+
+  );
 };
 
 

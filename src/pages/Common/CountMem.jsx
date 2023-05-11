@@ -1,0 +1,1 @@
+<h2 className='itemPerson'>참가자<img className='person' src={userImg} />{study_user_count}/{study_user_limit}</h2>

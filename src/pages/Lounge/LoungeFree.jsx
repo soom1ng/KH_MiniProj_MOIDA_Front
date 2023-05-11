@@ -111,7 +111,7 @@ const LoungeFreeMain = () => {
 
       <div className='board-top'>
         <div className='board-title'>
-          <h1>자유 게시판</h1>
+          <h1>자유 게시판 🐥</h1>
           <NavLink to='/lounge/write'><Button font={1.5}>글쓰기</Button></NavLink>
         </div>
         <div className='board-list'>

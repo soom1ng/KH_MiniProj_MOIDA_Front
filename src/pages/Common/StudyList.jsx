@@ -38,12 +38,11 @@ const StyledStudyList = styled.div`
     `;
 
 
-
 export const StudyList = () => {
     const navigate = useNavigate();
 
     const onClickStudyList = () => {
-        navigate('/Study/Studyroom');
+        navigate('/Study/List');
     }
 
     return (

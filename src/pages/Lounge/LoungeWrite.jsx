@@ -63,7 +63,7 @@ align-items: center;
 //   cursor: pointer;
 // `;
 
-const LoungePost = () => {
+const LoungeWrite = ({}) => {
 
     return (
         <Container>
@@ -84,7 +84,9 @@ const LoungePost = () => {
             <EditorContainer>
                 <div className='board-top'>
                     <div className='board-title'>
-                        <h1>자유 게시판 🐥</h1>
+                        <h1>자유 게시판 🐥</h1> 
+                        {/* <h1>고민 게시판 🐥</h1>  */}
+                        
                         </div>
                
                             {/* <InputLabel>제목</InputLabel>
@@ -104,4 +106,4 @@ const LoungePost = () => {
 };
 
 
-export default LoungePost;
+export default LoungeWrite;

@@ -58,8 +58,9 @@ const Button = styled.button`
 
 
 const InputButton = styled.button`
-  width: 100px;
-  font-size:17px;
+  width: 120px;
+  height: 50px;
+  font-size: 18px;
   font-family: 'Noto Sans KR', sans-serif;
   padding: 8px;
   background-color: rgb(107, 78, 254);
@@ -89,6 +90,9 @@ const StudyRoom = styled.div`
     width: 900px;
     z-index:-10;
     word-wrap: break-word;
+    .content {
+      margin-bottom: 150px;
+    }
 `;
 
 const Profile = styled.div`

@@ -3,8 +3,9 @@ import React from "react";
 import Header from "../../Header";
 import HeaderStudy from "../../HeaderStudy";
 import styled from "styled-components";
-import { BoardBox, BoardContainer, BoardContainerWrapper, Profile, StudyRoom } from "../../../styles/StyledComponent";
+import { BoardBox, BoardContainerWrapper, Profile, StudyRoom } from "../../../styles/StyledComponent";
 import ban from "../../../Images/ban.png"
+import { MyInformation } from "../../Common/MyInformation"
 // import { Board } from "../../Common/Board";
 
 const StyledMember = styled.div`
@@ -45,84 +46,60 @@ const StyledMember = styled.div`
     }
 `;
 
-const MemberBox = ({user_profile, user_name, user_email, user_intro, }) => {
-    return(
+const MemberBox = ({ user_profile, user_name, user_email, user_intro, }) => {
+    return (
         <>
-        <StyledMember>
-            <div className="item" style={{marginTop:"15px"}}>
-                <Profile style={{width:"80px", height:"80px", background:`${user_profile}`, margin:"30px", marginBottom:"13px", marginRight:"14px"}}></Profile>
-                <h1>{user_name}</h1>
-                <div className="banDiv"><img src={ban} width={"23px"} height={"23px"}/> <h2 className="ban">멤버 강퇴</h2></div></div>
-                
-            <div className="item">
-                <p className="left">이름</p> <p className="right">{user_name}</p>
-            </div>
-            <div className="item">
-                <p className="left">이메일</p> <p className="right">{user_email}</p>
-            </div>
-            <div className="item">
-                <p className="left">자기소개</p> <p className="right">{user_intro}</p>
-            </div>
-            
-        </StyledMember>
+            <StyledMember>
+                <div className="item" style={{ marginTop: "15px" }}>
+                    <Profile style={{ width: "80px", height: "80px", background: `${user_profile}`, margin: "30px", marginBottom: "13px", marginRight: "14px" }}></Profile>
+                    <h1>{user_name}</h1>
+                    <div className="banDiv"><img src={ban} width={"23px"} height={"23px"} /> <h2 className="ban">멤버 강퇴</h2></div></div>
+
+                <div className="item">
+                    <p className="left">이름</p> <p className="right">{user_name}</p>
+                </div>
+                <div className="item">
+                    <p className="left">이메일</p> <p className="right">{user_email}</p>
+                </div>
+                <div className="item">
+                    <p className="left">자기소개</p> <p className="right">{user_intro}</p>
+                </div>
+
+            </StyledMember>
         </>
     );
 };
 
 const StudyRoomMember = () => {
-    return(
+    return (
         <>
-        <Header/>
-        <HeaderStudy/>
-        <StudyRoom>
-            <BoardBox style={{top:"-110px"}}>
-                <BoardContainerWrapper> 
-                    <MemberBox
-                        user_profile={"#fffff"}
-                        user_name={"윤홍비"}
-                        user_email={"dbsghdql55555@gmail.com"}
-                        user_intro={"안녕하세요 반갑습니다 다같이 공부해봐요"}
-                    ></MemberBox>
-                    <MemberBox
-                        user_profile={"#fffff"}
-                        user_name={"윤홍비"}
-                        user_email={"dbsghdql55555@gmail.com"}
-                        user_intro={"안녕하세요 반갑습니다 다같이 공부해봐요"}
-                    ></MemberBox>
-                    <MemberBox
-                        user_profile={"#fffff"}
-                        user_name={"윤홍비"}
-                        user_email={"dbsghdql55555@gmail.com"}
-                        user_intro={"안녕하세요 반갑습니다 다같이 공부해봐요"}
-                    ></MemberBox>
-                    <MemberBox
-                        user_profile={"#fffff"}
-                        user_name={"윤홍비"}
-                        user_email={"dbsghdql55555@gmail.com"}
-                        user_intro={"안녕하세요 반갑습니다 다같이 공부해봐요"}
-                    ></MemberBox>
-                    <MemberBox
-                        user_profile={"#fffff"}
-                        user_name={"윤홍비"}
-                        user_email={"dbsghdql55555@gmail.com"}
-                        user_intro={"안녕하세요 반갑습니다 다같이 공부해봐요"}
-                    ></MemberBox>
-                    <MemberBox
-                        user_profile={"#fffff"}
-                        user_name={"윤홍비"}
-                        user_email={"dbsghdql55555@gmail.com"}
-                        user_intro={"안녕하세요 반갑습니다 다같이 공부해봐요"}
-                    ></MemberBox>
-                    <MemberBox
-                        user_profile={"#fffff"}
-                        user_name={"윤홍비"}
-                        user_email={"dbsghdql55555@gmail.com"}
-                        user_intro={"안녕하세요 반갑습니다 다같이 공부해봐요"}
-                    ></MemberBox>
+            <Header />
+            <HeaderStudy />
+            <StudyRoom>
+                <BoardBox style={{ top: "-110px" }}>
+                    <BoardContainerWrapper>
 
-                </BoardContainerWrapper>
-            </BoardBox>
-        </StudyRoom>
+                        <MyInformation
+                            nickname={"뇽뇽이"}
+                            myInfo={"안녕하세요. 백앤드를 공부하고 있는 학생입니다!! 함께 공부해봐요~~ "} />
+                        <MyInformation
+                            nickname={"뇽뇽이"}
+                            myInfo={"안녕하세요. 백앤드를 공부하고 있는 학생입니다!! 함께 공부해봐요~~ "} />
+                        <MyInformation
+                            nickname={"뇽뇽이"}
+                            myInfo={"안녕하세요. 백앤드를 공부하고 있는 학생입니다!! 함께 공부해봐요~~ "} />
+
+
+                        {/* <MemberBox
+                        user_profile={"#fffff"}
+                        user_name={"윤홍비"}
+                        user_email={"dbsghdql55555@gmail.com"}
+                        user_intro={"안녕하세요 반갑습니다 다같이 공부해봐요"}
+                        ></MemberBox> */}
+
+                    </BoardContainerWrapper>
+                </BoardBox>
+            </StudyRoom>
         </>
     );
 };

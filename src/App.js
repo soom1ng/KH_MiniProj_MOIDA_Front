@@ -17,9 +17,11 @@ import StoryMain from './pages/Story/StoryMain';
 import StoryPost from './pages/Story/StoryPost';
 import StoryWrite from './pages/Story/StoryWrite';
 
-import LoungeFree from './pages/Lounge/LoungeFree';
+// import LoungeFree from './pages/Lounge/LoungeFree';
+// import LoungeQnA from './pages/Lounge/LoungeQnA';
 
-import LoungeQnA from './pages/Lounge/LoungeQnA';
+
+import LoungeMain from "./pages/Lounge/LoungeMain";
 import LoungePost from './pages/Lounge/LoungePost';
 import LoungeWrite from './pages/Lounge/LoungeWrite';
 import SearchAll from './pages/Lounge/SearchAll';
@@ -58,13 +60,17 @@ function App() {
                     <Route path='/Story/Post' element={<StoryPost/>}/>
                     <Route path='/Story/Write' element={<StoryWrite/>}/>
 
-                    <Route path='/Lounge' element={<LoungeFree/>} />
+
+                    {/* <Route path='/Lounge' element={<LoungeFree/>} />
                     <Route path='/Lounge/Free' element={<LoungeFree/>}/>
                     <Route path='/Lounge/QnA' element={<LoungeQnA/>}/>
-                    <Route path='/Lounge/Post' element={<LoungePost/>}/>
-                    <Route path='/Lounge/Write' element={<LoungeWrite/>}/>
-                    
+                    <Route path='/Lounge/Post' element={<LoungePost/>}/> */}
 
+
+                    <Route path='/Lounge/:boardName' element={<LoungeMain/>}/>
+                    <Route path='/Lounge/Post' element={<LoungePost/>}/> 
+                    {/* <Route path='/lounge/:boardName/:postId' element={<LoungePost/>}/> */}
+                    <Route path='/Lounge/Write' element={<LoungeWrite/>}/>
                     <Route path='/Lounge/SearchAll' element={<SearchAll/>}/>
 
 

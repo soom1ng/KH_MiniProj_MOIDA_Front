@@ -10,6 +10,7 @@ const StyledComment = styled.div`
   display: flex;
   justify-content: center;
   margin: 10px auto;
+  
   .comment-child {
     display: flex;
     align-items: center;
@@ -80,28 +81,30 @@ const StyledComment = styled.div`
 // 내 아이디 값을 가져와서 수정/삭제가 가능해야함 댓글 삭제하면 대댓글은 어떻게 처리하냐?? 전부 삭제 처리하나?
 // 닉네임은 변경가능한 값이다, 고유 아이디값과 비교하는 것이 맞다
 // isChild = parent 컬럼에 값이 있으면 true 아니면 null 이니까 false로 쓸 수 있지
+const Comment = ({comment}) => {
+    const {userId, commentId, parentId, nickname, regTime, contents, imgUrl} = comment;
 
-const Comment = ({ userId, isModify, nickname, img_url, content, time, isChild }) => {
     const [type, setType] = useState(); // 댓글 수정을 위함 나중에 추가
     return (
         <StyledComment>
-            {isChild &&
+
+            {(parentId !== 0)  &&
                 <div className="comment-child">
-                <EnterIcon src={enterIcon} alt="#"/>
+                    <EnterIcon src={enterIcon} alt="#"/>
                 </div>}
             <div className="comment-body">
-                <img src={img_url} alt="#"/>
+                <img src={imgUrl} alt="#"/>
                 <div className="comment-body-text">
                     <div className="comment-nickname">{nickname}</div>
-                    <div className="comment-content">{content}</div>
+                    <div className="comment-content">{contents}</div>
                     <div className="comment-footer">
                         {userId ?
                             <div className="manager">
                                 <div onClick={() => setType("modify")}>modify</div>
 
-                                <div className="time">{time}</div>
+                                <div className="time">{regTime}</div>
                             </div> :
-                            <div className="time">{time}</div>
+                            <div className="time">{regTime}</div>
                         }
                     </div>
                 </div>

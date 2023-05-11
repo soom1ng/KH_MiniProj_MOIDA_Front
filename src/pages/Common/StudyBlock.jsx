@@ -16,7 +16,7 @@ const StyledStudy = styled.div`
   justify-content: space-between;
   padding: 25px 25px 25px 50px;
   border-radius: 10px;
-  cursor: pointer;
+
   margin: 30px 0 30px 0;
   text-align: left;
 

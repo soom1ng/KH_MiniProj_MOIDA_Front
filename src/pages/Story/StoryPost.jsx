@@ -55,9 +55,9 @@ const StoryPost = ({ title, nickname, recommend, date, content }) => {
                 <PostContent></PostContent>
             </div>
 
-            {/* 댓글 */}
+            {/* 댓글 -> DB 먼저 수정 해야해서 주석처리 */}
             <div className="comment">
-                <CommentsList></CommentsList>
+                {/* <CommentsList></CommentsList> */}
             </div>
         </Container>
     );

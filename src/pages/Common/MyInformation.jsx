@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import logoImgOnly from "../../Images/LOGO_imgOnly.png";
 
 const Container = styled.div`
 
@@ -11,22 +12,17 @@ const Container = styled.div`
     background-color: #F3F3F3;
   }
 
-  .studyContainer {
-    display: flex;
-    width: 800px;
-    margin-bottom: 50px;
-  }
-
-  .studyItemContainer{
-    background-color: white;
-    border-radius: 10px;
+  .infoContainer {
     display: flex;
     flex-direction: column;
-    width: 350px;
-    height: 200px;
-    margin-right: 50px;
+    width: 800px;
+    height: 250px;
+    padding: 15px 15px 15px 30px;
+    background-color: white;
+    border-radius: 20px;
     border: 1px solid #F3F3F3;
     border-radius: 10px;
+    margin-bottom: 50px;
   }
 `
 const ProfileBox = styled.div`
@@ -38,6 +34,7 @@ const ProfileBox = styled.div`
 const MyImage = styled.img`
   width: 32px;
   height: 32px;
+  margin-top: 20px;
   object-fit: cover;
   justify-items: center;
   border-radius: 100%;
@@ -46,29 +43,29 @@ const MyImage = styled.img`
 const InfoText = styled.p`
   font-size: 19px;
   font-family: 'Noto Sans KR', sans-serif;
+  margin-left: 15px;
   font-weight: bold;
-  margin-left: 20px;
-  margin-bottom: 4px;
+  /* margin-bottom: 20px; */
 `;
 
 const MyInfo = styled.div`
   font-size: 19px;
-  margin: 0px 20px 20px 10px;
+  margin: 20px 20px 20px 10px;
 `;
 
-const InfoTextPhone = styled.div`
-  display: flex;
-  font-size: 19px;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-weight: bold;
-  margin-left: 20px;
-  margin-right: 38px;
-  margin-bottom: 4px;
-`;
+// const InfoTextPhone = styled.div`
+//   display: flex;
+//   font-size: 19px;
+//   font-family: 'Noto Sans KR', sans-serif;
+//   font-weight: bold;
+//   margin-left: 20px;
+//   margin-right: 38px;
+//   margin-bottom: 4px;
+// `;
 
 
 
-export const MyInformation = ({ showMyImgInPut, myImg, logoImgOnly, nickname, phone, email, myInfo, showPrivacy}) => {
+export const MyInformation = ({ showMyImgInPut, myImg, nickname, myInfo, showPrivacy}) => {
   return (
     <Container>
       <div className="infoContainer">
@@ -82,23 +79,23 @@ export const MyInformation = ({ showMyImgInPut, myImg, logoImgOnly, nickname, ph
               <MyImage src={logoImgOnly} alt="기본 이미지" />
             )
           )}
-          <MyInfo>{nickname}</MyInfo>
+          <InfoText>{nickname}</InfoText>
           <InfoText>님</InfoText>
         </ProfileBox>
 
         {showPrivacy && (
           <div>
-            <InfoTextPhone>번호 </InfoTextPhone>
+            {/* <InfoTextPhone>번호 </InfoTextPhone>
             <MyInfo>{phone}</MyInfo>
 
             <InfoText>이메일</InfoText>
-            <MyInfo>{email}</MyInfo>
+            <MyInfo>{email}</MyInfo> */}
           </div>
         )}
 
         <div>
-          <InfoText>자기소개 </InfoText>
-          <MyInfo>{myInfo}</MyInfo>
+        <InfoText>자기소개 </InfoText>
+        <MyInfo>{myInfo}</MyInfo>
         </div>
       </div>
     </Container>

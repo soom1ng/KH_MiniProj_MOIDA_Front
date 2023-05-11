@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { Link, NavLink } from 'react-router-dom';
-import { BigTitle, SmallTitle } from '../styles/StyledComponent';
+import { Link, NavLink} from 'react-router-dom';
+// import { InputButton } from '../styles/StyledComponent';
 // import userImg from "../Images/user.png";
 import { StudyInfo } from './Common/StudyInfo';
+import logout from '../Images/logout.png';
 
 // Study 왼쪽 Nav
 const StudyHeader = styled.div`
@@ -11,29 +12,41 @@ const StudyHeader = styled.div`
     height : 100vh;
     position : fixed;
     text-align: center;
-    top: 90px;
-    z-index: 1;
+    top: 85px;
+    z-index: 2;
     margin: 0 auto;
     border-right: 1px solid gray;
 
-`
+.indexBox {
+  position : fixed;
+  left: 0 auto;
+  top: 90px;
+  background: rgba(243, 243, 243, 0.9);
+  width: 200px;
+  height : 100vh;
+  z-index: 1;
+}
+`;
+
+
 const navDefault = {
-    color: 'black',
-    fontSize: '18px',
-    fontWeight: 'bold',
-    textDecoration: 'none',
-    margin: '40px',
-    display: 'block'
-    
-  };
-  const navSelect = {
-    color: 'rgb(107, 78, 254)',
-    fontSize: '18px',
-    fontWeight: 'bold',
-    textDecoration: 'none',
-    margin: '40px',
-    display: 'block'
-  };
+  color: 'black',
+  fontSize: '18px',
+  fontWeight: 'bold',
+  textDecoration: 'none',
+  margin: '40px',
+  display: 'block'
+
+};
+
+const navSelect = {
+  color: 'rgb(107, 78, 254)',
+  fontSize: '18px',
+  fontWeight: 'bold',
+  textDecoration: 'none',
+  margin: '40px',
+  display: 'block'
+};
 
 //   // 스터디 정보 Nav
 //   const StyledStudyInfo = styled.div `
@@ -66,13 +79,13 @@ const navDefault = {
 //     .StudyContainer{
 //         display: flex;
 //         align-items: center;
-        
+
 //     }
 //     .person{
 //         width: 15px;
 //         height: 15px;
 //         margin-left:10px;
-       
+
 //     }
 //     .item1{
 //         margin-right: 50px;
@@ -107,41 +120,93 @@ const navDefault = {
 //             <h2>{study_link}</h2>
 //         </div> 
 //         </StyledStudyInfo>
-        
+
 //         </>
 //     );
 // };
 
+const StudyDelete = styled.div`
+  font-size: 20px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: bold;
+  margin-top: 300px;
+  margin-bottom: 30px;
+
+`;
+
+const StudyDeleteLink = styled(Link)`
+  text-decoration: none;
+  color: #ff4f4f;
+
+  &:hover {
+    color: #cc5c5c;
+  }
+`;
+
+const DeleteImg = styled.img`
+  width: 17px;
+  margin-right: 5px;
+`;
+
+const Content = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin-top: 20vh;
+
+`;
 
 
 
 const HeaderStudy = () => {
-    return(
-        <>
-        <StudyHeader>
-        <NavLink to="/Study/StudyRoom" style={({isActive}) =>{
-                      return isActive ? navSelect : navDefault
-                    }}>홈</NavLink>
-                    <NavLink to="/StudyRoom/Schedule" style={({isActive}) =>{
-                      return isActive ? navSelect : navDefault
-                    }}>일정</NavLink>
-                    <NavLink to="/StudyRoom/Board" style={({isActive}) =>{
-                      return isActive ? navSelect : navDefault
-                    }}>보드</NavLink>
-                    <NavLink to="/StudyRoom/Member" style={({isActive}) =>{
-                      return isActive ? navSelect : navDefault
-                    }}>멤버</NavLink>
-        </StudyHeader>
-        <StudyInfo
-            size='l' 
-            study_profile={"#fffff"}
-            study_name = {"스터디이름"}
-            study_tag = {"#태그#태그"}
-            study_intro={"스터디 설명입니다."}
-            isBasic={1}
-        />
-        
-        </>
-    )
+
+
+  return (
+    <>
+      <StudyHeader>
+        <NavLink to="/Study/StudyRoom" style={({ isActive }) => {
+          return isActive ? navSelect : navDefault
+        }}>홈</NavLink>
+        <NavLink to="/StudyRoom/Schedule" style={({ isActive }) => {
+          return isActive ? navSelect : navDefault
+        }}>일정</NavLink>
+        <NavLink to="/StudyRoom/Board" style={({ isActive }) => {
+          return isActive ? navSelect : navDefault
+        }}>보드</NavLink>
+        <NavLink to="/StudyRoom/Member" style={({ isActive }) => {
+          return isActive ? navSelect : navDefault
+        }}>멤버</NavLink>
+        <StudyDelete>
+          <StudyDeleteLink to="/Study/List">
+            <DeleteImg src={logout} alt="" />스터디 나가기
+          </StudyDeleteLink>
+        </StudyDelete>
+
+
+        {/* 스터디 미가입자가 보는 화면 */}
+
+        {/* <div className='indexBox'>
+          <Content>
+            <div className="button" onClick={onClick}>
+              <InputButton>스터디 가입</InputButton>
+            </div>
+          </Content>
+        </div> */}
+      </StudyHeader>
+
+
+
+      <StudyInfo
+        size='l'
+        study_profile={"#fffff"}
+        study_name={"스터디이름"}
+        study_tag={"#태그#태그"}
+        study_intro={"스터디 설명입니다."}
+        isBasic={1}
+      />
+
+    </>
+  )
 }
 export default HeaderStudy;

@@ -1,21 +1,18 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../Header";
 import styled from "styled-components";
-// import {NavLink} from "react-router-dom";
-import {PostTitle} from "../Common/PostTitle";
 import CommentsList from "../Common/CommentsList";
 import HeaderLounge from "../HeaderLounge";
+import {useParams} from "react-router-dom";
+import AxiosAPI from "../../api/AxiosAPI";
+import {LoungePostTitle} from "../Common/LoungePostTitle";
 
 const Container = styled.div`
   width: 1200px;
   margin: 0 auto;
   position: relative;
   top: 90px;
-
-  .lounge-nav {
-    width: 100%;
-    margin: 0 auto;
-  }
+  
 
   .content {
     font-size: 1.6rem;
@@ -23,58 +20,59 @@ const Container = styled.div`
     border-bottom: 1px solid gray;
     padding: 80px 250px 80px 250px;
   }
-
-  .comment {
-    width: 100%;
-
-    .comment-header {
-      padding-left: 50px;
-      display: flex;
-      align-items: center;
-      height: 100px;
-      font-size: 3.2rem;
-      font-weight: bold;
-    }
-  }
 `;
 
 
-//url주소는 어떻게 될까? /lounge/post/4654546546{post-id} 이런식으로 되겠지
-// 그럼 네비바는 자유 고민 어떤게 색이 들어가야 하나?
-// 1. 게시글의 성질에 따라 할거면 get으로 받아서 DB가져오고 DB의 게시판 정보에 따라 다르게 칠해주자?
-// 네비바가 컴포넌트로 구현하지 못해 하쉽다. 근데 구현할 수가 없는걸.... 로직이 복잡해져 어려워 질 것 같다.
+// 2안 선택
+// lounge/ boardName / postId
+// why?
+// 1. postId 1개로만 받는 경우: url 주소 : /lounge/post/:postId
+// 페이지마다 navLink색을 변경해줘야하는데 boardName 을 가져와서 해결할 수 있다
+// but, 기존의 NavLink를 바꿔야하며 props를 3단으로 내려줘야함 또한 게시판 마다 주소가 있는 것이 유용함
 
-const LoungePost = ({title, nickname, recommend, date, content}) => {
-  return (
-      <Container>
-          <Header/>
-          <HeaderLounge/>
-
-          <PostTitle
-              size="l"
-              title="요즘 개발하는게 너무 재미따히히"
-              nickname="닉네임"
-              recommend={-500}
-              date={"2023/04/11"}
-          ></PostTitle>
-          <div className="content"><p>asdsadadsadsadadasdadadas
-              adasdsadsad<br/><br/><br/>sadsadadsadsadsadsa<br/>
-              sadasd
-              sad
-              sadsadsa
-              dsadsa
-              dsadsad
-              sad
-              sa
-              dsa
-              dsadasdadadsadsadadadasd</p></div>
-          <div className="comment">
-              <CommentsList></CommentsList>
-          </div>
+// 2. boardName, postId를 하고 boardName 에 기능을 부여하는 것
+// postId가 서치하는데 지배적인 역할임 PK값이라서 얘 하나면 찾을 수가 있음
+// 그럼 백엔드에서 /lounge/{boardName}/{postId} 로 데이터 보내는데 boardName은 할 게 없음 +
+// /lounge/아무거나/postId하면 데이터가 성공적으로 전송됨 => boardName 을 sql쿼리문에도 넣는 것 더블체크용으로
 
 
-      </Container>
-  );
+const LoungePost = () => {
+
+    const {boardName, postId} = useParams();
+    const [post ,setPost] = useState(null);
+
+    useEffect(() => {
+        const viewPost = async() => {
+            try {
+                const rsp = await AxiosAPI.postViewGet(boardName, postId);
+                setPost(rsp.data);
+                console.log(rsp.data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        viewPost();
+    }, [postId]);
+
+    return (
+
+        <Container>
+            <Header/>
+            {post && <HeaderLounge boardName={post.boardName}/>}
+
+            {post && <LoungePostTitle
+                size='l'
+                post={post}
+            />}
+            <div className="content">
+            {post && post.contents}
+            </div>
+            {post && <CommentsList commentsList={post.comments}/>}
+
+
+        </Container>
+    );
 };
+
 
 export default LoungePost;

@@ -52,6 +52,7 @@ const MyPost = () => {
         <div>
             <Title>내가 작성한 글</Title>
             <InfoContainer>
+              
             </InfoContainer>
 
             <br />

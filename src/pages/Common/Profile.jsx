@@ -1,6 +1,11 @@
 import styled from "styled-components";
+import LOGO_imgOnly from "../../Images/LOGO_imgOnly.png"
 
 
+const ProfileContainer = styled.div`
+display: flex;
+width: 200px;
+`;
 // 이미지
 const MyImage = styled.img`
   width: 32px;
@@ -15,20 +20,21 @@ const InfoText = styled.p`
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: bold;
   margin-left: 20px;
-  margin-bottom: 4px;
+  margin-top: 0;
 `;
 
 const MyInfo = styled.div`
+  font-weight: bold;
   font-size: 19px;
-  margin: 0px 20px 20px 10px;
+  margin-left: 10px;
 `;
 
 
 
-export const Profile = ({showMyImgInPut, myImg, LOGO_imgOnly, nickname}) => {
+export const Profile = ({showMyImgInPut, myImg, nickname}) => {
 
     return (
-        <>
+        <ProfileContainer>
           {showMyImgInPut ? (
             <MyImage src={showMyImgInPut} alt="이미지 미리보기" />
           ) : (
@@ -40,6 +46,6 @@ export const Profile = ({showMyImgInPut, myImg, LOGO_imgOnly, nickname}) => {
           )}
             <MyInfo>{nickname}</MyInfo>
             <InfoText>님</InfoText>
-        </>
+        </ProfileContainer>
     );    
 };

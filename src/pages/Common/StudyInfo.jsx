@@ -1,6 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import userImg from "../../Images/user.png";
+import { Link } from "react-router-dom";
+import { Profile } from "./Profile";
 
 // <StudyInfo
 // study_profile={"#fffff"}
@@ -64,22 +66,38 @@ const StyledStudyInfo = styled.div`
         margin-left: 0px;
     }
 
+    .chatLink {
+        width: 400px;
+        display: flex;
+        flex-direction: row;
+    }
+
     .StudyName {      
         display: flex;
         align-items: center;
         font-size: 3em;
         font-weight: bold;
+        cursor: pointer;
     }
 
-    .StudyContainer{
+    .TagContainer{
         display: flex;
         align-items: center;
-        
     }
+
+    .descContainer {
+        display: flex;
+        flex-direction: column;
+        margin-top: 15px ;
+        margin-bottom: -20px ;
+    }
+
+
     .person{
         width: 15px;
         height: 15px;
         margin-left: 30px;
+        margin-right: 8px;
     }
 
     .item1{
@@ -96,7 +114,6 @@ const StyledStudyInfo = styled.div`
         margin-left: auto;
         margin-right: 15px;
         font-size: 18px;
-        margin-top:0px;
     }
 
     .itemText{
@@ -126,22 +143,25 @@ ${(p) => p.sizeStyle}
 `;
 
 const StyledInnerContainer = styled.div`
+
 .StudyContainer{
     display: flex;
     align-items: center;
 }
 `;
 
-const InnerContainer = ({ study_link, study_mgr_id, study_user_limit, study_user_count }) => {
+const InnerContainer = ({ study_link, study_user_limit, study_user_count }) => {
     return (
 
         <StyledInnerContainer>
-            <div className='StudyContainer'>
-                <h2 className='item2'>채팅방</h2>
-                <h2> {study_link} </h2>
+            <div className='descContainer'>
+                <Profile nickname={"뇽뇽이"} />
+                <div className="chatLink">
+                    <h2 className='item2'>채팅방</h2>
+                    <h2> {study_link} </h2>
+                </div>
             </div>
-            <p className='itemPerson'>{study_mgr_id}<img className='person' src={userImg}/>{study_user_count}/{study_user_limit}</p>
-            
+            <h2 className='itemPerson'>참가자<img className='person' src={userImg} />{study_user_count}/{study_user_limit}</h2>
 
         </StyledInnerContainer>
     )
@@ -149,16 +169,19 @@ const InnerContainer = ({ study_link, study_mgr_id, study_user_limit, study_user
 
 export const StudyInfo = ({ size, study_profile, study_name, study_tag, study_intro, isBasic }) => {
     const sizeStyle = SIZES[size];
+
+
     return (
         <StyledStudyInfo sizeStyle={sizeStyle}>
             <Body>
                 <Body1>
                     <div className='StudyName'>
+
                         <div className='StudyProfile' style={{ backgroundColor: `${study_profile}` }}></div>
-                        {study_name}
+                        <Link to="/Study/StudyRoom" style={{ textDecoration: "none", color: "#111" }}>{study_name}</Link>
                     </div>
                     <p className="itemText">{study_intro}</p>
-                    <div className='StudyContainer'>
+                    <div className='TagContainer'>
                         <div className='item1'>태그</div>
                         <div className="item1">{study_tag}</div>
                     </div>
@@ -167,8 +190,8 @@ export const StudyInfo = ({ size, study_profile, study_name, study_tag, study_in
                 <Body2>
                     {/* 값이 있으면 무조건 TRUE */}
                     {isBasic ? <InnerContainer
+
                         study_link={"http://naver.com"}
-                        study_mgr_id={"닉네임"}
                         study_user_count={"2"}
                         study_user_limit={"20"}></InnerContainer> : <></>}
 

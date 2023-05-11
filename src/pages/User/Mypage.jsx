@@ -21,17 +21,7 @@ const Container = styled.div`
     background-color: #F3F3F3;
   }
 
-  .infoContainer {
-    display: flex;
-    flex-direction: column;
-    width: 800px;
-    padding: 15px 15px 15px 30px;
-    background-color: white;
-    border-radius: 10px;
-    border: 1px solid #F3F3F3;
-    border-radius: 10px;
-    margin-bottom: 50px;
-  }
+
 
   .studyContainer {
     display: flex;
@@ -55,13 +45,10 @@ const Container = styled.div`
     
   }
   
-  
 .plusImg {
     width: 100px;
 } 
 `
-
-
 
 const Title = styled.p`
   font-size: 24px;

@@ -18,8 +18,7 @@ const StoryContainer = styled.div`
   flex-direction: column;
 
 
-
-  .dropdown{
+.dropdown{
   position : relative;
   display : inline-block;
   align-items: center;
@@ -106,7 +105,7 @@ const SearchContainer = styled.div`
   width: 200px;
   height: 36px;
   background-color: rgb(239,239,239);
-  margin-left: 700px;
+  margin-left: 650px;
 `;
 
 const SearchIcon = styled.img`

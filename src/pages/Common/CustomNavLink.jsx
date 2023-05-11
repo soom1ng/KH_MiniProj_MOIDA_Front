@@ -21,24 +21,31 @@ const Container = styled.div`
   .active-nav {
      color: var(--maincolor);
      font-size: ${props => props.size ? props.size + 0.2 + 'rem' : '2rem'};
-     border-bottom: 3px solid var(--maincolor);
-     border-bottom: ${props => props.deco && "3px solid var(--maincolor)"};
+     border-bottom: ${props => props.deco && '3px solid var(--maincolor)'};
 
-    
+
   }
   
   
   
 `;
-
+/**
+ * NavLink link의 url이 포함되어있다면 active상태로 색과 크기가 변합니다.
+ * @param to 연결될 url 주소
+ * @param exact
+ * @param contain url안에 contain이 포함되어있으면 활성화됩니다.
+ * @param children
+ * @param size  폰트 사이즈
+ * @param deco 값이 있으면 밑줄
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const CustomNavLink = ({ to, exact, contain, children, size, deco }) => {
-    const location = window.location.pathname;
-
     return (
-        <Container>
+        <Container size={size} deco={deco}>
             <NavLink className={window.location.pathname.includes(contain) ? "active-nav" : "non-active-nav"}
                      to={to}
-                     deco={deco}
+                     exact={exact}
             >{children}</NavLink>
 
         </Container>
