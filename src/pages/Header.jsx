@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Link, NavLink, useLocation} from 'react-router-dom';
+import {Link, NavLink, useLocation, useNavigate} from 'react-router-dom';
 import logo from '../Images/LOGO.png';
 import searchIcon from '../Images/search.png';
 import {Button} from '../styles/StyledComponent';
@@ -211,11 +211,9 @@ const IsLogin = () => {
 const Header = () => {
     const {isLogin} = LoginContext();
     const {setIsLogin} = LoginContext();
+    const navigate = useNavigate();
 
-    function handleLogout() {
-        console.log({isLogin})
-        setIsLogin(false);
-    }
+   
 
     return (
         <Container>
@@ -237,7 +235,7 @@ const Header = () => {
                         {isLogin ?
                             <IsLogin></IsLogin>
                             :
-                            <LoginButton onClick={() => setIsLogin(true)}>로그인</LoginButton>
+                            <LoginButton onClick={() => navigate("/signin")}>로그인</LoginButton>
                         }
                     </div>
                 </div>
