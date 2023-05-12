@@ -89,13 +89,12 @@ const StudyRoomMember = () => {
                             nickname={"뇽뇽이"}
                             myInfo={"안녕하세요. 백앤드를 공부하고 있는 학생입니다!! 함께 공부해봐요~~ "} />
 
-
                         {/* <MemberBox
                         user_profile={"#fffff"}
                         user_name={"윤홍비"}
                         user_email={"dbsghdql55555@gmail.com"}
                         user_intro={"안녕하세요 반갑습니다 다같이 공부해봐요"}
-                        ></MemberBox> */}
+                    ></MemberBox> */}
 
                     </BoardContainerWrapper>
                 </BoardBox>
