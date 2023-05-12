@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from 'styled-components';
 import Modal from "../utils/Modal";
 import FindMember from "./FindMember";
 import { InputLabel, Input, InputButton} from "../../styles/StyledComponent";
-import axios from 'axios';
+import AxiosApi from "../../api/AxiosAPI";
 
 const SignContainer = styled.div`
   display: flex;
@@ -24,14 +24,14 @@ const Title = styled.div`
   margin-bottom: 24px;
 `;
 
-const Form = styled.form`
+const Form = styled.div`
   max-width: 800px;
   padding: 25px;
   display: flex;
   flex-direction: column;
 `;
 
-const Body = styled.form`
+const Body = styled.div`
   display: flex;
   max-width: 800px;
   text-align: left;
@@ -72,35 +72,38 @@ const SignIn = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
-  const MOIDA_DOMAIN = "http://localhost:8090";
+  const navigate = useNavigate();
 
   const closeModal = () => {
     setModalOpen(false);
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
+  const onClickLogin = async () => {
     try {
-      const response = await axios.post(MOIDA_DOMAIN+ "/login", {
-        userName: username,
-        pw: password
-      });
-      // 로그인 성공
-      console.log(response.data); // true or false
+      const response = await AxiosApi.signIn(username, password);
+      console.log(response.data);
       if (response.data === true) {
+        // 로그인 성공 처리
+        window.localStorage.setItem("username", username);
+        window.localStorage.setItem("password", password);
+        window.localStorage.setItem("isLogin", "TRUE");
+        setUsername(username);
+        setPassword(password);
+  
+        navigate("/");
+      } else {
+        console.log("로그인 에러: 로그인 실패");
       }
     } catch (error) {
-      // 로그인 실패
-      console.error(error.response.data);
+      console.log("로그인 에러:", error.message);
     }
   };
+  
 
 
   return (
     <SignContainer>
-      <Form onSubmit={handleLogin}>
+      <Form>
         <Title>로그인</Title>
         <Body>
           <Body1>
@@ -114,7 +117,9 @@ const SignIn = () => {
             </Body>
           </Body1>
         </Body>
-        <InputButton type="submit">로그인</InputButton>
+                {(username && password) ?
+                <InputButton onClick={onClickLogin}>로그인</InputButton>  :
+                <InputButton >로그인</InputButton>}
       </Form>
       <Body2>   
       </Body2>

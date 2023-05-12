@@ -3,6 +3,7 @@ import React,{ useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import LOGO_imgOnly from "../../Images/LOGO_imgOnly.png";
+import { storage } from '../../api/firebase';
 
 const MyInfoEditBox = styled.div`
 
@@ -215,15 +216,27 @@ const MyInformationEdit = () => {
     setIsNotAttach(false);
   };
 
-  const handleMyImgChange = (event) => {
-    const myImg = event.target.files[0];
+
+  const handleMyImgChange = (e) => {
+    const myImg = e.target.files[0];
     if (myImg) {
       setMyImg(myImg); // 선택된 파일 정보를 상태로 저장
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setShowMyImgInPut(reader.result);
-      };
-      reader.readAsDataURL(myImg);
+      const storageRef = storage.ref();
+      const fileRef = storageRef.child(myImg.name);
+      const uploadTask = fileRef.put(myImg);
+      uploadTask.on(
+        'state_changed',
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          // 업로드가 성공적으로 완료된 경우
+          // 이미지 업로드가 완료되면 해당 이미지의 다운로드 URL을 가져옵니다.
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            setShowMyImgInPut(downloadURL);
+          });
+        }
+      );
     } else {
       setShowMyImgInPut(null);
       setMyImg(null); // 파일이 선택되지 않은 경우 상태 초기화
