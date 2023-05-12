@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import logoImgOnly from "../../Images/LOGO_imgOnly.png";
+import { Profile } from "./Profile";
 
 const Container = styled.div`
 
@@ -27,30 +28,33 @@ const Container = styled.div`
 `
 const ProfileBox = styled.div`
   display: flex;
-  margin: 20px;
+  padding-left: 20px;
+  margin-top: 10px;
 `;
 
 // 이미지
-const MyImage = styled.img`
-  width: 32px;
-  height: 32px;
-  margin-top: 20px;
-  object-fit: cover;
-  justify-items: center;
-  border-radius: 100%;
-`;
+// const MyImage = styled.img`
+//   width: 32px;
+//   height: 32px;
+//   margin-top: 20px;
+//   object-fit: cover;
+//   justify-items: center;
+//   border-radius: 100%;
+// `;
 
 const InfoText = styled.p`
   font-size: 19px;
   font-family: 'Noto Sans KR', sans-serif;
   margin-left: 15px;
   font-weight: bold;
+  padding-left: 20px;
   /* margin-bottom: 20px; */
 `;
 
 const MyInfo = styled.div`
   font-size: 19px;
   margin: 20px 20px 20px 10px;
+  padding-left: 20px;
 `;
 
 // const InfoTextPhone = styled.div`
@@ -70,7 +74,9 @@ export const MyInformation = ({ showMyImgInPut, myImg, nickname, myInfo, showPri
     <Container>
       <div className="infoContainer">
         <ProfileBox>
-          {showMyImgInPut ? (
+        <Profile size={'l'} nickname={"콩콩이"}/>
+
+          {/* {showMyImgInPut ? (
             <MyImage src={showMyImgInPut} alt="이미지 미리보기" />
           ) : (
             myImg ? (
@@ -79,19 +85,20 @@ export const MyInformation = ({ showMyImgInPut, myImg, nickname, myInfo, showPri
               <MyImage src={logoImgOnly} alt="기본 이미지" />
             )
           )}
+          
           <InfoText>{nickname}</InfoText>
-          <InfoText>님</InfoText>
+          <InfoText>님</InfoText> */}
         </ProfileBox>
 
-        {showPrivacy && (
+        {/* {showPrivacy && (
           <div>
-            {/* <InfoTextPhone>번호 </InfoTextPhone>
+            <InfoTextPhone>번호 </InfoTextPhone>
             <MyInfo>{phone}</MyInfo>
 
             <InfoText>이메일</InfoText>
-            <MyInfo>{email}</MyInfo> */}
+            <MyInfo>{email}</MyInfo>
           </div>
-        )}
+        )} */}
 
         <div>
         <InfoText>자기소개 </InfoText>

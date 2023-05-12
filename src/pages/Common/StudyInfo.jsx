@@ -1,8 +1,9 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import userImg from "../../Images/user.png";
+// import userImg from "../../Images/user.png";
 import { Link } from "react-router-dom";
 import { Profile } from "./Profile";
+import { CountMem } from "./CountMem";
 
 // <StudyInfo
 // study_profile={"#fffff"}
@@ -72,6 +73,13 @@ const StyledStudyInfo = styled.div`
         flex-direction: row;
     }
 
+    .countMem {
+        display: flex;
+        flex-direction: row;
+        width: 300px;
+        align-items: left;
+    }
+
     .StudyName {      
         display: flex;
         align-items: center;
@@ -111,7 +119,7 @@ const StyledStudyInfo = styled.div`
     }
 
     .itemPerson{
-        margin-left: auto;
+        /* margin-left: 0; */
         margin-right: 15px;
         font-size: 18px;
     }
@@ -150,18 +158,24 @@ const StyledInnerContainer = styled.div`
 }
 `;
 
-const InnerContainer = ({ study_link, study_user_limit, study_user_count }) => {
+const InnerContainer = ({ study_link }) => {
     return (
 
         <StyledInnerContainer>
             <div className='descContainer'>
-                <Profile nickname={"뇽뇽이"} />
+                <Profile size={'s'} nickname={"뇽뇽이"} />
                 <div className="chatLink">
                     <h2 className='item2'>채팅방</h2>
                     <h2> {study_link} </h2>
                 </div>
             </div>
-            <h2 className='itemPerson'>참가자<img className='person' src={userImg} />{study_user_count}/{study_user_limit}</h2>
+
+            <div className="countMem">
+                <h2 className='itemPerson'>참가자</h2>
+                    <h2><CountMem
+                        study_user_count={"2"}
+                        study_user_limit={"20"} /></h2>
+            </div>
 
         </StyledInnerContainer>
     )
