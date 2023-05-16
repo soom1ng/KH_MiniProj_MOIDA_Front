@@ -102,7 +102,7 @@ const LoungeMain = () => {
             const rsp = await AxiosAPI.postListGet(boardName, '');
             console.log("lastId = " + lastId);
             setPostList(rsp.data);
-            setLastId((prevLastId) => rsp.data[rsp.data.length - 1].postId); // 마지막 행의 아이디값
+            setLastId( rsp.data[rsp.data.length - 1].postId); // 마지막 행의 아이디값
             setPage(1);
             console.log("initialize 실행")
             console.log(rsp.data);
@@ -120,6 +120,7 @@ const LoungeMain = () => {
                 console.log('getPostList실행');
                 console.log('lastId = ' + lastId);
             }
+            window.scrollTo(0,420);
             console.log("page = " + page)
 
         };
