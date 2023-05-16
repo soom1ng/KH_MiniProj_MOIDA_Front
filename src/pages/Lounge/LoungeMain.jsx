@@ -6,6 +6,7 @@ import HeaderLounge from "../HeaderLounge";
 import Button from "../Common/Button";
 import {Board} from "../Common/Board";
 import styled from "styled-components";
+import Paging from "../Common/Paging";
 
 
 const Container = styled.div`
@@ -65,7 +66,7 @@ const Container = styled.div`
       border-left: 2px solid gray;
     }
   }
-  
+
   .board-bottom {
     background-color: rgb(241, 241, 241);
     width: 100%;
@@ -75,31 +76,62 @@ const Container = styled.div`
 `;
 // url : 이름 객체
 const BOARD = {
-    free : '자유 게시판 🐥',
-    qna : '고민 게시판 🐣'
+    free : '자유2',
+    qna : '고민2'
 }
 
 const LoungeMain = () => {
-    const [postList, setPostList] = useState(null);
     const {boardName} = useParams();
+    const [postList, setPostList] = useState([]);
+    const [lastId, setLastId] = useState('');
+    const [page, setPage] = useState(1); // 현재 페이지
+    const listPerPage = 10; // 페이지 당 보여줄 리스트 개수
 
+    const offset = listPerPage * (page - 1); // 리스트를 슬라이스 하기 위한 변수
+    const maxPage = Math.ceil(postList.length / listPerPage) ; // 현재 리스트의 최대 페이지
+
+
+
+
+    // boardName 이 변하면 page, postList가 초기화해주기
+    // 문제! useEffect가 실행될 당시의 lastId 상태값을 가져오기 때문에 api호출에 lastId값을 직접 사용할 수 없다
+    // 또한 내부에서 useState의 상태를 변경 후 함수에 적용할 수 없나
+    useEffect(() => {
+
+        const initialize = async(lastId) => {
+            const rsp = await AxiosAPI.postListGet(boardName, '');
+            console.log("lastId = " + lastId);
+            setPostList(rsp.data);
+            setLastId((prevLastId) => rsp.data[rsp.data.length - 1].postId); // 마지막 행의 아이디값
+            setPage(1);
+            console.log("initialize 실행")
+            console.log(rsp.data);
+        }
+        initialize();
+    }, [boardName])
+
+    // page가 변할때 실행
     useEffect(() => {
         const getPostList = async() => {
-            const rsp = await AxiosAPI.postListGet(boardName);
-            setPostList(rsp.data)
-            console.log(rsp.data);
+            if (page === maxPage && page > 1) { // 게시판이 바뀔떄 page가 1로 초기화 될 때에는 실행되지 않도록 합니다.
+                const rsp = await AxiosAPI.postListGet(boardName, lastId);
+                setPostList((prevPostList) => [...prevPostList, ...rsp.data]); // list를 이어붙여 받아야합니다.
+                setLastId(rsp.data[rsp.data.length - 1].postId); // 마지막 행의 아이디값
+                console.log('getPostList실행');
+                console.log('lastId = ' + lastId);
+            }
+            console.log("page = " + page)
+
         };
         getPostList();
-    }, [boardName]);
-
-    console.log(BOARD[boardName]);
+    }, [page]);
     return (
         <Container>
             <Header/>
             <HeaderLounge boardName={boardName}/>
             <div className='board-top'>
                 <div className='board-title'>
-                    <h1>{BOARD[boardName]}</h1>
+                    <h1>{BOARD[boardName]} 게시판</h1>
                     <NavLink to='/lounge/write'><Button font={1.5}>글쓰기</Button></NavLink>
                 </div>
                 <div className='board-list'>
@@ -120,19 +152,21 @@ const LoungeMain = () => {
             </div>
 
             <div className='board-bottom'>
-                {postList && postList.map(post => (
+                {postList.slice(offset,offset+10) && postList.slice(offset,offset+10).map(post => (
                     <Board
                         postId={post.postId}
                         type='lounge'
                         nickname={post.nickname}
                         title={post.title}
                         content={post.contents}
-                        date={post.regTime}
+                        date={post.regTime.toLocaleString('ko','YYYY/MM/DD HH:mm')}
                         boardName={boardName}
                         isNim={1}
                         recommend={post.recommend}
                     ></Board>
+
                 ))}
+                {maxPage > 0 && <Paging maxPage={maxPage} page={page} setPage={setPage}></Paging>}
             </div>
 
 

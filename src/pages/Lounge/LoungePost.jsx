@@ -12,7 +12,7 @@ const Container = styled.div`
   margin: 0 auto;
   position: relative;
   top: 90px;
-  
+
 
   .content {
     font-size: 1.6rem;
@@ -40,19 +40,22 @@ const LoungePost = () => {
 
     const {boardName, postId} = useParams();
     const [post ,setPost] = useState(null);
+    const [comments, setComments] = useState([]);
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
         const viewPost = async() => {
             try {
                 const rsp = await AxiosAPI.postViewGet(boardName, postId);
                 setPost(rsp.data);
+                setComments(rsp.data.comments);
                 console.log(rsp.data);
             } catch (error) {
                 console.error(error);
             }
         }
         viewPost();
-    }, [postId]);
+    }, [boardName, postId]);
 
     return (
 
@@ -65,13 +68,13 @@ const LoungePost = () => {
                 post={post}
             />}
             <div className="content">
-            {post && post.contents}
+                {post && post.contents}
             </div>
-            {post && <CommentsList commentsList={post.comments}/>}
+            {post && <CommentsList commentsList={post.comments} page={page} setPage={setPage} />}
 
 
         </Container>
-    );
+    )
 };
 
 

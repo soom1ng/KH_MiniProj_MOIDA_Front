@@ -14,8 +14,8 @@ const AxiosApi = {
           return await axios.post(MOIDA_DOMAIN+ "/login", signIn);
     },
 
-    postListGet: async(boardName) => {
-        return await axios.get(MOIDA_DOMAIN+`/lounge/${boardName}`);
+    postListGet: async(boardName, lastId) => {
+        return await axios.get(MOIDA_DOMAIN+`/lounge/${boardName}?lastId=${lastId}`);
     },
 
     postViewGet: async(boardName, postId) => {
