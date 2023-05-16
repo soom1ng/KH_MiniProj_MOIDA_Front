@@ -1,19 +1,20 @@
 import styled from "styled-components";
-import logoImgOnly from "../../Images/LOGO_imgOnly.png";
 import { Profile } from "./Profile";
+import ban from "../../Images/ban.png"
+import manage from "../../Images/user.png"
+import more from "../../Images/more.png"
+import { useState } from 'react';
 
 const Container = styled.div`
 
-  .myPageContainer {
+  /* .myPageContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 1000px;
     background-color: #F3F3F3;
-  }
-
-  .infoContainer {
+  } */
     display: flex;
     flex-direction: column;
     width: 800px;
@@ -24,23 +25,73 @@ const Container = styled.div`
     border: 1px solid #F3F3F3;
     border-radius: 10px;
     margin-bottom: 50px;
-  }
 `
+
 const ProfileBox = styled.div`
   display: flex;
-  padding-left: 20px;
+  flex-direction: row;
   margin-top: 10px;
+  padding-left: 20px;
+
+    .moreDiv{
+      position: absolute;
+      display:flex;
+      align-items:center;
+      right: 150px;
+      cursor: pointer;
+    }
+
+    .moreImg{
+      margin-top: 10px;
+      width: 35px;
+      height: 35px;
+    }
+
 `;
 
-// 이미지
-// const MyImage = styled.img`
-//   width: 32px;
-//   height: 32px;
-//   margin-top: 20px;
-//   object-fit: cover;
-//   justify-items: center;
-//   border-radius: 100%;
-// `;
+
+const MenuDiv = styled.div`
+background-color: white;
+position: absolute;
+top: 50px;
+right: 0px;
+text-decoration-line: none;
+width: 140px;
+border-radius: 5px;
+box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+`;
+
+const DropDown = styled.li`
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: row;
+font-size: 1.3rem;
+text-decoration: none;
+list-style: none;
+top: 30px;
+margin: 10px;
+text-decoration-line: none;
+align-items: center;
+cursor: pointer;
+
+.ban{
+     color : #d1403f;
+    }
+
+.manage{
+       color : #111;
+      }
+`;
+
+
+const MenuImg = styled.img`
+width: 23px;
+height: 23px;
+margin-right: 10px;
+text-align: left;
+`;
+
 
 const InfoText = styled.p`
   font-size: 19px;
@@ -57,37 +108,37 @@ const MyInfo = styled.div`
   padding-left: 20px;
 `;
 
-// const InfoTextPhone = styled.div`
-//   display: flex;
-//   font-size: 19px;
-//   font-family: 'Noto Sans KR', sans-serif;
-//   font-weight: bold;
-//   margin-left: 20px;
-//   margin-right: 38px;
-//   margin-bottom: 4px;
-// `;
 
 
 
-export const MyInformation = ({ showMyImgInPut, myImg, nickname, myInfo, showPrivacy}) => {
+export const MyInformation = ({ myInfo }) => {
+
+  const onclickManage = () => {
+  };
+
+  const onclickBan = () => {
+  };
+
+
+  const [view, setView] = useState(false);
+
   return (
     <Container>
-      <div className="infoContainer">
         <ProfileBox>
-        <Profile size={'l'} nickname={"콩콩이"}/>
+          <Profile size={'l'} nickname={"콩콩이"} />
 
-          {/* {showMyImgInPut ? (
-            <MyImage src={showMyImgInPut} alt="이미지 미리보기" />
-          ) : (
-            myImg ? (
-              <MyImage src={URL.createObjectURL(myImg)} alt="이미지 미리보기" />
-            ) : (
-              <MyImage src={logoImgOnly} alt="기본 이미지" />
-            )
-          )}
-          
-          <InfoText>{nickname}</InfoText>
-          <InfoText>님</InfoText> */}
+          <div className="moreDiv" onClick={() => {
+            setView(!view)
+          }}><img className="moreImg" src={more} /> {" "}
+            {view && (
+              <MenuDiv>
+                <DropDown onClick={onclickManage}>
+                  <MenuImg src={manage} /> <h3 className="manage">권한 넘기기</h3> </DropDown>
+                <DropDown onClick={onclickBan}>
+                  <MenuImg src={ban} /> <h3 className="ban">멤버강퇴</h3> </DropDown>
+              </MenuDiv>
+            )}
+            </div>
         </ProfileBox>
 
         {/* {showPrivacy && (
@@ -101,10 +152,9 @@ export const MyInformation = ({ showMyImgInPut, myImg, nickname, myInfo, showPri
         )} */}
 
         <div>
-        <InfoText>자기소개 </InfoText>
-        <MyInfo>{myInfo}</MyInfo>
+          <InfoText>자기소개 </InfoText>
+          <MyInfo>{myInfo}</MyInfo>
         </div>
-      </div>
-    </Container>
+          </Container>
   );
 };

@@ -7,10 +7,12 @@ const ARRAYS = {
   r: css`
     --flex-direction: row;
     --margin-top: 10px;
+    --margin-left: -20px;
   `,
   c: css`
     --flex-direction: column;
     --margin-top: 0px;
+    --margin-left: 0px;
   `
 }
 
@@ -26,6 +28,7 @@ const StyledCategory = styled.div`
   position : relative;
   display : inline-block;
   align-items: center;
+  margin-left: var(--margin-left);
 }
 
 .dropbtn{

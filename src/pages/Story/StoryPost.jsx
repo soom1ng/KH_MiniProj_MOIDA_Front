@@ -26,7 +26,7 @@ const Container = styled.div`
 
 
 //url주소: /story/post/4654546546{post-id} 
-const StoryPost = ({ title, nickname, recommend, date, content }) => {
+const StoryPost = () => {
     return (
         <Container>
             <Header></Header>

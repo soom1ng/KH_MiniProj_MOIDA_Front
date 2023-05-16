@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import { Profile } from "./Profile";
 import { CountMem } from "./CountMem";
-
+import { StudyDesc } from "./StudyDesc";
 // <StudyInfo
 // study_profile={"#fffff"}
 // study_name = {"스터디이름"}
@@ -57,15 +57,7 @@ const StyledStudyInfo = styled.div`
     padding-top: var(--padding-top);
     z-index: 0;
 
-    .StudyProfile {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background-color: #E2fff9;
-        display: flex;
-        margin: 15px;
-        margin-left: 0px;
-    }
+
 
     .chatLink {
         width: 400px;
@@ -80,18 +72,32 @@ const StyledStudyInfo = styled.div`
         align-items: left;
     }
 
-    .StudyName {      
+    /* .StudyName {      
         display: flex;
         align-items: center;
         font-size: 3em;
         font-weight: bold;
         cursor: pointer;
-    }
+    } */
 
-    .TagContainer{
+        /* .StudyProfile {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #E2fff9;
+        display: flex;
+        margin: 10px;
+        margin-left: 0px;
+    } */
+    /* .itemText{
+        font-size:1.8em;
+        padding-right: 20px;
+    } */
+
+    /* .TagContainer{
         display: flex;
         align-items: center;
-    }
+    } */
 
     .descContainer {
         display: flex;
@@ -108,11 +114,11 @@ const StyledStudyInfo = styled.div`
         margin-right: 8px;
     }
 
-    .item1{
+    /* .item1{
         margin-right: 30px;
         font-size: 1.5em;
         font-weight: bold;
-    }
+    } */
 
     .item2{
         margin-right: 30px;
@@ -120,13 +126,11 @@ const StyledStudyInfo = styled.div`
 
     .itemPerson{
         /* margin-left: 0; */
-        margin-right: 15px;
+        /* margin-right: 10px; */
         font-size: 18px;
     }
 
-    .itemText{
-        font-size:1.8em;
-    }
+
 `;
 
 const Body = styled.form`
@@ -173,6 +177,7 @@ const InnerContainer = ({ study_link }) => {
             <div className="countMem">
                 <h2 className='itemPerson'>참가자</h2>
                     <h2><CountMem
+                        size={"s"}
                         study_user_count={"2"}
                         study_user_limit={"20"} /></h2>
             </div>
@@ -181,7 +186,7 @@ const InnerContainer = ({ study_link }) => {
     )
 };
 
-export const StudyInfo = ({ size, study_profile, study_name, study_tag, study_intro, isBasic }) => {
+export const StudyInfo = ({ size, isBasic }) => {
     const sizeStyle = SIZES[size];
 
 
@@ -189,7 +194,7 @@ export const StudyInfo = ({ size, study_profile, study_name, study_tag, study_in
         <StyledStudyInfo sizeStyle={sizeStyle}>
             <Body>
                 <Body1>
-                    <div className='StudyName'>
+                    {/* <div className='StudyName'>
 
                         <div className='StudyProfile' style={{ backgroundColor: `${study_profile}` }}></div>
                         <Link to="/Study/StudyRoom" style={{ textDecoration: "none", color: "#111" }}>{study_name}</Link>
@@ -198,16 +203,20 @@ export const StudyInfo = ({ size, study_profile, study_name, study_tag, study_in
                     <div className='TagContainer'>
                         <div className='item1'>태그</div>
                         <div className="item1">{study_tag}</div>
-                    </div>
+                    </div> */}
+                    <StudyDesc
+                    size={"s"} study_profile={"#fffff"}
+        study_name={"백준방범대"}
+        study_tag={"#코딩 #자바"}
+        study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."}
+></StudyDesc>
                 </Body1>
 
                 <Body2>
                     {/* 값이 있으면 무조건 TRUE */}
                     {isBasic ? <InnerContainer
-
                         study_link={"http://naver.com"}
-                        study_user_count={"2"}
-                        study_user_limit={"20"}></InnerContainer> : <></>}
+                        ></InnerContainer> : <></>}
 
                 </Body2>
             </Body>

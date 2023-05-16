@@ -148,14 +148,14 @@ const DeleteImg = styled.img`
   margin-right: 5px;
 `;
 
-const Content = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-margin-top: 20vh;
+// const Content = styled.div`
+// display: flex;
+// flex-direction: column;
+// align-items: center;
+// justify-content: center;
+// margin-top: 20vh;
 
-`;
+// `;
 
 
 
@@ -200,9 +200,9 @@ const HeaderStudy = () => {
       <StudyInfo
         size='l'
         study_profile={"#fffff"}
-        study_name={"스터디이름"}
-        study_tag={"#태그#태그"}
-        study_intro={"스터디 설명입니다."}
+        study_name={"백준방범대"}
+        study_tag={"#코딩 #자바"}
+        study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."}
         isBasic={1}
       />
 

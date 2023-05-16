@@ -158,7 +158,7 @@ const StoryMain = () => {
           <Category array='r'></Category>
 
           <SearchContainer>
-            <SearchBar type="text" placeholder="태그를 추가해보세요!" />
+            <SearchBar type="text" placeholder="검색 할 내용을 입력하세요!" />
             <SearchIcon src={searchIcon} alt="검색 아이콘" onClick={onClickStory} />
           </SearchContainer>
 

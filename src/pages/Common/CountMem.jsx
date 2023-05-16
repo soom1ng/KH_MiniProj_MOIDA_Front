@@ -1,11 +1,26 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import userImg from "../../Images/user.png"
 
+const SIZES = {
+    s: css`
+        --width: 100px;
+        --ImgWidth: 15px;
+        --ImgHeight: 15px;
+        
+
+      `,
+    l: css`
+        --width: 150px;
+        --ImgWidth: 30px;
+        --ImgHeight : 30px;
+      `
+  }
 
 const StyledMember = styled.div`
+  ${(p) => p.sizeStyle}
 
-    width: 100px;
-   
+    width: var(--width);
+    
     /* height: 220px; */
     /* position: relative;  */
     /* top: 90px;
@@ -20,20 +35,21 @@ const StyledMember = styled.div`
         font-size: 18px; */
 
         .person{
-        width: 15px;
-        height: 15px;
-        margin-left: 15px;
-        margin-right: 8px;
+        width: var(--ImgWidth);
+        height: var(--ImgHeight);
+        margin: 3px 8px 0 15px;
     
     }
 `;
 
-export const CountMem = ( {study_user_count, study_user_limit } ) => {
+export const CountMem = ( {size, study_user_count, study_user_limit } ) => {
+    const sizeStyle = SIZES[size];
+
     return (
-        <StyledMember>
+        <StyledMember sizeStyle={sizeStyle}>
                 <div>
                 <img className='person' src={userImg} />
-                {study_user_count}/{study_user_limit}
+                {study_user_count} / {study_user_limit}
                 </div>
         </StyledMember>
     ) ;
