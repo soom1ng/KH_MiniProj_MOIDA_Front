@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import enterIcon from "../../Images/enter.png"
 import CommentWriter from "./CommentWriter";
+import {formatRegTime} from "./formatRegTime";
 // 접속한 아이디가 댓글 쓴 본인이면 수정/삭제가 보여야 함 => context API 로 유저의 아이디 값을 가져오고 비교한다?
 
 const EnterIcon = styled.img`
@@ -119,7 +120,7 @@ const Comment = ({comment}) => {
                     <div className="comment-nickname">{nickname}</div>
                     <div className="comment-content">{contents}</div>
                     <div className="comment-footer">
-                        <div className="time">{regTime}</div>
+                        <div className="time">{formatRegTime(regTime)}</div>
                         {/* context의 정보와 comment의 userId비교*/}
                         {userId && <div className="modify" onClick={() => setIsModify(true)}>수정</div>}
                         {!parentId && <div className="reply" onClick={() => setReply(true)}>답글달기</div>}

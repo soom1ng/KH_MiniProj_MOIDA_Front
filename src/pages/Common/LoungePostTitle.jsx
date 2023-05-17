@@ -2,6 +2,7 @@
 import ThumbsUp from "../../Images/thumbsup.png";
 import React from "react";
 import styled, { css } from "styled-components";
+import {formatRegTime} from "./formatRegTime";
 
 
 // postTitle에서 분할구조로 더 깔끔하게 표현하기 위해 만듬
@@ -119,7 +120,7 @@ export const LoungePostTitle = ({size, post}) => {
                 <div className="recommend">
                     <img className="thumbsup" src={ThumbsUp} alt="#"/><h3>{recommend}</h3>
                 </div>
-                <div className="date">{regTime}</div>
+                <div className="date">{formatRegTime(regTime)}</div>
             </div>
         </StyledPostTitle>
 

@@ -39,12 +39,12 @@ const Container = styled.div`
 const LoungePost = () => {
 
     const {boardName, postId} = useParams();
-    const [post ,setPost] = useState(null);
+    const [post, setPost] = useState(null);
     const [comments, setComments] = useState([]);
     const [page, setPage] = useState(1);
 
     useEffect(() => {
-        const viewPost = async() => {
+        const viewPost = async () => {
             try {
                 const rsp = await AxiosAPI.postViewGet(boardName, postId);
                 setPost(rsp.data);
@@ -70,7 +70,7 @@ const LoungePost = () => {
             <div className="content">
                 {post && post.contents}
             </div>
-            {post && <CommentsList commentsList={post.comments} page={page} setPage={setPage} />}
+            {post && <CommentsList commentsList={post.comments} page={page} setPage={setPage}/>}
 
 
         </Container>

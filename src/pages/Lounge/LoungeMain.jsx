@@ -7,6 +7,7 @@ import Button from "../Common/Button";
 import {Board} from "../Common/Board";
 import styled from "styled-components";
 import Paging from "../Common/Paging";
+import {formatRegTime} from "../Common/formatRegTime";
 
 
 const Container = styled.div`
@@ -76,8 +77,8 @@ const Container = styled.div`
 `;
 // url : 이름 객체
 const BOARD = {
-    free : '자유2',
-    qna : '고민2'
+    free: '자유2',
+    qna: '고민2'
 }
 
 const LoungeMain = () => {
@@ -88,9 +89,7 @@ const LoungeMain = () => {
     const listPerPage = 10; // 페이지 당 보여줄 리스트 개수
 
     const offset = listPerPage * (page - 1); // 리스트를 슬라이스 하기 위한 변수
-    const maxPage = Math.ceil(postList.length / listPerPage) ; // 현재 리스트의 최대 페이지
-
-
+    const maxPage = Math.ceil(postList.length / listPerPage); // 현재 리스트의 최대 페이지
 
 
     // boardName 이 변하면 page, postList가 초기화해주기
@@ -98,11 +97,11 @@ const LoungeMain = () => {
     // 또한 내부에서 useState의 상태를 변경 후 함수에 적용할 수 없나
     useEffect(() => {
 
-        const initialize = async(lastId) => {
+        const initialize = async (lastId) => {
             const rsp = await AxiosAPI.postListGet(boardName, '');
             console.log("lastId = " + lastId);
             setPostList(rsp.data);
-            setLastId( rsp.data[rsp.data.length - 1].postId); // 마지막 행의 아이디값
+            setLastId(rsp.data[rsp.data.length - 1].postId); // 마지막 행의 아이디값
             setPage(1);
             console.log("initialize 실행")
             console.log(rsp.data);
@@ -112,7 +111,7 @@ const LoungeMain = () => {
 
     // page가 변할때 실행
     useEffect(() => {
-        const getPostList = async() => {
+        const getPostList = async () => {
             if (page === maxPage && page > 1) { // 게시판이 바뀔떄 page가 1로 초기화 될 때에는 실행되지 않도록 합니다.
                 const rsp = await AxiosAPI.postListGet(boardName, lastId);
                 setPostList((prevPostList) => [...prevPostList, ...rsp.data]); // list를 이어붙여 받아야합니다.
@@ -120,12 +119,14 @@ const LoungeMain = () => {
                 console.log('getPostList실행');
                 console.log('lastId = ' + lastId);
             }
-            window.scrollTo(0,420);
+            window.scrollTo(0, 420);
             console.log("page = " + page)
 
         };
         getPostList();
     }, [page]);
+
+
     return (
         <Container>
             <Header/>
@@ -153,14 +154,15 @@ const LoungeMain = () => {
             </div>
 
             <div className='board-bottom'>
-                {postList.slice(offset,offset+10) && postList.slice(offset,offset+10).map(post => (
+                {postList.slice(offset, offset + 10) && postList.slice(offset, offset + 10).map(post => (
+
                     <Board
                         postId={post.postId}
                         type='lounge'
                         nickname={post.nickname}
                         title={post.title}
                         content={post.contents}
-                        date={post.regTime.toLocaleString('ko','YYYY/MM/DD HH:mm')}
+                        date={formatRegTime(post.regTime)}
                         boardName={boardName}
                         isNim={1}
                         recommend={post.recommend}
