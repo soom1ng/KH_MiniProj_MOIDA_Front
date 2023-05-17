@@ -58,7 +58,7 @@ const StudyBoardWrite = () => {
 
                 <form>
 
-
+                    {/*타이틀 필요 에디터*/}
                     <Editor isTitle={1}></Editor>
 
                     <InputButton type="submit" onClick={onclickPost}>올리기</InputButton>

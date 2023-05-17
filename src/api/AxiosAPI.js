@@ -14,13 +14,27 @@ const AxiosApi = {
           return await axios.post(MOIDA_DOMAIN+ "/login", signIn);
     },
 
+    // 게시물 리스트 GET
     postListGet: async(boardName, lastId) => {
         return await axios.get(MOIDA_DOMAIN+`/lounge/${boardName}?lastId=${lastId}`);
     },
 
+    // 게시물 페이지 GET
     postViewGet: async(boardName, postId) => {
         return await axios.get(MOIDA_DOMAIN + `/lounge/${boardName}/${postId}`);
+    },
+
+    // 게시물 등록 POST
+    postReg: async(userId, title, contents, boardName, imgUrl) => {
+        const post = {
+            userId : userId,
+            title: title,
+            contents: contents,
+            imgUrl: imgUrl
+        };
+        return await axios.post(MOIDA_DOMAIN + `/lounge/${boardName}/write`, post);
     }
+
 }
 
 export default AxiosApi;

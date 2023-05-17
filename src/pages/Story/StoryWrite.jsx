@@ -77,8 +77,8 @@ const StoryWrite = () => {
                 <form>
                     {/* <InputLabel>제목</InputLabel>
                     <Input type="post_title" placeholder="제목을 입력해주세요." required /> */}
-
-                    <Editor isTitle={1}></Editor>
+                    {/*title 필요에디터*/}
+                    <Editor></Editor>
                     {/* <Input type="post_desc" placeholder="내용을 입력해주세요." required /> */}
 
                     <InputButton type="submit" onClick={onclickPost}>올리기</InputButton>

@@ -63,7 +63,7 @@ function App() {
 
                     <Route path='/lounge/:boardName/:postId' element={<LoungePost/>}/>
                     <Route path='/Lounge/:boardName' element={<LoungeMain/>}/>
-                    <Route path='/Lounge/Write' element={<LoungeWrite/>}/>
+                    <Route path='/Lounge/:boardName/Write' element={<LoungeWrite/>}/>
                     <Route path='/Lounge/SearchAll' element={<SearchAll/>}/>
 
                     <Route path='/SignIn' element={<SignIn/>}/>

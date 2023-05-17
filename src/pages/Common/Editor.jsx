@@ -16,22 +16,23 @@ const StyledEditor = styled.div`
 const StyledTitle = styled.div`
 `;
 
-const Title = () => {
+const Title = ({inputTitle, setInputTitle}) => {
     return (
 
         <StyledTitle>
             <InputLabel>제목</InputLabel>
-            <Input type="post_title" placeholder="제목을 입력해주세요." required />
+            <Input onChange={(e) => setInputTitle(e.target.value)} type="post_title" placeholder="제목을 입력해주세요." required/>
         </StyledTitle>
     )
 };
 
-export const Editor = ({ isTitle }) => {
+export const Editor = ({isTitle, inputTitle, setInputTitle, inputContents, setInputContents}) => {
+
 
     return (
         < StyledEditor >
 
-            {isTitle ? <Title></Title> : <></>}
+            {isTitle && <Title inputTitle={inputTitle} setInputTitle={setInputTitle}/>}
 
             <InputLabel>내용</InputLabel>
             <CKEditor
@@ -43,6 +44,7 @@ export const Editor = ({ isTitle }) => {
                 }}
                 onChange={(event, editor) => {
                     const data = editor.getData();
+                    setInputContents(data);
                     console.log({ event, editor, data });
                 }}
                 onBlur={(event, editor) => {

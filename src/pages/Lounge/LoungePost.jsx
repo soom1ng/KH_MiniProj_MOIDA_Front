@@ -23,7 +23,7 @@ const Container = styled.div`
 `;
 
 
-// 2안 선택
+// 2안 선택idt
 // lounge/ boardName / postId
 // why?
 // 1. postId 1개로만 받는 경우: url 주소 : /lounge/post/:postId
@@ -68,7 +68,8 @@ const LoungePost = () => {
                 post={post}
             />}
             <div className="content">
-                {post && post.contents}
+
+                {post && <p dangerouslySetInnerHTML={{ __html: post.contents.toString() }}></p>}
             </div>
             {post && <CommentsList commentsList={post.comments} page={page} setPage={setPage}/>}
 

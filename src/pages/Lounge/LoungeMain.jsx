@@ -76,9 +76,9 @@ const Container = styled.div`
   }
 `;
 // url : 이름 객체
-const BOARD = {
-    free: '자유2',
-    qna: '고민2'
+export const BOARD = {
+    free: '자유',
+    qna: '고민'
 }
 
 const LoungeMain = () => {
@@ -90,6 +90,8 @@ const LoungeMain = () => {
 
     const offset = listPerPage * (page - 1); // 리스트를 슬라이스 하기 위한 변수
     const maxPage = Math.ceil(postList.length / listPerPage); // 현재 리스트의 최대 페이지
+
+    const writeLink = `/lounge/${boardName}/write`;
 
 
     // boardName 이 변하면 page, postList가 초기화해주기
@@ -134,7 +136,7 @@ const LoungeMain = () => {
             <div className='board-top'>
                 <div className='board-title'>
                     <h1>{BOARD[boardName]} 게시판</h1>
-                    <NavLink to='/lounge/write'><Button font={1.5}>글쓰기</Button></NavLink>
+                    <NavLink to={writeLink}><Button font={1.5}>글쓰기</Button></NavLink>
                 </div>
                 <div className='board-list'>
                     <div>
