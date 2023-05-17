@@ -1,9 +1,9 @@
 
 import React,{ useState, useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import LOGO_imgOnly from "../../Images/LOGO_imgOnly.png";
-import { storage } from '../../api/firebase';
+//import { LoginContext } from './LoginContext';
+//import AxiosApi from "../axiosApi";
 
 const MyInfoEditBox = styled.div`
 
@@ -195,6 +195,7 @@ const MyInformationEdit = () => {
   const [myInfo, setMyInfo] = useState('자기 소개를 입력하세요.');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
   const [showMyImgInPut, setShowMyImgInPut] = useState(null);
 
@@ -209,34 +210,15 @@ const MyInformationEdit = () => {
     setIsNotAttach(true);
   };
 
-  const handleSaveMyInfo = () => {
-    setIsEditing(false);
-    alert('저장되었습니다: '
-     + myInfo);
-    setIsNotAttach(false);
-  };
-
-
-  const handleMyImgChange = (e) => {
-    const myImg = e.target.files[0];
+  const handleMyImgChange = (event) => {
+    const myImg = event.target.files[0];
     if (myImg) {
       setMyImg(myImg); // 선택된 파일 정보를 상태로 저장
-      const storageRef = storage.ref();
-      const fileRef = storageRef.child(myImg.name);
-      const uploadTask = fileRef.put(myImg);
-      uploadTask.on(
-        'state_changed',
-        (error) => {
-          console.log(error);
-        },
-        () => {
-          // 업로드가 성공적으로 완료된 경우
-          // 이미지 업로드가 완료되면 해당 이미지의 다운로드 URL을 가져옵니다.
-          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            setShowMyImgInPut(downloadURL);
-          });
-        }
-      );
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setShowMyImgInPut(reader.result);
+      };
+      reader.readAsDataURL(myImg);
     } else {
       setShowMyImgInPut(null);
       setMyImg(null); // 파일이 선택되지 않은 경우 상태 초기화
@@ -250,18 +232,31 @@ const MyInformationEdit = () => {
   };
 
 
-  // 유저 정보 수정
-  useEffect(() => {
-    axios.get('/user/profile')
-      .then(response => {
-        setEmail(response.data.email);
-        setPhone(response.data.phone);
-        setNickname(response.data.nickname);
-      })
-      .catch(error => {
-        console.error('Failed to fetch user profile:', error);
-      });
-  }, []);
+   const handleSaveMyInfo = async () => {
+    setIsEditing(false);
+    alert('저장되었습니다: ' + nickname + ', ' + email + ', ' + password);
+    setIsNotAttach(false);
+  
+  //   try {
+  //     const requestData = {
+  //       //userId: userId,
+  //       newNickname: nickname,
+  //       newEmail: email,
+  //       newPassword: password
+  //     };
+  //     const response = await AxiosApi.post("/updateProfile", requestData);
+  //     const success = response.data;
+  //     // Handle success response
+  //     console.log("Profile update success:", success);
+  //   } catch (error) {
+  //     // Handle error
+  //     console.log("Profile update failed:", error.message);
+  //   }
+   };
+
+  const handleNicknameChange = (e) => {
+    setNickname(e.target.value);
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -271,8 +266,8 @@ const MyInformationEdit = () => {
     setPhone(e.target.value);
   };
 
-  const handleNicknameChange = (e) => {
-    setNickname(e.target.value);
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
   
  
@@ -320,6 +315,12 @@ const MyInformationEdit = () => {
           </ButtonBox></div>
           
           <div className="infoBox">
+          <ButtonBox><InfoText>비밀번호</InfoText>
+          {isEditing ? (
+          <ChangeInput type="password" value={password} onChange={handlePasswordChange} />
+          ) : (
+            <MyInfo>{password}</MyInfo>
+          )}</ButtonBox>
           <ButtonBox><InfoTextPhone>번호 </InfoTextPhone>
           {isEditing ? (
           <ChangeInput type="text" value={phone} onChange={handlePhoneChange} />

@@ -66,6 +66,8 @@ const MyPage = () => {
     const onClickCreateStudy = () => {
         navigate('/Study/Create');
     }
+
+    
   return (
     <>
       <Header />

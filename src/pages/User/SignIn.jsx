@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from 'react';
+import { LoginContext  } from '../../context/AuthContext';
 import { useNavigate, Link } from "react-router-dom";
 import styled from 'styled-components';
 import Modal from "../utils/Modal";
 import FindMember from "./FindMember";
 import { InputLabel, Input, InputButton} from "../../styles/StyledComponent";
-import AxiosApi from "../../api/AxiosAPI";
+import AxiosApi from '../../api/AxiosAPI';
 
 const SignContainer = styled.div`
   display: flex;
@@ -69,9 +70,8 @@ const SignUp = styled.p`
 `;
 
 const SignIn = () => {
+  const { username, password, setUsername, setPassword, setIsLogin } = useContext(LoginContext);
   const [modalOpen, setModalOpen] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const closeModal = () => {
@@ -80,26 +80,14 @@ const SignIn = () => {
 
   const onClickLogin = async () => {
     try {
-      const response = await AxiosApi.signIn(username, password);
-      console.log(response.data);
-      if (response.data === true) {
-        // 로그인 성공 처리
-        window.localStorage.setItem("username", username);
-        window.localStorage.setItem("password", password);
-        window.localStorage.setItem("isLogin", "TRUE");
-        setUsername(username);
-        setPassword(password);
-  
-        navigate("/");
-      } else {
-        console.log("로그인 에러: 로그인 실패");
-      }
+      await AxiosApi.signIn(username, password);
+
+      navigate('/');
+      setIsLogin(true);
     } catch (error) {
-      console.log("로그인 에러:", error.message);
+      console.log('로그인 에러:', error.message);
     }
   };
-  
-
 
   return (
     <SignContainer>
@@ -118,10 +106,10 @@ const SignIn = () => {
           </Body1>
         </Body>
                 {(username && password) ?
-                <InputButton onClick={onClickLogin}>로그인</InputButton>  :
+                <InputButton onClick={onClickLogin}>로그인</InputButton> :
                 <InputButton >로그인</InputButton>}
       </Form>
-      <Body2>   
+      <Body2>
       </Body2>
       <Modal open={modalOpen} close={closeModal}><FindMember/></Modal>
     </SignContainer>

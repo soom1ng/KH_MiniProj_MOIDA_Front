@@ -26,7 +26,7 @@ import LoungePost from './pages/Lounge/LoungePost';
 import LoungeWrite from './pages/Lounge/LoungeWrite';
 import SearchAll from './pages/Lounge/SearchAll';
 
-import MyPage from './pages/User/Mypage';
+import MyPage from './pages/User/MyPage';
 import MyPost from './pages/User/MyPost';
 import SignIn from './pages/User/SignIn';
 import SignUp from './pages/User/SignUp';
