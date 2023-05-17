@@ -11,7 +11,8 @@ import { StudyList } from "../../Common/StudyList";
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 import '../../../styles/calendar.css';
-import { StudyInfo } from "../../Common/StudyInfo";
+// import { StudyInfo } from "../../Common/StudyInfo"; 
+import { StudyDesc } from "../../Common/StudyDesc";
 
 
 
@@ -60,6 +61,7 @@ flex-direction: column;
     margin-left: 70px;
     border: 1px solid #F3F3F3;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .plusImg {
@@ -161,7 +163,11 @@ const StudyMain = () => {
                                 <img className="plusImg" src={plusImg} alt="아이콘" onClick={onClickCreateStudy} />
                             </div>
                             <div className="item-1" onClick={onClickStudyRoom}>
-                                <h2>스터디룸 확인용</h2>
+                                <StudyDesc size={"xs"} study_profile={"#fffff"}
+                                    study_name={"백준방범대"}
+                                    study_tag={"#코딩 #자바"}
+                                    study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."} 
+                                    isMember={1}/>
                             </div>
                         </div>
                     </div>

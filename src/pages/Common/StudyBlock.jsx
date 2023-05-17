@@ -99,6 +99,7 @@ export const Study = () => {
           study_name={"백준방범대"}
           study_tag={"#코딩 #자바"}
           study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."}
+          isTagTitle={1}
         ></StudyDesc>
 
         {/* <div className="studyTitle">
