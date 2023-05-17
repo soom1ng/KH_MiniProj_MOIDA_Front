@@ -69,21 +69,21 @@ const ModalStyle = styled.div`
 
 const Modal = (props) => {
     const { open, close } = props;
-  
+
     return (
         <ModalStyle>
             <div className={open ? 'openModal modal' : 'modal'}>
-        {open ? (
-          <section>
-              <div className='topButton'><button className="close" onClick={close}>
-                &times;
-              </button></div>
-            {props.children}
-          </section>
-        ) : null}
-      </div>
+                {open ? (
+                    <section>
+                        <div className='topButton'><button className="close" onClick={close}>
+                            &times;
+                        </button></div>
+                        {props.children}
+                    </section>
+                ) : null}
+            </div>
         </ModalStyle>
     );
-  };
-  
+};
+
 export default Modal;

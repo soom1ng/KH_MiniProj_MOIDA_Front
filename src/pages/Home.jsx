@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
-import Slider from "react-slick";
 import SimpleSlider from "./Common/SimpleSlider";
 import styled from "styled-components";
 import { StoryBlock } from "./Common/StoryBlock";
@@ -54,11 +53,11 @@ const Home = () => {
     return (
         <>
             <Header></Header>
-            
-                <div style={{ paddingTop: "100px" }}>
-                    <SimpleSlider />
-                </div>
-                <HomeContainer>
+
+            <div style={{ paddingTop: "100px" }}>
+                <SimpleSlider />
+            </div>
+            <HomeContainer>
                 <StoryContainer>
                     <div className="storyTitle"><h1>스토리 🔥</h1></div>
 

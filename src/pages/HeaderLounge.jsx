@@ -1,7 +1,7 @@
 /* 라운지에서 적용되는 네비바를 만들 파일입니다. */
 
-import React, {useState, useEffect} from "react";
-import {Link, NavLink} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+// import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import CustomNavLink from "./Common/CustomNavLink";
 
@@ -16,7 +16,7 @@ const Container = styled.div`
   .board-select {
     width: 35%;
     display: flex;
-    //
+
     //a {
     //  color: black;
     //  font-size: 1.8rem;
@@ -28,8 +28,6 @@ const Container = styled.div`
     //  top: 1px;
     //  cursor: pointer;
     //}
-
-
   }
 `;
 

@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import {Link, NavLink, useLocation, useNavigate} from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../Images/LOGO.png';
 import searchIcon from '../Images/search.png';
-import {Button} from '../styles/StyledComponent';
-import {useContext , useState} from 'react';
+import { Button } from '../styles/StyledComponent';
+import { useContext, useState } from 'react';
 import LogOut from '../Images/logout.png'
 import MyPerson from '../Images/user.png'
 import CustomNavLink from "./Common/CustomNavLink";
-import {LoginContext} from "../context/AuthContext";
+import { LoginContext } from "../context/AuthContext";
 import { Profile } from './Common/Profile';
 
 
@@ -119,14 +119,14 @@ const LoginButton = styled(Button)`
 
 
 const IsLogin = () => {
-    const MypageProfile = styled.ul`
+  const MypageProfile = styled.ul`
       font-size: 1.5rem;
       font-weight: bolder;
       cursor: pointer;
       position: relative;
       padding-top: 15px;
     `;
-    const MyDiv = styled.div`
+  const MyDiv = styled.div`
       background-color: white;
       position: absolute;
       top: 30px;
@@ -137,7 +137,7 @@ const IsLogin = () => {
       box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
       margin-top: 30px;
     `;
-    const DropDown = styled.li`
+  const DropDown = styled.li`
       font-size: 1.3rem;
       text-decoration: none;
       list-style: none;
@@ -147,12 +147,12 @@ const IsLogin = () => {
       color: #9b9b9b;
 
     `;
-    const linkStyle = {
-        textDecoration: 'none',
-        color: 'black'
-    };
+  const linkStyle = {
+    textDecoration: 'none',
+    color: 'black'
+  };
 
-    const MyImg = styled.img`
+  const MyImg = styled.img`
       width: 15px;
       margin-right: 20px;
       text-align: left;
@@ -160,36 +160,36 @@ const IsLogin = () => {
     `;
 
 
-    // isLogin 상태만 가지고 로그인버튼 표시할지 마이페이지 표시할지 정하면 되지 않을까?
-    const [view, setView] = useState(false);
-    const navigate = useNavigate();
-    const { clearStorage } = useContext(LoginContext);
+  // isLogin 상태만 가지고 로그인버튼 표시할지 마이페이지 표시할지 정하면 되지 않을까?
+  const [view, setView] = useState(false);
+  const navigate = useNavigate();
+  const { clearStorage } = useContext(LoginContext);
 
-    const handleLogout = () => {
-      clearStorage(); // 로그아웃
-      navigate('/signin');
-    };
+  const handleLogout = () => {
+    clearStorage(); // 로그아웃
+    navigate('/signin');
+  };
 
-    return (
-        <>
-            <MypageProfile onClick={() => {
-                setView(!view)
-            }}> < Profile size={'s'} />
-                {view && (
-                    <MyDiv>
-                        <DropDown><Link style={linkStyle} to="/mypage"><MyImg src={MyPerson}/>마이페이지</Link></DropDown>
-                        <DropDown><Link to="/" style={linkStyle} onClick={handleLogout}><MyImg src={LogOut}/>로그아웃</Link></DropDown>
-                    </MyDiv>
-                )}
-            </MypageProfile>
-        </>
-    )
+  return (
+    <>
+      <MypageProfile onClick={() => {
+        setView(!view)
+      }}> < Profile size={'s'} />
+        {view && (
+          <MyDiv>
+            <DropDown><Link style={linkStyle} to="/mypage"><MyImg src={MyPerson} />마이페이지</Link></DropDown>
+            <DropDown><Link to="/" style={linkStyle} onClick={handleLogout}><MyImg src={LogOut} />로그아웃</Link></DropDown>
+          </MyDiv>
+        )}
+      </MypageProfile>
+    </>
+  )
 }
 
 const Header = () => {
   const navigate = useNavigate();
   const { isLogin } = useContext(LoginContext);
-  
+
   return (
     <Container>
       <div className="HeaderContainer">

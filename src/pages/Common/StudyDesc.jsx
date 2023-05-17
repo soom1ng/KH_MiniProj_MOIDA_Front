@@ -8,8 +8,8 @@ const SIZES = {
     --descWidth: 300px; 
     --justify-content: right;
     --margin-left: 15px;
-    
   `,
+  
     s: css`
         --descWidth: 450px; 
         --padding-right: 20px;
@@ -28,12 +28,12 @@ const StyledStudyDesc = styled.div`
   margin-bottom: 5px;
   margin-left: var(--margin-left);
 
-  .box {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-  }
+    .box {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    
     .StudyName {      
         display: flex;
         align-items: center;
@@ -52,7 +52,6 @@ const StyledStudyDesc = styled.div`
         margin: 10px;
         margin-left: 0px;
     }
-
 
     .itemText{
         font-size:1.6em;
@@ -84,17 +83,17 @@ export const StudyDesc = ({ size, study_profile, study_name, study_tag, study_in
                     <div className='StudyProfile' style={{ backgroundColor: `${study_profile}` }}></div>
                     <Link to="/Study/StudyRoom" style={{ textDecoration: "none", color: "#111" }}>{study_name}</Link>
                 </div>
-               
+
                 <h2>{isMember ? <CountMem
                     size={"s"}
                     study_user_count={"2"}
                     study_user_limit={"20"}></CountMem> : <></>}</h2>
-                   
+
             </div>
             <p className="itemText">{study_intro}</p>
             <div className='TagContainer'>
-                {isTagTitle ? 
-                <div className='item1'>태그</div> : <></>}
+                {isTagTitle ?
+                    <div className='item1'>태그</div> : <></>}
                 <div className="item1">{study_tag}</div>
             </div>
         </StyledStudyDesc>

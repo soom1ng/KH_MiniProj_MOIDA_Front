@@ -2,9 +2,8 @@
 // 댓글 작성, 대댓글 작성 둘 다 구현해야 합니다.
 
 // 댓글에서 답글작성 버튼을 누르면 대댓글 작성 폼이 랜더링되게 해야한다. 이떄 parentId값을 전달받아 insert해줘야 한다
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import button from "./Button";
 
 const Container = styled.div`
   padding: 15px;
@@ -54,48 +53,48 @@ const Container = styled.div`
  * @returns {JSX.Element}
  * @constructor
  */
-const CommentWriter = ({parentId, content, isModify, setIsModify, reply, setReply}) => {
-    const [comment, setComment] = useState(content); // 댓글 입력을 위한 comment
+const CommentWriter = ({ parentId, content, isModify, setIsModify, reply, setReply }) => {
+  const [comment, setComment] = useState(content); // 댓글 입력을 위한 comment
 
-    // 댓글 수정 시 이미 등록한 댓글을 나타내기 위함
+  // 댓글 수정 시 이미 등록한 댓글을 나타내기 위함
 
-    const handleCommentChange = (event) => {
-        setComment(event.target.value);
-    };
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
+  };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Handle form submission
-        console.log("Comment submitted:", comment);
-        // Reset the comment field
-        setComment("");
-    };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Handle form submission
+    console.log("Comment submitted:", comment);
+    // Reset the comment field
+    setComment("");
+  };
 
-    return (
-        <Container parentId={parentId} isModify={isModify}>
-            <div className="comment-nickname">닉네임</div>
-            <form className="comment-write-form" onSubmit={handleSubmit}>
-                <textarea
-                    value={comment}
-                    onChange={handleCommentChange}
-                    placeholder="댓글을 남겨보세요"
-                    rows={4} // Adjust the number of rows as needed
-                    cols={50} // Adjust the number of columns as needed
-                />
-                <div className='comment-buttons'>
-                    {isModify ? (
-                        <button onClick={() => setIsModify(false)}>취소</button>
-                    ) : reply ? (
-                        <button onClick={() => setReply(false)}>취소</button>
-                    ) : (
-                        <button onClick={() => setComment('')}>취소</button>
-                    )}
-                    <button className="submit-btn" type="submit">등록</button>
-                </div>
+  return (
+    <Container parentId={parentId} isModify={isModify}>
+      <div className="comment-nickname">닉네임</div>
+      <form className="comment-write-form" onSubmit={handleSubmit}>
+        <textarea
+          value={comment}
+          onChange={handleCommentChange}
+          placeholder="댓글을 남겨보세요"
+          rows={4} // Adjust the number of rows as needed
+          cols={50} // Adjust the number of columns as needed
+        />
+        <div className='comment-buttons'>
+          {isModify ? (
+            <button onClick={() => setIsModify(false)}>취소</button>
+          ) : reply ? (
+            <button onClick={() => setReply(false)}>취소</button>
+          ) : (
+            <button onClick={() => setComment('')}>취소</button>
+          )}
+          <button className="submit-btn" type="submit">등록</button>
+        </div>
 
-            </form>
-        </Container>
-    )
+      </form>
+    </Container>
+  )
 };
 
 export default CommentWriter;

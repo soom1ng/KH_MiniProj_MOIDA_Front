@@ -85,76 +85,76 @@ const FindButton = styled.button`
 
 
 function FindMember() {
-    const [id, setId] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [isIdFound, setIsIdFound] = useState(false);
-    const [isPwdFound, setIsPwdFound] = useState(false);
-    const [foundInfo, setFoundInfo] = useState({});
+  const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [isIdFound, setIsIdFound] = useState(false);
+  const [isPwdFound, setIsPwdFound] = useState(false);
+  const [foundInfo, setFoundInfo] = useState({});
 
-    const handleIdChange = (e) => {
-        setId(e.target.value);
-    }
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    }
-
-    const handlePhoneChange = (e) => {
-        setPhone(e.target.value);
-    }
-
-    //아이디 찾기 버튼
-    const handleIdFindClick = () => {
-        setIsIdFound(true);
-        setFoundInfo({email} + "로 메일이 전송되었습니다.");
-    }
-
-    //비번 찾기 버튼
-    const handlePwFindClick = () => {
-        setIsPwdFound(true);
-        setFoundInfo({email} + "로 메일이 전송되었습니다.");
-    }
-
-    return (
-        <Container>
-            {!isIdFound ?
-            <div className="idBox" >
-            <div className="title">아이디 찾기</div>
-            <TextBox>
-            <TextOn>이메일: 
-            <Input type="email" value={email} onChange={handleEmailChange} /></TextOn>
-            <TextOn>핸드폰 번호: 
-            <Input type="tel" value={phone} onChange={handlePhoneChange} /></TextOn>
-            </TextBox>
-            <div className="buttonBox"><FindButton onClick={handleIdFindClick}>찾기</FindButton></div>
-            </div>
-            :
-            <div className="idBox">
-            <div className="find"><TextOn>{foundInfo}</TextOn></div>
-            </div>
-        }
-
-        {!isPwdFound ?
-            <div className="pwBox">
-            <div className="title">비밀번호 찾기</div>
-            <TextBox>
-            <TextOn>아이디: 
-            <Input type="text" value={id} onChange={handleIdChange} /></TextOn>
-            <TextOn>이메일: 
-            <Input type="email" value={email} onChange={handleEmailChange} /></TextOn>
-            <TextOn>핸드폰 번호: 
-            <Input type="tel" value={phone} onChange={handlePhoneChange} /></TextOn>
-            </TextBox>        
-            <div className="buttonBox"><FindButton onClick={handlePwFindClick}>찾기</FindButton></div>
-            </div>
-            :
-            <div className="pwBox">
-            <div className="find"><TextOn>{foundInfo}</TextOn></div>
-            </div>
-        }
-        </Container>
-    );
+  const handleIdChange = (e) => {
+    setId(e.target.value);
   }
-  
-  export default FindMember;
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  }
+
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
+  }
+
+  //아이디 찾기 버튼
+  const handleIdFindClick = () => {
+    setIsIdFound(true);
+    setFoundInfo({ email } + "로 메일이 전송되었습니다.");
+  }
+
+  //비번 찾기 버튼
+  const handlePwFindClick = () => {
+    setIsPwdFound(true);
+    setFoundInfo({ email } + "로 메일이 전송되었습니다.");
+  }
+
+  return (
+    <Container>
+      {!isIdFound ?
+        <div className="idBox" >
+          <div className="title">아이디 찾기</div>
+          <TextBox>
+            <TextOn>이메일:
+              <Input type="email" value={email} onChange={handleEmailChange} /></TextOn>
+            <TextOn>핸드폰 번호:
+              <Input type="tel" value={phone} onChange={handlePhoneChange} /></TextOn>
+          </TextBox>
+          <div className="buttonBox"><FindButton onClick={handleIdFindClick}>찾기</FindButton></div>
+        </div>
+        :
+        <div className="idBox">
+          <div className="find"><TextOn>{foundInfo}</TextOn></div>
+        </div>
+      }
+
+      {!isPwdFound ?
+        <div className="pwBox">
+          <div className="title">비밀번호 찾기</div>
+          <TextBox>
+            <TextOn>아이디:
+              <Input type="text" value={id} onChange={handleIdChange} /></TextOn>
+            <TextOn>이메일:
+              <Input type="email" value={email} onChange={handleEmailChange} /></TextOn>
+            <TextOn>핸드폰 번호:
+              <Input type="tel" value={phone} onChange={handlePhoneChange} /></TextOn>
+          </TextBox>
+          <div className="buttonBox"><FindButton onClick={handlePwFindClick}>찾기</FindButton></div>
+        </div>
+        :
+        <div className="pwBox">
+          <div className="find"><TextOn>{foundInfo}</TextOn></div>
+        </div>
+      }
+    </Container>
+  );
+}
+
+export default FindMember;

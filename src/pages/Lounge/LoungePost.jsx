@@ -1,11 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Header";
 import styled from "styled-components";
 import CommentsList from "../Common/CommentsList";
 import HeaderLounge from "../HeaderLounge";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import AxiosAPI from "../../api/AxiosAPI";
-import {LoungePostTitle} from "../Common/LoungePostTitle";
+import { LoungePostTitle } from "../Common/LoungePostTitle";
+
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
 
 const Container = styled.div`
   width: 1200px;
@@ -38,7 +45,7 @@ const Container = styled.div`
 
 const LoungePost = () => {
 
-    const {boardName, postId} = useParams();
+    const { boardName, postId } = useParams();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState([]);
     const [page, setPage] = useState(1);
@@ -60,8 +67,8 @@ const LoungePost = () => {
     return (
 
         <Container>
-            <Header/>
-            {post && <HeaderLounge boardName={post.boardName}/>}
+            <Header />
+            {post && <HeaderLounge boardName={post.boardName} />}
 
             {post && <LoungePostTitle
                 size='l'
@@ -71,7 +78,7 @@ const LoungePost = () => {
 
                 {post && <p dangerouslySetInnerHTML={{ __html: post.contents.toString() }}></p>}
             </div>
-            {post && <CommentsList commentsList={post.comments} page={page} setPage={setPage}/>}
+            {post && <CommentsList commentsList={post.comments} page={page} setPage={setPage} />}
 
 
         </Container>

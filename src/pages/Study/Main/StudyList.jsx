@@ -8,7 +8,6 @@ import { Category } from "../../Common/Category";
 import { Study } from "../../Common/StudyBlock";
 
 
-
 const StudyContainer = styled.div`
   display: flex;
   width: 1200px;

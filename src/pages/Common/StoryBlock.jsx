@@ -8,12 +8,9 @@ const StyledStory = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding: 25px; */
-  /* border-radius: 10px; */
-  cursor: pointer;
   margin: 10px 10px 0 10px;
+  cursor: pointer;
   
-
   .story-body {
     height: 100%;
     display : flex;
@@ -33,7 +30,6 @@ const StyledStory = styled.div`
 `;
 
 const StudyName = styled.div`
-        /* width: 100%; */
         font-size: 1.2rem;
         color: gray;
         justify-content: center;

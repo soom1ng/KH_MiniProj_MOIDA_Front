@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ThumbsUp from '../../Images/thumbsup.png';
 
@@ -9,9 +9,6 @@ const Recommend = styled.img`
   &:hover {
     filter: invert(30%) sepia(40%) saturate(6276%) hue-rotate(240deg) brightness(105%) contrast(103%);
   }
-
-
-
 `;
 
 const StyledBoard = styled.div`
@@ -37,13 +34,11 @@ const StyledBoard = styled.div`
     justify-content: space-between;
   }
 
-
   .board-body-text {
     width: 700px;
     padding: 5px 25px 5px 25px;
     display: flex;
     flex-direction: column;
-
 
     .nickname {
       width: 100%;
@@ -112,36 +107,36 @@ const StyledBoard = styled.div`
   }
 `;
 
-export const Board = ({postId, type, nickname, title, content, img_url, date, recommend, size, boardName}) => {
-    const navigate = useNavigate();
-    const OnClick = () => {
-         navigate(`/${type}/${boardName}/${postId}`)
+export const Board = ({ postId, type, nickname, title, content, img_url, date, recommend, size, boardName }) => {
+  const navigate = useNavigate();
+  const OnClick = () => {
+    navigate(`/${type}/${boardName}/${postId}`)
 
-    }
+  }
 
-    return (
-        <StyledBoard size={size} onClick={OnClick}>
+  return (
+    <StyledBoard size={size} onClick={OnClick}>
 
-            <div className="board-body-text">
-                <h2 className="nickname">{nickname}</h2>
-                <h2 className="title">{title}</h2>
-                <div className="content">{content}</div>
-            </div>
-            <div className="board-body-side">
-                <div className="side-left">
-                    <div className="date">{date}</div>
-                    <div className="recommend">
-                        <Recommend src={ThumbsUp} alt="추천"/>
-                        <h3>{recommend}</h3>
-                    </div>
-                </div>
-                {img_url &&
-                    <div className="board-body-img">
-                        <img src={img_url}/>
-                    </div>
-                }
-            </div>
+      <div className="board-body-text">
+        <h2 className="nickname">{nickname}</h2>
+        <h2 className="title">{title}</h2>
+        <div className="content">{content}</div>
+      </div>
+      <div className="board-body-side">
+        <div className="side-left">
+          <div className="date">{date}</div>
+          <div className="recommend">
+            <Recommend src={ThumbsUp} alt="추천" />
+            <h3>{recommend}</h3>
+          </div>
+        </div>
+        {img_url &&
+          <div className="board-body-img">
+            <img src={img_url} />
+          </div>
+        }
+      </div>
 
-        </StyledBoard>
-    );
+    </StyledBoard>
+  );
 };

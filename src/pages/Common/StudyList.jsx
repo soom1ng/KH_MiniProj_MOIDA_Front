@@ -14,28 +14,25 @@ const StyledStudyList = styled.div`
     .study_menu {
     display: flex;
     flex-direction: row;
-}
+    }
 
+    .title_all {
+        padding : 30px 0 0 60px;
+        width: 300px;
+    }
 
-.title_all {
-    padding : 30px 0 0 60px;
-    width: 300px;
-}
+    .menuImg {
+        width: 60px;
+        height: 50px;
+        margin : 50px 30px 0px 750px;
+    }
 
-
-.menuImg {
-    width: 60px;
-    height: 50px;
-    margin : 50px 30px 0px 750px;
-}
-
-.new_study {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-}
-    `;
+    .new_study {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+`;
 
 
 export const StudyList = () => {
@@ -46,8 +43,8 @@ export const StudyList = () => {
     }
 
     return (
-
         <StyledStudyList>
+
             <div className="study_menu">
                 <h1 className="title_all">New✨ 스터디💬</h1>
                 <img className="menuImg" src={menuImg} alt="아이콘" onClick={onClickStudyList} />
@@ -71,8 +68,8 @@ export const StudyList = () => {
                     studytag="#코딩 #자바"
                     date="2023-04-20"
                 ></Study>
-
             </div>
+
         </StyledStudyList>
     );
 };

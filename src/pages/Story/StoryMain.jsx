@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
-// import { Link } from "react-router-dom";
 import styled from 'styled-components';
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../Header";
 import searchIcon from "../../Images/search.png";
-// import moment from "moment";
-//import { AiFillCaretDown } from "react-icons";
 import { Category } from "../Common/Category";
 import { StoryBlock } from "../Common/StoryBlock";
+import { InputButton } from '../../styles/StyledComponent';
 
 const StoryContainer = styled.div`
   display: flex;
@@ -18,53 +15,32 @@ const StoryContainer = styled.div`
   flex-direction: column;
 
 
-.dropdown{
-  position : relative;
-  display : inline-block;
-  align-items: center;
-}
 
 
-.dropbtn{
-  border : 1px solid rgb(37, 37, 37);
-  border-radius : 4px;
-  background-color: #f5f5f5;
-  font-weight: 400;
-  color : rgb(37, 37, 37);
-  padding : 12px;
-  width :150px;
-  text-align: left;
-  cursor : pointer;
-  font-size : 12px;
-
-}
-
-
-.basicBlock {
-  display: flex;
-  width: 1200px;
-  margin: 30px;
-}
+  .basicBlock {
+    display: flex;
+    width: 1200px;
+    margin: 30px;
+  }
+    
+  .menuBlock {
+    display: flex;
+    width: 1100px;
+    height: 60px;
+    align-items: center;
+    padding: 0 0 10px 0;
+    
+  }
   
-.menuBlock {
-  display: flex;
-  width: 1100px;
-  height: 60px;
-  align-items: center;
-  padding: 0 0 10px 0;
-  
-}
- 
-.storyBlock {
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  border: 0;
-  width: 1100px;
-  height: auto;
-  /* background-color: #f1f1f1;  */
-justify-content : center;
-}
+  .storyBlock {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 0;
+    width: 1100px;
+    height: auto;
+  justify-content : center;
+  }
 `;
 
 
@@ -82,7 +58,6 @@ const Title = styled.div` /* 1200 140 */
 
 
 //  1100 60(카테고리) 1200(스토리리스트) 100(페이지)
-
 const Button = styled.button`
   width: 100px;
   height: 40px;
@@ -95,7 +70,6 @@ const Button = styled.button`
   border-radius: 5px;
   cursor: pointer;
 `;
-
 
 const SearchContainer = styled.div`
   display: flex;
@@ -114,7 +88,6 @@ const SearchIcon = styled.img`
   opacity: 40%;
   margin-right: 10px;
 `;
-
 
 const SearchBar = styled.input`
   padding: 5px;
@@ -139,13 +112,9 @@ const StoryMain = () => {
     navigate('/Story');
   }
 
-
-
   return (
     <>
-      <Header></Header>
-
-
+      <Header/>
 
       <StoryContainer>
         <div className="basicBlock">
@@ -185,8 +154,8 @@ const StoryMain = () => {
             study_name="백준방범대"
             title="4월 모임 - 코딩테스트 정리"
           ></StoryBlock>
-          
-        <StoryBlock
+
+          <StoryBlock
             storyid={'post'}
             img_url={'#'}
             study_name="영어마을"
@@ -205,7 +174,7 @@ const StoryMain = () => {
             img_url={'#'}
             study_name="영어마을"
             title="다같이 토익보고왔어요 ^.^"
-          ></StoryBlock>   
+          ></StoryBlock>
 
           <StoryBlock
             storyid={'post'}
@@ -249,13 +218,10 @@ const StoryMain = () => {
             title="다같이 토익보고왔어요 ^.^"
           ></StoryBlock>
         </div>
-
-
       </StoryContainer>
     </>
   );
 };
-
 
 
 

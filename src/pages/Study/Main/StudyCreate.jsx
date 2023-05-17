@@ -2,11 +2,18 @@ import React from "react";
 // import { BigTitle } from "../../../styles/StyledComponent";
 import Header from "../../Header";
 import styled from "styled-components";
-import {Button, InputLabel, Input} from "../../../styles/StyledComponent";
+import { Button, InputLabel, Input } from "../../../styles/StyledComponent";
 import { Category } from "../../Common/Category";
 import { Editor } from "../../Common/Editor";
 
+// ----------------------------------에디터 사용--------------------------------------- //
 
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
 
 const StudyCreateContainer = styled.div`
   max-width: 1050px;
@@ -62,53 +69,53 @@ display: flex;
 
 
 const StudyCreate = () => {
-    return (
-        <>
-            <Header></Header>
-            <StudyCreateContainer>
-                <h1 className="title">스터디 생성 🌟</h1>
-                <form>
+  return (
+    <>
+      <Header></Header>
+      <StudyCreateContainer>
+        <h1 className="title">스터디 생성 🌟</h1>
+        <form>
 
-                    <div className="body">
-                        <div className="body1">
-                            <InputLabel>스터디 이름</InputLabel>
-                            <Input type="studyname" placeholder="이름을 입력해주세요." />
-                            
-                            <Category array='c'
-                            ></Category>
+          <div className="body">
+            <div className="body1">
+              <InputLabel>스터디 이름</InputLabel>
+              <Input type="studyname" placeholder="이름을 입력해주세요." />
 
-                            <InputLabel>인원</InputLabel>
-                            <Input type="studycount" placeholder="최대 인원을 입력해주세요." />
+              <Category array='c'
+              ></Category>
 
-                            <InputLabel>마감 날짜</InputLabel>
-                            <Input type="studydate" placeholder="마감 날찌를 입력해주세요." />
-                        </div>
+              <InputLabel>인원</InputLabel>
+              <Input type="studycount" placeholder="최대 인원을 입력해주세요." />
 
-                        <div className="body2">
-                            <InputLabel>태그</InputLabel>
-                            <Input type="studytag" placeholder="원하는 태그를 입력해주세요." />
+              <InputLabel>마감 날짜</InputLabel>
+              <Input type="studydate" placeholder="마감 날찌를 입력해주세요." />
+            </div>
 
-                            <InputLabel>채팅</InputLabel>
-                            <Input type="studychat" placeholder="링크를 입력해주세요." />
+            <div className="body2">
+              <InputLabel>태그</InputLabel>
+              <Input type="studytag" placeholder="원하는 태그를 입력해주세요." />
 
-                            <InputLabel>간단한 소개</InputLabel>
-                            <Input type="studydesc" placeholder="스터디 소개를 입력해주세요." />
-                        </div>
-                    </div>
-                    <div className="body3">
-                        <Editor></Editor>
-                    </div>
+              <InputLabel>채팅</InputLabel>
+              <Input type="studychat" placeholder="링크를 입력해주세요." />
 
-                    <Button>스터디 생성</Button>
+              <InputLabel>간단한 소개</InputLabel>
+              <Input type="studydesc" placeholder="스터디 소개를 입력해주세요." />
+            </div>
+          </div>
+          <div className="body3">
+            <Editor></Editor>
+          </div>
 
-                </form>
+          <Button>스터디 생성</Button>
 
-            </StudyCreateContainer>
+        </form>
+
+      </StudyCreateContainer>
 
 
-        </>
+    </>
 
-    );
+  );
 };
 
 

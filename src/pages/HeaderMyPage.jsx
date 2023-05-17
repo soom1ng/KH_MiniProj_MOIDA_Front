@@ -77,7 +77,7 @@ const HeaderMyPage = () => {
   const handleTabClick = (tabNumber) => {
     setActiveTab(tabNumber);
   };
-  
+
   useEffect(() => {
     const path = window.location.pathname;
     if (path === '/MyPage/MyPost') {
