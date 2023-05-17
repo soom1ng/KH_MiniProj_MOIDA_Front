@@ -176,10 +176,10 @@ const InnerContainer = ({ study_link }) => {
 
             <div className="countMem">
                 <h2 className='itemPerson'>참가자</h2>
-                    <h2><CountMem
-                        size={"s"}
-                        study_user_count={"2"}
-                        study_user_limit={"20"} /></h2>
+                <h2><CountMem
+                    size={"s"}
+                    study_user_count={"2"}
+                    study_user_limit={"20"} /></h2>
             </div>
 
         </StyledInnerContainer>
@@ -205,18 +205,19 @@ export const StudyInfo = ({ size, isBasic }) => {
                         <div className="item1">{study_tag}</div>
                     </div> */}
                     <StudyDesc
-                    size={"s"} study_profile={"#fffff"}
-        study_name={"백준방범대"}
-        study_tag={"#코딩 #자바"}
-        study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."}
-></StudyDesc>
+                        size={"s"} study_profile={"#fffff"}
+                        study_name={"백준방범대"}
+                        study_tag={"#코딩 #자바"}
+                        study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."}
+                        isTagTitle={1} 
+                    ></StudyDesc>
                 </Body1>
 
                 <Body2>
                     {/* 값이 있으면 무조건 TRUE */}
                     {isBasic ? <InnerContainer
                         study_link={"http://naver.com"}
-                        ></InnerContainer> : <></>}
+                    ></InnerContainer> : <></>}
 
                 </Body2>
             </Body>
