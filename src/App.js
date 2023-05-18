@@ -3,7 +3,6 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'; //Î∏åÎù
 import Home from './pages/Home';
 import GlobalStyle from "../src/styles/StyledComponent"
 
-
 import StudyList from './pages/Study/Main/StudyList';
 import StudyMain from './pages/Study/Main/StudyMain';
 
@@ -16,10 +15,6 @@ import StudyBoardWrite from './pages/Study/StudyRoom/StudyBoardWrite';
 import StoryMain from './pages/Story/StoryMain';
 import StoryPost from './pages/Story/StoryPost';
 import StoryWrite from './pages/Story/StoryWrite';
-
-// import LoungeFree from './pages/Lounge/LoungeFree';
-// import LoungeQnA from './pages/Lounge/LoungeQnA';
-
 
 import LoungeMain from "./pages/Lounge/LoungeMain";
 import LoungePost from './pages/Lounge/LoungePost';

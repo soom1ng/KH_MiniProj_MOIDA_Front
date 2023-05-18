@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { LoginContext  } from '../../context/AuthContext';
+import { LoginContext } from '../../context/AuthContext';
 import { useNavigate, Link } from "react-router-dom";
 import styled from 'styled-components';
 import Modal from "../utils/Modal";
 import FindMember from "./FindMember";
-import { InputLabel, Input, InputButton} from "../../styles/StyledComponent";
+import { InputLabel, Input, InputButton } from "../../styles/StyledComponent";
 import AxiosApi from '../../api/AxiosAPI';
 
 const SignContainer = styled.div`
@@ -96,25 +96,25 @@ const SignIn = () => {
         <Body>
           <Body1>
             <InputLabel>아이디</InputLabel>
-            <Input type="id" placeholder="아이디를 입력해주세요." value={username} onChange={(e) => setUsername(e.target.value)} required/>
+            <Input type="id" placeholder="아이디를 입력해주세요." value={username} onChange={(e) => setUsername(e.target.value)} required />
             <InputLabel>비밀번호</InputLabel>
-            <Input type="password" placeholder="비밀번호를 입력해주세요." value={password} onChange={(e) => setPassword(e.target.value)} required/>
+            <Input type="password" placeholder="비밀번호를 입력해주세요." value={password} onChange={(e) => setPassword(e.target.value)} required />
             <Body>
               <Find><Link type="button" onClick={() => setModalOpen(true)}>아이디/비밀번호 찾기</Link></Find>
               <SignUp><Link to="/SignUp">모이다가 처음이세요?</Link></SignUp>
             </Body>
           </Body1>
         </Body>
-                {(username && password) ?
-                <InputButton onClick={onClickLogin}>로그인</InputButton> :
-                <InputButton >로그인</InputButton>}
+        {(username && password) ?
+          <InputButton onClick={onClickLogin}>로그인</InputButton> :
+          <InputButton >로그인</InputButton>}
       </Form>
       <Body2>
       </Body2>
-      <Modal open={modalOpen} close={closeModal}><FindMember/></Modal>
+      <Modal open={modalOpen} close={closeModal}><FindMember /></Modal>
     </SignContainer>
   );
-  
+
 };
 
 export default SignIn;

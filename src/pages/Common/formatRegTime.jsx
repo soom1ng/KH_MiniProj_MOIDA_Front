@@ -1,4 +1,3 @@
-
 export const formatRegTime = (regTime) => {
     const date = new Date(regTime);
     const year = date.getFullYear().toString().slice(-2);

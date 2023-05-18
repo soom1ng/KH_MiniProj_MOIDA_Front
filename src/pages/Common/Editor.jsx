@@ -6,6 +6,15 @@ import { InputLabel, Input } from "../../styles/StyledComponent";
 
 const StyledEditor = styled.div`
 
+// ----------------------------------에디터 사용--------------------------------------- //
+
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+
 .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
   min-height: 600px;
   width: 900px;
@@ -16,23 +25,22 @@ const StyledEditor = styled.div`
 const StyledTitle = styled.div`
 `;
 
-const Title = ({inputTitle, setInputTitle}) => {
+const Title = ({ inputTitle, setInputTitle }) => {
     return (
 
         <StyledTitle>
             <InputLabel>제목</InputLabel>
-            <Input onChange={(e) => setInputTitle(e.target.value)} type="post_title" placeholder="제목을 입력해주세요." required/>
+            <Input onChange={(e) => setInputTitle(e.target.value)} type="post_title" placeholder="제목을 입력해주세요." required />
         </StyledTitle>
     )
 };
 
-export const Editor = ({isTitle, inputTitle, setInputTitle, inputContents, setInputContents}) => {
-
+export const Editor = ({ isTitle, inputTitle, setInputTitle, inputContents, setInputContents }) => {
 
     return (
         < StyledEditor >
 
-            {isTitle && <Title inputTitle={inputTitle} setInputTitle={setInputTitle}/>}
+            {isTitle && <Title inputTitle={inputTitle} setInputTitle={setInputTitle} />}
 
             <InputLabel>내용</InputLabel>
             <CKEditor

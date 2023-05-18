@@ -1,11 +1,19 @@
 import React from "react";
-// import { Link } from "react-router-dom";
 import Header from "../../Header";
 import HeaderStudy from "../../HeaderStudy";
 import styled from "styled-components";
 import { InputButton } from "../../../styles/StyledComponent";
 import { useNavigate } from "react-router-dom";
 import { Editor } from "../../Common/Editor";
+
+// ----------------------------------에디터 사용--------------------------------------- //
+
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
 
 const StudyBoardWriteContainer = styled.div`
 
@@ -52,12 +60,10 @@ const StudyBoardWrite = () => {
             <HeaderStudy></HeaderStudy>
 
             <StudyBoardWriteContainer>
-            <Title><h1>스터디 보드 📋</h1></Title>
 
-
+                <Title><h1>스터디 보드 📋</h1></Title>
 
                 <form>
-
                     {/*타이틀 필요 에디터*/}
                     <Editor isTitle={1}></Editor>
 
@@ -68,8 +74,5 @@ const StudyBoardWrite = () => {
         </>
     );
 };
-
-
-
 
 export default StudyBoardWrite;

@@ -17,14 +17,12 @@ const PostContainer = styled.div`
     border-bottom: 1px solid gray;
     padding: 80px 250px 80px 250px;
   }
-
-  
 `;
+
 
 export const PostContent = () => {
 
     return (
-
         <PostContainer>
             <div className="content">
                 <p>asdsadadsadsadadasdadadas

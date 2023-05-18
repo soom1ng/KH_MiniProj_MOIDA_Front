@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link, NavLink} from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 // import { InputButton } from '../styles/StyledComponent';
 // import userImg from "../Images/user.png";
 import { StudyInfo } from './Common/StudyInfo';
@@ -184,8 +184,8 @@ const HeaderStudy = () => {
         </StudyDelete>
 
 
-        {/* 스터디 미가입자가 보는 화면 */}
-
+        {/* 스터디 미가입자에게 보이게 설정 */}
+        {/* 백엔드 구현하면서 함께 구현해야 함. */}
         {/* <div className='indexBox'>
           <Content>
             <div className="button" onClick={onClick}>
@@ -193,6 +193,7 @@ const HeaderStudy = () => {
             </div>
           </Content>
         </div> */}
+
       </StudyHeader>
 
 

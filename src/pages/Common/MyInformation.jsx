@@ -7,14 +7,6 @@ import { useState } from 'react';
 
 const Container = styled.div`
 
-  /* .myPageContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 1000px;
-    background-color: #F3F3F3;
-  } */
     display: flex;
     flex-direction: column;
     width: 800px;
@@ -46,9 +38,7 @@ const ProfileBox = styled.div`
       width: 35px;
       height: 35px;
     }
-
 `;
-
 
 const MenuDiv = styled.div`
 background-color: white;
@@ -84,14 +74,12 @@ cursor: pointer;
       }
 `;
 
-
 const MenuImg = styled.img`
 width: 23px;
 height: 23px;
 margin-right: 10px;
 text-align: left;
 `;
-
 
 const InfoText = styled.p`
   font-size: 19px;
@@ -119,42 +107,30 @@ export const MyInformation = ({ myInfo }) => {
   const onclickBan = () => {
   };
 
-
   const [view, setView] = useState(false);
-
   return (
     <Container>
-        <ProfileBox>
-          <Profile size={'l'} nickname={"콩콩이"} />
+      <ProfileBox>
+        <Profile size={'l'} nickname={"콩콩이"} />
 
-          <div className="moreDiv" onClick={() => {
-            setView(!view)
-          }}><img className="moreImg" src={more} /> {" "}
-            {view && (
-              <MenuDiv>
-                <DropDown onClick={onclickManage}>
-                  <MenuImg src={manage} /> <h3 className="manage">권한 넘기기</h3> </DropDown>
-                <DropDown onClick={onclickBan}>
-                  <MenuImg src={ban} /> <h3 className="ban">멤버강퇴</h3> </DropDown>
-              </MenuDiv>
-            )}
-            </div>
-        </ProfileBox>
-
-        {/* {showPrivacy && (
-          <div>
-            <InfoTextPhone>번호 </InfoTextPhone>
-            <MyInfo>{phone}</MyInfo>
-
-            <InfoText>이메일</InfoText>
-            <MyInfo>{email}</MyInfo>
-          </div>
-        )} */}
-
-        <div>
-          <InfoText>자기소개 </InfoText>
-          <MyInfo>{myInfo}</MyInfo>
+        <div className="moreDiv" onClick={() => {
+          setView(!view)
+        }}><img className="moreImg" src={more} /> {" "}
+          {view && (
+            <MenuDiv>
+              <DropDown onClick={onclickManage}>
+                <MenuImg src={manage} /> <h3 className="manage">권한 넘기기</h3> </DropDown>
+              <DropDown onClick={onclickBan}>
+                <MenuImg src={ban} /> <h3 className="ban">멤버강퇴</h3> </DropDown>
+            </MenuDiv>
+          )}
         </div>
-          </Container>
+      </ProfileBox>
+
+      <div>
+        <InfoText>자기소개 </InfoText>
+        <MyInfo>{myInfo}</MyInfo>
+      </div>
+    </Container>
   );
 };

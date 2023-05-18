@@ -38,21 +38,24 @@ const Title = styled.p`
   margin-bottom: 16px;
 `;
 
-
-
+// ---------------------------------수민 수정예정------------------------------------- //
+// ---------------------------------수민 수정예정------------------------------------- //
+// ---------------------------------수민 수정예정------------------------------------- //
+// ---------------------------------수민 수정예정------------------------------------- //
+// ---------------------------------수민 수정예정------------------------------------- //
 
 const MyPost = () => {
-    return(
+  return (
     <><Header />
       <HeaderMyPage />
-        <Container>
-            
-            <MyPostContainer>
-        
-        <div>
+      <Container>
+
+        <MyPostContainer>
+
+          <div>
             <Title>내가 작성한 글</Title>
             <InfoContainer>
-              
+
             </InfoContainer>
 
             <br />
@@ -62,14 +65,11 @@ const MyPost = () => {
             <InfoContainer>
             </InfoContainer>
 
-        </div>
+          </div>
         </MyPostContainer>
-    </Container></>
-    
-    );
+      </Container></>
+  );
 };
-
-
 
 
 export default MyPost;

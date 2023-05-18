@@ -1,10 +1,18 @@
 import React from "react";
-// import { Link } from "react-router-dom";
 import Header from "../Header";
 import styled from "styled-components";
 import { BigTitle, InputButton } from "../../styles/StyledComponent";
 import { useNavigate } from "react-router-dom";
 import { Editor } from "../Common/Editor";
+
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+// ---------------------------------상우님 수정예정------------------------------------- //
+
+
 
 const StoryWriteContainer = styled.div`
 display: flex;
@@ -50,8 +58,6 @@ const Title = styled.div` /* 1200 140 */
     font-weight: bold;
     font-family: 'Noto Sans KR', sans-serif;
     `;
-
-
 
 
 const StoryWrite = () => {

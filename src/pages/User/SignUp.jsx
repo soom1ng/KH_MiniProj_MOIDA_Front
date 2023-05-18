@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import { Link } from "react-router-dom";
 import styled from 'styled-components';
-import { InputLabel, InputLabelBig, Input, InputButton} from "../../styles/StyledComponent";
+import { InputLabel, InputLabelBig, Input, InputButton } from "../../styles/StyledComponent";
 
 const SignContainer = styled.div`
   width: 800px;
@@ -86,33 +86,33 @@ const SignUp = () => {
         <Body>
           <Body1>
             <InputLabel>아이디</InputLabel>
-            <Input type="id" placeholder="아이디를 입력해주세요." required/>
-          
+            <Input type="id" placeholder="아이디를 입력해주세요." required />
+
             <InputLabel>비밀번호</InputLabel>
-            <Input type="password" placeholder="비밀번호를 입력해주세요." required/>
-          
+            <Input type="password" placeholder="비밀번호를 입력해주세요." required />
+
             <InputLabelBig>비밀번호 확인</InputLabelBig>
-            <Input type="password" placeholder="비밀번호를 다시 입력해주세요." required/>
+            <Input type="password" placeholder="비밀번호를 다시 입력해주세요." required />
           </Body1>
           <Body2>
             <InputLabel>닉네임</InputLabel>
-            <Input type="text" placeholder="닉네임을 입력해주세요." required/>
-          
+            <Input type="text" placeholder="닉네임을 입력해주세요." required />
+
             <InputLabel>전화번호</InputLabel>
-            <Input type="text" placeholder="전화번호를 입력해주세요." required/>
+            <Input type="text" placeholder="전화번호를 입력해주세요." required />
 
             <InputLabel>이메일</InputLabel>
-            <Input type="email" placeholder="이메일을 입력해주세요." required/>
+            <Input type="email" placeholder="이메일을 입력해주세요." required />
           </Body2>
         </Body>
 
         <CheckBox>
-        <InputCheckBox type="checkbox" checked={isAgreed} onChange={handleCheckBoxChange}/>
-        <label>개인 정보 제공에 동의합니다.</label>
+          <InputCheckBox type="checkbox" checked={isAgreed} onChange={handleCheckBoxChange} />
+          <label>개인 정보 제공에 동의합니다.</label>
         </CheckBox>
 
         <div className='buttonBox'><InputButton type="submit" onClick={handleSignUp}>회원가입</InputButton></div>
-        
+
       </Form>
 
     </SignContainer>

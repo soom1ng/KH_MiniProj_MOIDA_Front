@@ -2,8 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from "styled-components";
 
-
-
 const Container = styled.div`
   height: 100%;
   
@@ -24,11 +22,9 @@ const Container = styled.div`
      border-bottom: ${props => props.deco && '3px solid var(--maincolor)'};
 
 
-  }
-  
-  
-  
+  }  
 `;
+
 /**
  * NavLink link의 url이 포함되어있다면 active상태로 색과 크기가 변합니다.
  * @param to 연결될 url 주소
@@ -40,18 +36,19 @@ const Container = styled.div`
  * @returns {JSX.Element}
  * @constructor
  */
+
 const CustomNavLink = ({ to, exact, contain, children, size, deco }) => {
-    return (
-        <Container size={size} deco={deco}>
-            <NavLink className={window.location.pathname.includes(contain) ? "active-nav" : "non-active-nav"}
-                     to={to}
-                     exact={exact}
-            >{children}</NavLink>
+  return (
+    <Container size={size} deco={deco}>
+      <NavLink className={window.location.pathname.includes(contain) ? "active-nav" : "non-active-nav"}
+        to={to}
+        exact={exact}
+      >{children}</NavLink>
 
-        </Container>
+    </Container>
 
 
-    );
+  );
 };
 
 export default CustomNavLink;

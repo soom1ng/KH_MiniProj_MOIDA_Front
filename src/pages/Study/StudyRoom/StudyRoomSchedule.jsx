@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Header from "../../Header";
 import HeaderStudy from "../../HeaderStudy";
 import Calendar from "react-calendar";
@@ -10,10 +10,10 @@ import user from "../../../Images/user.png"
 import { AddSc } from "../../Common/AddSc";
 const CalendarBox = () => {
     const [value, onChange] = useState(new Date());
-    return(
+    return (
         <Calendar onChange={onChange}
-                      value={value}
-            ></Calendar>
+            value={value}
+        ></Calendar>
     );
 };
 
@@ -88,7 +88,7 @@ const AddButton = styled.button`
     font-weight : bolder;
     cursor: pointer;
 `;
-    const MyDiv = styled.div`
+const MyDiv = styled.div`
     background-color: white;
     position: absolute;
     padding: 10px;
@@ -106,56 +106,56 @@ const Box = styled.div`
     justify-content: center;
 `;
 
-const SchedulBox = ({study_sc_date, study_sc_content, study_name, study_member_count, study_user_count, study_color, study_user_name}) => {
+const SchedulBox = ({ study_sc_date, study_sc_content, study_name, study_member_count, study_user_count, study_color, study_user_name }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
     const handleClick = () => {
-      setIsButtonDisabled(true);
+        setIsButtonDisabled(true);
     };
     const [member, setMember] = useState(false);
-    return(
+    return (
         <>
-        <StyledSchedulBoxContainer>
-            <StyledSchedulBox>
-                <div className="item">
-                    <h1 className="date">{study_sc_date}</h1>
-                    <div className="profile" style={{background:`${study_color}`}}></div>
-                    <p className="studyName">{study_name}</p>
-                </div>
-                <div className="item2">
-                    <h2 className="scName">{study_sc_content}</h2>
-                    <div className="member" onClick={() => { setMember(!member)
-                    }}>
-                        <img src={user} width={"20px"}/>
-                        <p style={{fontSize:"18px"}}>{study_member_count}/{study_user_count}</p>
-                        {member && (
-                            <MyDiv>{study_user_name}</MyDiv>
-                        )}
+            <StyledSchedulBoxContainer>
+                <StyledSchedulBox>
+                    <div className="item">
+                        <h1 className="date">{study_sc_date}</h1>
+                        <div className="profile" style={{ background: `${study_color}` }}></div>
+                        <p className="studyName">{study_name}</p>
                     </div>
-                </div>               
-            </StyledSchedulBox>
-            <AddButton onClick={handleClick} disabled={isButtonDisabled}>
-                참가하기
-            </AddButton>
-           
-        </StyledSchedulBoxContainer>
-           
+                    <div className="item2">
+                        <h2 className="scName">{study_sc_content}</h2>
+                        <div className="member" onClick={() => {
+                            setMember(!member)
+                        }}>
+                            <img src={user} width={"20px"} />
+                            <p style={{ fontSize: "18px" }}>{study_member_count}/{study_user_count}</p>
+                            {member && (
+                                <MyDiv>{study_user_name}</MyDiv>
+                            )}
+                        </div>
+                    </div>
+                </StyledSchedulBox>
+                <AddButton onClick={handleClick} disabled={isButtonDisabled}>
+                    참가하기
+                </AddButton>
+            </StyledSchedulBoxContainer>
+
         </>
     );
 };
 
 const StudyRoomSchedule = () => {
-    return(
+    return (
         <>
-        <Header/>
-        <HeaderStudy/>
-        <StudyRoom>
-            <h1 style={{paddingBottom : "50px", marginTop:"0"}}>스터디 일정 🗓</h1>
-            <Box>
-            <CalendarBox></CalendarBox>
-            </Box>
-            <BoardBox>
-                <BoardContainerWrapper>
+            <Header />
+            <HeaderStudy />
+            <StudyRoom>
+                <h1 style={{ paddingBottom: "50px", marginTop: "0" }}>스터디 일정 🗓</h1>
+                <Box>
+                    <CalendarBox></CalendarBox>
+                </Box>
+                <BoardBox>
+                    <BoardContainerWrapper>
                         <SchedulBox
                             study_sc_date={"3/21"}
                             study_sc_content={"강남역 4시 코드리뷰"}
@@ -184,14 +184,12 @@ const StudyRoomSchedule = () => {
                             study_user_name={"윤홍비 김수민 한다혜 홍상우"}
                         />
                         <AddSc size={600} marginRight={140}></AddSc>
-                </BoardContainerWrapper>
-            </BoardBox>
-        </StudyRoom>
+                    </BoardContainerWrapper>
+                </BoardBox>
+            </StudyRoom>
         </>
     );
 };
-
-
 
 
 export default StudyRoomSchedule;

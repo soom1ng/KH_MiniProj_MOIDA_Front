@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-// import { InputButton } from "../../styles/StyledComponent";
-// import { Profile } from "../Common/Profile";
 import { CountMem } from "./CountMem";
 import { StudyDesc } from "./StudyDesc";
 
+// ---------------------------------수민 수정예정------------------------------------- //
+// ---------------------------------수민 수정예정------------------------------------- //
+// ---------------------------------수민 수정예정------------------------------------- //
+// ---------------------------------수민 수정예정------------------------------------- //
+// ---------------------------------수민 수정예정------------------------------------- //
+// ---------------------------------수민 수정예정------------------------------------- //
+// ---------------------------------수민 수정예정------------------------------------- //
+// ---------------------------------수민 수정예정------------------------------------- //
 
 const StyledStudy = styled.div`
   background-color: white;
@@ -64,16 +70,9 @@ const StyledStudy = styled.div`
       margin-left: 100px;
       font-size: 1.6rem;
       color: #000;
-      height: auto;}
+      height: auto;
   }
 
-  /* .button{
-      display: flex ;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-right: 30px;
-    } */
 
     .countMem {
       display: flex;
@@ -94,15 +93,15 @@ export const Study = () => {
   return (
     <StyledStudy onClick={onClick}>
 
-      
-        <StudyDesc size={"l"} study_profile={"#fffff"}
-          study_name={"백준방범대"}
-          study_tag={"#코딩 #자바"}
-          study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."}
-          isTagTitle={1}
-        ></StudyDesc>
 
-        {/* <div className="studyTitle">
+      <StudyDesc size={"l"} study_profile={"#fffff"}
+        study_name={"백준방범대"}
+        study_tag={"#코딩 #자바"}
+        study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."}
+        isTagTitle={1}
+      ></StudyDesc>
+
+      {/* <div className="studyTitle">
           <div className="studyColor"></div>
           {study_title}
           <Profile></Profile>
@@ -115,12 +114,13 @@ export const Study = () => {
       {/* <div className="button" onClick={onClick}>
         <InputButton>참가하기</InputButton>
       </div> */}
+
       <div className="countMem">
         <h1><CountMem
           size={"l"}
           study_user_count={"2"}
           study_user_limit={"20"} /></h1>
-        <p>마감 10일 전</p>
+        <p style={{ fontSize: "15px" }}>마감일 : 2023-06-25</p>
       </div>
 
 

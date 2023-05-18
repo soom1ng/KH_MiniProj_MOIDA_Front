@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -8,7 +8,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 `;
-
 
 // 페이징 네비게이션 컴포넌트입니다
 //  < 1 2 3 4 5 6 7 8 9 10 > 버튼으로 구성되어있습니다
@@ -40,7 +39,7 @@ const Button = styled.button`
   }
 
 `;
-const Paging = ({maxPage, page, setPage}) => {
+const Paging = ({ maxPage, page, setPage }) => {
 
 
     const limit = 10; // 1~ 10 버튼 보이게 설정
@@ -52,13 +51,13 @@ const Paging = ({maxPage, page, setPage}) => {
         }
         totalPageArray.push(subArray);
     }
-    const currentPageArray = totalPageArray[Math.floor((page-1)/limit)];
+    const currentPageArray = totalPageArray[Math.floor((page - 1) / limit)];
 
     return (
         <Container>
             <div className="pagination">
                 <Button onClick={() => setPage(currentPageArray[0] - 1)}
-                        disabled={currentPageArray === totalPageArray[0]}>
+                    disabled={currentPageArray === totalPageArray[0]}>
                     {'<'}
                 </Button>
                 {currentPageArray?.map((i) => (

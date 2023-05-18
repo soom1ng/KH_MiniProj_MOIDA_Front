@@ -2,7 +2,6 @@ import { HandThumbsUp } from "react-bootstrap-icons";
 import React from "react";
 import styled, { css } from "styled-components";
 
-
 // 사용법
 // import PostTitle from .. import 하고
 // <PostTitle
@@ -13,7 +12,6 @@ import styled, { css } from "styled-components";
 //          date='날짜'
 //          recommend='추천수'
 //         ></PostTitle>
-
 
 const SIZES = {
   s: css`

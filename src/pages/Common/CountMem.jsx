@@ -7,12 +7,13 @@ const SIZES = {
         --width: 100px;
         --ImgWidth: 15px;
         --ImgHeight: 15px;
-      
       `,
+
   l: css`
         --width: 150px;
         --ImgWidth: 30px;
         --ImgHeight : 30px;
+        --margin-bottom: -15px;
       `
 }
 
@@ -20,25 +21,12 @@ const StyledMember = styled.div`
   ${(p) => p.sizeStyle}
 
     width: var(--width);
-    
-    /* height: 220px; */
-    /* position: relative;  */
-    /* top: 90px;
-    left: 200px;
-    padding-left: 60px;
-    padding-top: 20px; */
- 
+    margin-bottom: var(--margin-bottom);
 
-      /* .itemPerson{
-        margin-left: auto;
-        margin-right: 15px;
-        font-size: 18px; */
-
-        .person{
-        width: var(--ImgWidth);
-        height: var(--ImgHeight);
-        margin: 10px 8px 0 15px;
-    
+    .person{
+    width: var(--ImgWidth);
+    height: var(--ImgHeight);
+    margin: 10px 8px 0 15px;
     }
 `;
 
