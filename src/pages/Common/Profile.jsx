@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import styled, { css } from "styled-components";
 import LOGO_imgOnly from "../../Images/LOGO_imgOnly.png"
-//import {LoginContext} from "../../context/AuthContext"
-import AxiosApi from "../../api/AxiosAPI";
+import {LoginContext} from "../../context/AuthContext"
+//import AxiosApi from "../../api/AxiosAPI";
 
 const SIZES = {
   s: css`
@@ -49,24 +49,11 @@ const MyInfo = styled.div`
   margin-left: 10px;
 `;
 
-export const Profile = ({ size, userId }) => {
+export const Profile = ({ size }) => {
   const sizeStyle = SIZES[size];
   const [showMyImgInPut, setShowMyImgInPut] = useState('');
   const [myImg, setMyImg] = useState(null);
-  const [nickname, setNickname] = useState('');
-
-  useEffect(() => {
-    const fetchProfileData = async () => {
-      try {
-        const response = await AxiosApi.getNickname(userId);
-        setNickname(response.data.nickname);
-      } catch (error) {
-        console.log('프로필 데이터 가져오기 에러:', error.message);
-      }
-    };
-
-    fetchProfileData();
-  }, [userId]);
+  const { nickname } = useContext(LoginContext);
 
   return (
     <ProfileContainer sizeStyle={sizeStyle}>

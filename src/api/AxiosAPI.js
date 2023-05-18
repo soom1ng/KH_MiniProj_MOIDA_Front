@@ -14,33 +14,11 @@ const AxiosApi = {
     return await axios.post(MOIDA_DOMAIN + "/login", signIn);
   },
 
-  // 미니 프로필
-  getNickname: async (userId) => {
-    const requestData = {
-      userId: userId
-    };
-    try {
-      const response = await axios.post(`${MOIDA_DOMAIN}/getMyInfo`, requestData);
-      return response.data.nickname;
-    } catch (error) {
-      console.log("닉네임 가져오기 에러:", error.message);
-      throw error;
-    }
-  },
-
-  // 마이페이지(프로필) -- 수정 필요
-  onMyPage: async (username) => {
-    const myPage = {
-      userName: username
-    };
-    return await axios.post(MOIDA_DOMAIN + "/myPage", myPage);
-  },
-
   // 마이페이지 프로필 수정
-  updatePassword: async (userId, newPw) => {
+  updatePassword: async (userId, pw) => {
     const requestData = {
       userId: userId,
-      newPw: newPw
+      pw: pw
     };
     try {
       const response = await axios.post(`${MOIDA_DOMAIN}/pw`, requestData);
@@ -51,10 +29,10 @@ const AxiosApi = {
     }
   },
 
-  updateEmail: async (userId, newEmail) => {
+  updateEmail: async (userId, email) => {
     const requestData = {
       userId: userId,
-      newEmail: newEmail
+      email: email
     };
     try {
       const response = await axios.post(`${MOIDA_DOMAIN}/email`, requestData);
@@ -65,10 +43,10 @@ const AxiosApi = {
     }
   },
 
-  updateNickname: async (userId, newNickname) => {
+  updateNickname: async (userId, nickname) => {
     const requestData = {
       userId: userId,
-      newNickname: newNickname
+      nickname: nickname
     };
     try {
       const response = await axios.post(`${MOIDA_DOMAIN}/nickname`, requestData);
@@ -79,10 +57,10 @@ const AxiosApi = {
     }
   },
 
-  updatePhone: async (userId, newPhone) => {
+  updatePhone: async (userId, phone) => {
     const requestData = {
       userId: userId,
-      newPhone: newPhone
+      phone: phone
     };
     try {
       const response = await axios.post(`${MOIDA_DOMAIN}/phone`, requestData);

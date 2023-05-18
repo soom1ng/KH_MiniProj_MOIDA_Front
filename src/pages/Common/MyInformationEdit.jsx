@@ -1,8 +1,8 @@
-import React,{ useState, useEffect } from "react";
+import React,{ useState, useContext } from "react";
 import styled from "styled-components";
 import LOGO_imgOnly from "../../Images/LOGO_imgOnly.png";
-//import { LoginContext } from './LoginContext';
-//import AxiosApi from "../axiosApi";
+import {LoginContext} from "../../context/AuthContext";
+import AxiosApi from "../../api/AxiosAPI";
 
 // ---------------------------------다혜 수정예정------------------------------------- //
 // ---------------------------------다혜 수정예정------------------------------------- //
@@ -199,10 +199,7 @@ const MyInformationEdit = () => {
   const [myImg, setMyImg] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [myInfo, setMyInfo] = useState('자기 소개를 입력하세요.');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
-  const [nickname, setNickname] = useState('');
+  const {nickname, setNickname, password, setPassword, phone, setPhone, email, setEmail, userId} = useContext(LoginContext);
   const [showMyImgInPut, setShowMyImgInPut] = useState(null);
 
 
@@ -237,27 +234,33 @@ const MyInformationEdit = () => {
     setMyImg(null); 
   };
 
-   const handleSaveMyInfo = async () => {
+  const handleSaveMyInfo = async () => {
     setIsEditing(false);
     alert('저장되었습니다: ' + nickname + ', ' + email + ', ' + password);
     setIsNotAttach(false);
   
-  //   try {
-  //     const requestData = {
-  //       //userId: userId,
-  //       newNickname: nickname,
-  //       newEmail: email,
-  //       newPassword: password
-  //     };
-  //     const response = await AxiosApi.post("/updateProfile", requestData);
-  //     const success = response.data;
-  //     // Handle success response
-  //     console.log("Profile update success:", success);
-  //   } catch (error) {
-  //     // Handle error
-  //     console.log("Profile update failed:", error.message);
-  //   }
-   };
+    try {
+      await AxiosApi.updateNickname(userId, nickname);
+      console.log('닉네임이 성공적으로 업데이트되었습니다.');
+    } catch (error) {
+      console.log('닉네임 업데이트 오류:', error.message);
+    }
+
+    try {
+      await AxiosApi.updateEmail(userId, email);
+      console.log('이메일이 성공적으로 업데이트되었습니다.');
+    } catch (error) {
+      console.log('이메일 업데이트 오류:', error.message);
+    }
+
+    try {
+      await AxiosApi.updatePhone(userId, phone);
+      console.log('번호가 성공적으로 업데이트되었습니다.');
+    } catch (error) {
+      console.log('번호 업데이트 오류:', error.message);
+    }
+  };
+  
 
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);

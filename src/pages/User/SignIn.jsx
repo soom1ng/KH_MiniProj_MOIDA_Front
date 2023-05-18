@@ -70,7 +70,7 @@ const SignUp = styled.p`
 `;
 
 const SignIn = () => {
-  const { username, password, setUsername, setPassword, setIsLogin, setUserId } = useContext(LoginContext);
+  const { username, password, setUsername, setPassword, setIsLogin, setUserId, setNickname, setPhone, setEmail, setImg, setIntro } = useContext(LoginContext);
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -84,6 +84,11 @@ const SignIn = () => {
       navigate('/');
       setIsLogin(true);
       setUserId(response.data.userId);
+      setNickname(response.data.nickname);
+      setPhone(response.data.phone);
+      setEmail(response.data.email);
+      setImg(response.data.img);
+      setIntro(response.data.intro);
     } catch (error) {
       console.log('로그인 에러:', error.message);
     }
