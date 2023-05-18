@@ -231,7 +231,6 @@ const MyInformationEdit = () => {
     setMyImg(null); 
   };
 
-
    const handleSaveMyInfo = async () => {
     setIsEditing(false);
     alert('저장되었습니다: ' + nickname + ', ' + email + ', ' + password);

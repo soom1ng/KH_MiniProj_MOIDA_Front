@@ -70,7 +70,7 @@ const SignUp = styled.p`
 `;
 
 const SignIn = () => {
-  const { username, password, setUsername, setPassword, setIsLogin } = useContext(LoginContext);
+  const { username, password, setUsername, setPassword, setIsLogin, setUserId } = useContext(LoginContext);
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -80,10 +80,10 @@ const SignIn = () => {
 
   const onClickLogin = async () => {
     try {
-      await AxiosApi.signIn(username, password);
-
+      const response = await AxiosApi.signIn(username, password);
       navigate('/');
       setIsLogin(true);
+      setUserId(response.data.userId);
     } catch (error) {
       console.log('로그인 에러:', error.message);
     }
