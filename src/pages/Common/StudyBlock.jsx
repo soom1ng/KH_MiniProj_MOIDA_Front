@@ -3,15 +3,6 @@ import styled from "styled-components";
 import { CountMem } from "./CountMem";
 import { StudyDesc } from "./StudyDesc";
 
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-
 const StyledStudy = styled.div`
   background-color: white;
   width: 1075px;
@@ -93,7 +84,6 @@ export const Study = () => {
   return (
     <StyledStudy onClick={onClick}>
 
-
       <StudyDesc size={"l"} study_profile={"#fffff"}
         study_name={"백준방범대"}
         study_tag={"#코딩 #자바"}
@@ -108,8 +98,6 @@ export const Study = () => {
         </div>
         <div className="studydesc">{studydesc}</div>
         <div className="studytag">{studytag}</div> */}
-
-
 
       {/* <div className="button" onClick={onClick}>
         <InputButton>참가하기</InputButton>

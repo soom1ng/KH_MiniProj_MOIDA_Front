@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "../../Header";
-import { useNavigate } from "react-router-dom";
 import { StudyList } from "../../Common/StudyList";
+// import { MyStudyBlock } from "../../Common/MyStudyBlock";
+// import  { MyStudyList } from "../../Common/MyStudyList";
 
 // 캘린더 라이브러리
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 import '../../../styles/calendar.css';
-// import { StudyInfo } from "../../Common/StudyInfo"; 
+import { MyStudyList } from "../../Common/MyStudyList";
+
+
 
 
 // ---------------------------------수민 수정예정------------------------------------- //
@@ -37,41 +40,27 @@ flex-direction: column;
 }
 
 .list_box {
-
+    display: flex;
+    flex-direction: column;
     width: 1200px;
     padding-top: 80px;
     background-color: #f1f1f1;
     height: 500px;
 }
+.block_box {
+        display: flex;
+    flex-direction: row;
+
+}
 
 .item {
+    width: 1200px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-}
-
-.item-1 {
-    background-color: white;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    vertical-align: middle;
-    align-items: center;
-    justify-content: center;
-    width: 350px;
-    height: 200px;
-    margin-left: 70px;
-    border: 1px solid #F3F3F3;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.plusImg {
-
-    width: 100px;
-    height: 100px;
 
 }
+
 
 
 .StudySchedule {
@@ -141,15 +130,7 @@ form {
 
 
 const StudyMain = () => {
-    const navigate = useNavigate();
 
-    const onClickCreateStudy = () => {
-        navigate('/Study/Create');
-    }
-
-    const onClickStudyRoom = () => {
-        navigate('/Study/StudyRoom')
-    }
 
     return (
         <>
@@ -158,11 +139,19 @@ const StudyMain = () => {
             <StudyContainer>
                 <div className="StudyList">
                     <div className="list_box">
-                        <h1 className="title_my">나의 스터디 📚</h1>
-                        <div className="item">
+                        {/* <h1 className="title_my">나의 스터디 📚</h1>
+                            <div className="block_box">
+                            <MyStudyBlock isNew={1}/>
+                            <MyStudyBlock/>
+                            </div> */}
+                            <MyStudyList/>
+                        {/* <div className="item">
 
-                            {/* 컴포넌트 수정 예정 */}
-                            {/* <div className="item-1">
+                            
+
+                            컴포넌트 수정 예정
+
+                            <div className="item-1">
                                 <img className="plusImg" src={plusImg} alt="아이콘" onClick={onClickCreateStudy} />
                             </div>
                             <div className="item-1" onClick={onClickStudyRoom}>
@@ -171,8 +160,9 @@ const StudyMain = () => {
                                     study_tag={"#코딩 #자바"}
                                     study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."} 
                                     isMember={1}/>
-                            </div> */}
-                        </div>
+                            </div>
+                        </div> */}
+                        
                     </div>
                 </div>
 
