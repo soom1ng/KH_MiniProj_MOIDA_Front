@@ -20,13 +20,19 @@ const SIZES = {
 const StyledMember = styled.div`
   ${(p) => p.sizeStyle}
 
-    width: var(--width);
-    margin-bottom: var(--margin-bottom);
 
+  width: var(--width);
+  margin-bottom: var(--margin-bottom);
+
+  .count {
+    display: flex;
+  flex-direction: row;
+  width: 150px;
+  }
     .person{
     width: var(--ImgWidth);
     height: var(--ImgHeight);
-    margin: 10px 8px 0 15px;
+    margin: 8px 8px 0 15px;
     }
 `;
 
@@ -35,7 +41,7 @@ export const CountMem = ({ size, study_user_count, study_user_limit }) => {
 
   return (
     <StyledMember sizeStyle={sizeStyle}>
-      <div>
+      <div className="count">
         <img className='person' src={userImg} />
         {study_user_count} / {study_user_limit}
       </div>
