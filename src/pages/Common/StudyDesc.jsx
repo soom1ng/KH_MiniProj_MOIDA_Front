@@ -94,7 +94,7 @@ export const StudyDesc = ({ size, study_profile, study_name, study_tag, study_in
             <p className="itemText">{study_intro}</p>
             <div className='TagContainer'>
                 {isTagTitle ?
-                    <div className='item1'>태그</div> : <></>}
+                    <div className="item1" >태그</div> : <></>}
                 <div className="item1">{study_tag}</div>
             </div>
         </StyledStudyDesc>

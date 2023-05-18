@@ -1,9 +1,28 @@
 import axios from 'axios';
-const MOIDA_DOMAIN = "http://localhost:8090";
+const MOIDA_DOMAIN = "http://localhost:8080";
 
 
 // 근데 이거 postListGET이렇게 하면 POST 는 postPost 라고해야하나???? board 로 바꿀까??
 const AxiosApi = {
+
+  //스터디 리스트
+  studyListGet : async() => {
+    return await axios.get(MOIDA_DOMAIN + "/study");
+  },  
+
+  // 스터디 헤더 정보
+  studyViewGet: async(studyId) => {
+      return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Main/${studyId}`);
+  },
+
+  // 스터디 멤버 정보
+  studyMemGet : async(studyId) => {
+      return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Member/${studyId}`);
+  },
+  // 스터디 일정 정보
+  studyScGet : async(studyId) => {
+      return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Schedule/${studyId}`);
+  },
 
   // 로그인
   signIn: async (username, password) => {

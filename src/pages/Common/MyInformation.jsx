@@ -99,7 +99,7 @@ const MyInfo = styled.div`
 
 
 
-export const MyInformation = ({ myInfo }) => {
+export const MyInformation = ({ myInfo, mgrName}) => {
 
   const onclickManage = () => {
   };
@@ -111,7 +111,7 @@ export const MyInformation = ({ myInfo }) => {
   return (
     <Container>
       <ProfileBox>
-        <Profile size={'l'} nickname={"콩콩이"} />
+        <Profile size={'l'} isStroom={'1'} userName={mgrName} />
 
         <div className="moreDiv" onClick={() => {
           setView(!view)

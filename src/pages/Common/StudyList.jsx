@@ -2,6 +2,8 @@ import styled from "styled-components";
 import menuImg from "../../Images/menu.png"
 import { Study } from "./StudyBlock";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import AxiosApi from "../../api/AxiosAPI";
 
 const StyledStudyList = styled.div`
     margin-top: 70px;
@@ -17,14 +19,14 @@ const StyledStudyList = styled.div`
     }
 
     .title_all {
-        padding : 30px 0 0 60px;
-        width: 300px;
+        padding : 30px 20px 0px 60px;
+        width: 500px;
     }
 
     .menuImg {
         width: 60px;
         height: 50px;
-        margin : 50px 30px 0px 750px;
+        margin : 50px 60px 0px 750px;
     }
 
     .new_study {
@@ -37,10 +39,21 @@ const StyledStudyList = styled.div`
 
 export const StudyList = () => {
     const navigate = useNavigate();
+    const[studyInfo, setStudyInfo] = useState([]);
 
     const onClickStudyList = () => {
-        navigate('/Study/List');
+        navigate('/study/list');
     }
+
+    const disPlayCount = 5;
+    useEffect(() => {
+        const studyInfo = async() => {
+            const rsp = await AxiosApi.studyListGet(); // 전체 조회
+            if(rsp.status === 200) setStudyInfo(rsp.data);
+            console.log(rsp.data);
+        };
+        studyInfo();
+    }, []);
 
     return (
         <StyledStudyList>
@@ -50,24 +63,18 @@ export const StudyList = () => {
                 <img className="menuImg" src={menuImg} alt="아이콘" onClick={onClickStudyList} />
             </div>
             <div className="new_study">
-                <Study study_title="백준방법대"
-                    studydesc="함께 코딩 테스트를 준비하는 스터디입니다!"
-                    studytag="#코딩 #자바"
-                    date="2023-04-20"
-                ></Study>
-                <Study study_title="백준방법대"
-                    studydesc="함께 코딩 테스트를 준비하는 스터디입니다!"
-                    studytag="#코딩 #자바"
-                    date="2023-04-20"
-                ></Study><Study study_title="백준방법대"
-                    studydesc="함께 코딩 테스트를 준비하는 스터디입니다!"
-                    studytag="#코딩 #자바"
-                    date="2023-04-20"
-                ></Study><Study study_title="백준방법대"
-                    studydesc="함께 코딩 테스트를 준비하는 스터디입니다!"
-                    studytag="#코딩 #자바"
-                    date="2023-04-20"
-                ></Study>
+            {studyInfo.slice(0, disPlayCount).map(study => (
+                     <Study 
+                     key={study.studyId}
+                     studyId={study.studyId}
+                     studyTitle={study.studyName}
+                     studyIntro={study.studyIntro}
+                     studyTag={study.tagName}
+                     studyDate={study.studyDeadline}
+                     studyUserCount={study.studyUserCount}
+                     studyUserLimit={study.studyUserLimit}
+                   ></Study>
+                ))}
             </div>
 
         </StyledStudyList>

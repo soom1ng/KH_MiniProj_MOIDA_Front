@@ -74,20 +74,20 @@ const StyledStudy = styled.div`
     }
 `;
 
-export const Study = () => {
+export const Study = ({studyId, studyTitle, studyIntro, studyTag, studyDate, studyUserLimit, studyUserCount})  => {
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate(`/Study/Studyroom`)
+    navigate(`/study/studyroom/Main/${studyId}`)
   }
 
   return (
     <StyledStudy onClick={onClick}>
 
       <StudyDesc size={"l"} study_profile={"#fffff"}
-        study_name={"백준방범대"}
-        study_tag={"#코딩 #자바"}
-        study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."}
+        study_name={studyTitle}
+        study_tag={studyTag}
+        study_intro={studyIntro}
         isTagTitle={1}
       ></StudyDesc>
 
@@ -106,9 +106,9 @@ export const Study = () => {
       <div className="countMem">
         <h1><CountMem
           size={"l"}
-          study_user_count={"2"}
-          study_user_limit={"20"} /></h1>
-        <p style={{ fontSize: "15px" }}>마감일 : 2023-06-25</p>
+          study_user_count={studyUserCount}
+          study_user_limit={studyUserLimit} /></h1>
+        <p style={{ fontSize: "15px" }}>{studyDate}</p>
       </div>
 
 

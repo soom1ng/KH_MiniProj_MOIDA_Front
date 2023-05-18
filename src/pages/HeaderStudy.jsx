@@ -4,6 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 // import userImg from "../Images/user.png";
 import { StudyInfo } from './Common/StudyInfo';
 import logout from '../Images/logout.png';
+import { useParams } from 'react-router-dom/dist';
 
 // Study 왼쪽 Nav
 const StudyHeader = styled.div`
@@ -159,22 +160,22 @@ const DeleteImg = styled.img`
 
 
 
-const HeaderStudy = () => {
-
+const HeaderStudy = ({studyProfile, studyName, studyTag, studyIntro, studyLink, studyUserCount, studyUserLimit, userName }) => {
+  const {studyId} = useParams();
 
   return (
     <>
       <StudyHeader>
-        <NavLink to="/Study/StudyRoom" style={({ isActive }) => {
+        <NavLink to={`/study/studyRoom/Main/${studyId}`} style={({ isActive }) => {
           return isActive ? navSelect : navDefault
         }}>홈</NavLink>
-        <NavLink to="/StudyRoom/Schedule" style={({ isActive }) => {
+        <NavLink to={`/study/studyRoom/Schedule/${studyId}`} style={({ isActive }) => {
           return isActive ? navSelect : navDefault
         }}>일정</NavLink>
-        <NavLink to="/StudyRoom/Board" style={({ isActive }) => {
+        <NavLink to={`/study/studyRoom/Board/${studyId}`} style={({ isActive }) => {
           return isActive ? navSelect : navDefault
         }}>보드</NavLink>
-        <NavLink to="/StudyRoom/Member" style={({ isActive }) => {
+        <NavLink to={`/study/studyRoom/Member/${studyId}`} style={({ isActive }) => {
           return isActive ? navSelect : navDefault
         }}>멤버</NavLink>
         <StudyDelete>
@@ -196,16 +197,18 @@ const HeaderStudy = () => {
 
       </StudyHeader>
 
-
-
       <StudyInfo
-        size='l'
-        study_profile={"#fffff"}
-        study_name={"백준방범대"}
-        study_tag={"#코딩 #자바"}
-        study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."}
-        isBasic={1}
-      />
+          studyProfile=''
+          studyName={studyName}
+          studyTag={studyTag}
+          studyIntro={studyIntro}
+          isBasic={'1'}
+          size="l"
+          studyLink={studyLink}
+          studyUserCount={studyUserCount}
+          studyUserLimit={studyUserLimit}
+          userName={userName}
+        />
 
     </>
   )

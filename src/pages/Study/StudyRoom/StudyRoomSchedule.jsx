@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../Header";
 import HeaderStudy from "../../HeaderStudy";
 import Calendar from "react-calendar";
@@ -8,6 +8,11 @@ import '../../../styles/calendar.css';
 import styled from "styled-components";
 import user from "../../../Images/user.png"
 import { AddSc } from "../../Common/AddSc";
+import Modal from "../../utils/Modal";
+import { ViewScMem } from "./ViewScMem";
+import { useParams } from "react-router-dom/dist";
+import AxiosApi from "../../../api/AxiosAPI";
+import CreateSc from "./CreateSc";
 const CalendarBox = () => {
     const [value, onChange] = useState(new Date());
     return (
@@ -108,10 +113,16 @@ const Box = styled.div`
 
 const SchedulBox = ({ study_sc_date, study_sc_content, study_name, study_member_count, study_user_count, study_color, study_user_name }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const closeModal = () => {
+        setModalOpen(false);
+    };
+    console.log(modalOpen)
 
     const handleClick = () => {
-        setIsButtonDisabled(true);
+      setIsButtonDisabled(true);
     };
+
     const [member, setMember] = useState(false);
     return (
         <>
@@ -124,27 +135,46 @@ const SchedulBox = ({ study_sc_date, study_sc_content, study_name, study_member_
                     </div>
                     <div className="item2">
                         <h2 className="scName">{study_sc_content}</h2>
-                        <div className="member" onClick={() => {
-                            setMember(!member)
-                        }}>
-                            <img src={user} width={"20px"} />
-                            <p style={{ fontSize: "18px" }}>{study_member_count}/{study_user_count}</p>
-                            {member && (
-                                <MyDiv>{study_user_name}</MyDiv>
-                            )}
-                        </div>
+                        <div className="member" onClick={() => setModalOpen(true)}>
+                        <img src={user} width={"20px"}/>
+                        <p style={{fontSize:"18px"}}>{study_member_count}/{study_user_count}</p>
+                        {member && (
+                            <MyDiv>{study_user_name}</MyDiv>
+                        )}
+                    </div>
                     </div>
                 </StyledSchedulBox>
-                <AddButton onClick={handleClick} disabled={isButtonDisabled}>
-                    참가하기
-                </AddButton>
-            </StyledSchedulBoxContainer>
+                <Modal open={modalOpen} close={closeModal}><ViewScMem scName={"일정 이름"} /></Modal>
+            <AddButton onClick={handleClick} disabled={isButtonDisabled}>
+                참가하기
+            </AddButton>
+           
+        </StyledSchedulBoxContainer>
 
         </>
     );
 };
 
 const StudyRoomSchedule = () => {
+    const {studyId} = useParams();
+    const [studySc, setStudySc] = useState([]);
+    const [modalOpen, setModalOpen] = useState(false);
+    const closeModal = () => {
+        setModalOpen(false);
+    };
+    console.log(modalOpen)
+
+    useEffect(() => {
+        const studyScInfo = async () => {
+            const rsp = await AxiosApi.studyMemGet(studyId); // 전체 조회
+            if(rsp.status === 200) setStudySc(rsp.data);
+            console.log(rsp.data);
+          
+        };
+        studyScInfo();
+      }, [studyId]);
+
+      console.log(studySc);
     return (
         <>
             <Header />
@@ -155,37 +185,23 @@ const StudyRoomSchedule = () => {
                     <CalendarBox></CalendarBox>
                 </Box>
                 <BoardBox>
-                    <BoardContainerWrapper>
+                <BoardContainerWrapper>
+                    {studySc && studySc.map((sc) => (
                         <SchedulBox
-                            study_sc_date={"3/21"}
-                            study_sc_content={"강남역 4시 코드리뷰"}
-                            study_name={"백준방범대"}
-                            study_member_count={"3"}
-                            study_user_count={"20"}
-                            study_color={"#000000"}
-                            study_user_name={"윤홍비 김수민 한다혜 홍상우"}
-                        />
-                        <SchedulBox
-                            study_sc_date={"3/21"}
-                            study_sc_content={"강남역 4시 코드리뷰"}
-                            study_name={"백준방범대"}
-                            study_member_count={"3"}
-                            study_user_count={"20"}
-                            study_color={"#000000"}
-                            study_user_name={"윤홍비 김수민 한다혜 홍상우"}
-                        />
-                        <SchedulBox
-                            study_sc_date={"3/21"}
-                            study_sc_content={"강남역 4시 코드리뷰"}
-                            study_name={"백준방범대"}
-                            study_member_count={"3"}
-                            study_user_count={"20"}
-                            study_color={"#000000"}
-                            study_user_name={"윤홍비 김수민 한다혜 홍상우"}
-                        />
-                        <AddSc size={600} marginRight={140}></AddSc>
-                    </BoardContainerWrapper>
-                </BoardBox>
+                        key={sc.studyScId}
+                        study_sc_date={"3/21"}
+                        study_sc_content={sc.studyScContent}
+                        study_name={"백준방범대"}
+                        study_member_count={sc.studyScUserCount}
+                        study_user_count={sc.studyScUserLimit}
+                        study_color={"#000000"}
+                        study_user_name={"윤홍비 김수민 한다혜 홍상우"}/>
+                    ))}
+                        
+                        <AddSc onClick={() => setModalOpen(true)} size={600} marginRight={140}></AddSc>
+                </BoardContainerWrapper>
+            </BoardBox>
+            <Modal open={modalOpen} close={closeModal}><CreateSc/></Modal>
             </StudyRoom>
         </>
     );

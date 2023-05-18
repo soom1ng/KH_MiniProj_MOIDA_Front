@@ -14,10 +14,10 @@ align-items: center;
 justify-content: center;
 `;
 
-export const AddSc = ({ size, marginRight }) => {
+export const AddSc = ({ size, marginRight, onClick }) => {
     return (
-        <>
-            <StyledAddsc size={size} marginRight={marginRight}>
+        <> 
+            <StyledAddsc size={size} marginRight={marginRight} onClick={onClick}>
                 <img src={plus} width={"40px"} height={"40px"}></img>
             </StyledAddsc>
         </>

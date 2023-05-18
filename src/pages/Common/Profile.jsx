@@ -49,7 +49,7 @@ const MyInfo = styled.div`
   margin-left: 10px;
 `;
 
-export const Profile = ({ size }) => {
+export const Profile = ({ size, userName, isStroom }) => {
   const sizeStyle = SIZES[size];
   const [showMyImgInPut, setShowMyImgInPut] = useState('');
   const [myImg, setMyImg] = useState(null);
@@ -66,7 +66,7 @@ export const Profile = ({ size }) => {
           <MyImage src={LOGO_imgOnly} alt="기본 이미지" />
         )
       )}
-      <MyInfo>{nickname}</MyInfo>
+      {isStroom ? <MyInfo>{userName}</MyInfo> : <MyInfo>{nickname}</MyInfo>}
       <InfoText>님</InfoText>
     </ProfileContainer>
   );

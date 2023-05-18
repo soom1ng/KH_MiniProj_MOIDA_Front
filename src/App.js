@@ -41,15 +41,15 @@ function App() {
                 <Routes>
                     <Route path='/' element={<Home/>}/>
 
-                    <Route path='/Study' element={<StudyMain/>}/>
-                    <Route path='/Study/List' element={<StudyList/>}/>
-                    <Route path='/Study/Create' element={<StudyCreate></StudyCreate>}/>
+                    <Route path='/study' element={<StudyMain/>}/>
+                    <Route path='/study/list' element={<StudyList/>}/>
+                    <Route path='/study/create' element={<StudyCreate></StudyCreate>}/>
 
-                    <Route path='/Study/StudyRoom' element={<StudyRoomMain/>}/>
-                    <Route path='/StudyRoom/Schedule' element={<StudyRoomSchedule/>}/>
-                    <Route path='/StudyRoom/Board' element={<StudyRoomBoard/>}/>
-                    <Route path='/StudyRoom/Member' element={<StudyRoomMember/>}/>
-                    <Route path='/StudyRoom/BoardWrite' element={<StudyBoardWrite/>}/>
+                    <Route path='/study/studyRoom/Main/:studyId' element={<StudyRoomMain/>}/>
+                    <Route path='/study/studyRoom/Schedule/:studyId' element={<StudyRoomSchedule/>}/>
+                    <Route path='/study/studyRoom/Board/:studyId' element={<StudyRoomBoard/>}/>
+                    <Route path='/study/studyRoom/Member/:studyId' element={<StudyRoomMember/>}/>
+                    <Route path='/study/studyRoom/BoardWrite/:studyId' element={<StudyBoardWrite/>}/>
 
                     <Route path='/Story' element={<StoryMain/>}/>
                     <Route path='/Story/Post' element={<StoryPost/>}/>

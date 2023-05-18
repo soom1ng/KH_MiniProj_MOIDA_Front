@@ -3,6 +3,8 @@ import styled, { css } from "styled-components";
 import { Profile } from "./Profile";
 import { CountMem } from "./CountMem";
 import { StudyDesc } from "./StudyDesc";
+import { Link } from "react-bootstrap-icons";
+import { useParams } from "react-router-dom/dist";
 
     // <StudyInfo
     // study_profile={"#fffff"}
@@ -111,15 +113,14 @@ const StyledInnerContainer = styled.div`
 }
 `;
 
-const InnerContainer = ({ study_link }) => {
+const InnerContainer = ({ studyLink, studyUserCount, studyUserLimit, userName }) => {
     return (
-
         <StyledInnerContainer>
             <div className='descContainer'>
-                <Profile size={'s'} nickname={"뇽뇽이"} />
+                <Profile size={'s'} userName={userName} isStroom={"1"} />
                 <div className="chatLink">
                     <h2 className='item2'>채팅방</h2>
-                    <h2> {study_link} </h2>
+                    <h2> {studyLink} </h2>
                 </div>
             </div>
 
@@ -127,36 +128,34 @@ const InnerContainer = ({ study_link }) => {
                 <h2 className='itemPerson'>참가자</h2>
                 <h2><CountMem
                     size={"s"}
-                    study_user_count={"2"}
-                    study_user_limit={"20"} /></h2>
+                    study_user_count={studyUserCount}
+                    study_user_limit={studyUserLimit} /></h2>
             </div>
 
         </StyledInnerContainer>
     )
 };
 
-export const StudyInfo = ({ size, isBasic }) => {
+export const StudyInfo = ({ size, studyProfile, studyName, studyTag, studyIntro, isBasic, studyLink, studyUserCount, studyUserLimit, userName }) => {
     const sizeStyle = SIZES[size];
-
-
-    return (
+   return (
         <StyledStudyInfo sizeStyle={sizeStyle}>
             <Body>
                 <Body1>
                     <StudyDesc
                         size={"s"} study_profile={"#fffff"}
-                        study_name={"백준방범대"}
-                        study_tag={"#코딩 #자바"}
-                        study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."}
+                        study_name={studyName}
+                        study_tag={studyTag}
+                        study_intro={studyIntro}
                         isTagTitle={1} 
+                        fontSize={"3.2rem"}
                     ></StudyDesc>
                 </Body1>
 
                 <Body2>
                     {/* 값이 있으면 무조건 TRUE */}
-                    {isBasic ? <InnerContainer
-                        study_link={"http://naver.com"}
-                    ></InnerContainer> : <></>}
+                    {isBasic ? <InnerContainer study_link={studyLink} studyUserCount={studyUserCount} studyUserLimit={studyUserLimit} userName={userName}>
+                    </InnerContainer> : <></>}
 
                 </Body2>
             </Body>
