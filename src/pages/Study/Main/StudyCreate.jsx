@@ -76,6 +76,13 @@ display: flex;
   justify-content: right;
   align-items:right;
 }
+.button {
+  width: 100px;
+  height: 40px;
+}
+.form {
+  display: flex;
+}
 
 `;
 
@@ -158,8 +165,9 @@ const StudyCreate = () => {
     const onCreateStudy = async () => {
       const values = ["#D8FFD3", "#E2FFF9", "#F6E4FF"];
       const randomColor = values[Math.floor(Math.random() * values.length)];
-  
       const tagString = tags.map(tag => tag.tag).join(",");
+
+      
   
       try {
         const createStudy = await AxiosApi.createStudy(userId, studyName, category, studyUserLimit, studyChatUrl, studyIntro, inputContents, studyDeadline, randomColor, tagString);
@@ -189,8 +197,7 @@ const StudyCreate = () => {
               <InputLabel>스터디 이름</InputLabel>
               <Input type="text" onChange={onChangeStudyName} value={studyName} placeholder="이름을 입력해주세요." />
 
-              <Category propFunction={onChangeCategory}></Category>
-
+              <Category propFunction={onChangeCategory} display={'block'} ></Category>
               <InputLabel>인원</InputLabel>
               <Input type="number" onChange={onChangeStudyUserLimit} value={studyUserLimit} placeholder="최대 인원을 입력해주세요." />
 
@@ -199,12 +206,9 @@ const StudyCreate = () => {
             </div>
 
             <div className="body2">
-              <form onSubmit={onClickSearch}> 
-              <li className="taglist">{tagList}</li>
               <InputLabel>태그</InputLabel>
               <Input type="text" value={tag} onKeyDown={onClickSearch} onChange={onChangeTag} placeholder="원하는 태그를 입력해주세요." />
-              </form>
-
+              <li className="taglist">{tagList}</li>
 
               <InputLabel>채팅</InputLabel>
               <Input type="text" onChange={onChangeStudyChatUrl} value={studyChatUrl} placeholder="링크를 입력해주세요." />
@@ -217,7 +221,7 @@ const StudyCreate = () => {
             <Editor setInputContents={setInputContents} inputContents={inputContents}> </Editor>
           </div>
 
-          <Button type="button" onClick={() => onCreateStudy()}>스터디 생성</Button>
+          <Button type="button" className="button"  onClick={() => onCreateStudy()}>스터디 생성</Button>
 
         </form>
 

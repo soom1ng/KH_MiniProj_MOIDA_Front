@@ -45,7 +45,7 @@ export const StudyList = () => {
         navigate('/study/list');
     }
 
-    const disPlayCount = 5;
+    const disPlayCount = 4;
     useEffect(() => {
         const studyInfo = async() => {
             const rsp = await AxiosApi.studyListGet(); // 전체 조회

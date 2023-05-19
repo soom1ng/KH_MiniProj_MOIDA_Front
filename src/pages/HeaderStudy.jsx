@@ -169,6 +169,7 @@ const HeaderStudy = () => {
   const studyUserCount = window.localStorage.getItem("studyUserCount"); 
   const studyUserLimit = window.localStorage.getItem("studyUserLimit"); 
   const userName = window.localStorage.getItem("userName"); 
+  const studyProfile = window.localStorage.getItem("studyProfile");
   return (
     <>
       <StudyHeader>
@@ -204,7 +205,7 @@ const HeaderStudy = () => {
       </StudyHeader>
 
       <StudyInfo
-          studyProfile=''
+          studyProfile={studyProfile}
           studyName={studyName}
           studyTag={studyTag}
           studyIntro={studyIntro}

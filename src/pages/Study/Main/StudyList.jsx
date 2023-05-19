@@ -157,7 +157,7 @@ const StudyList = () => {
         <h1 className="title">스터디💬</h1>
         </div>
         <div className="menuBlock">
-        <Category propFunction={onChangeCategory} />
+        <Category propFunction={onChangeCategory} display={'flex'} />
         <li className="taglist">{tagList}</li>
         <SearchContainer>
           <SearchBar type="text" value={tag} onChange={onChangeTag} placeholder="태그를 추가해보세요!"/>

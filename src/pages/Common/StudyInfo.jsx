@@ -5,6 +5,7 @@ import { CountMem } from "./CountMem";
 import { StudyDesc } from "./StudyDesc";
 import { Link } from "react-bootstrap-icons";
 import { useParams } from "react-router-dom/dist";
+import { StudyList } from "./StudyList";
 
     // <StudyInfo
     // study_profile={"#fffff"}
@@ -114,13 +115,14 @@ const StyledInnerContainer = styled.div`
 `;
 
 const InnerContainer = ({ studyLink, studyUserCount, studyUserLimit, userName }) => {
+    console.log(studyLink);
     return (
         <StyledInnerContainer>
             <div className='descContainer'>
                 <Profile size={'s'} userName={userName} isStroom={"1"} />
                 <div className="chatLink">
                     <h2 className='item2'>채팅방</h2>
-                    <h2> {studyLink} </h2>
+                    <h2>{studyLink} </h2>
                 </div>
             </div>
 
@@ -138,6 +140,7 @@ const InnerContainer = ({ studyLink, studyUserCount, studyUserLimit, userName })
 
 export const StudyInfo = ({ size, studyProfile, studyName, studyTag, studyIntro, isBasic, studyLink, studyUserCount, studyUserLimit, userName }) => {
     const sizeStyle = SIZES[size];
+    console.log(studyLink);
    return (
         <StyledStudyInfo sizeStyle={sizeStyle}>
             <Body>
@@ -155,7 +158,7 @@ export const StudyInfo = ({ size, studyProfile, studyName, studyTag, studyIntro,
 
                 <Body2>
                     {/* 값이 있으면 무조건 TRUE */}
-                    {isBasic ? <InnerContainer study_link={studyLink} studyUserCount={studyUserCount} studyUserLimit={studyUserLimit} userName={userName}>
+                    {isBasic ? <InnerContainer studyLink={studyLink} studyUserCount={studyUserCount} studyUserLimit={studyUserLimit} userName={userName}>
                     </InnerContainer> : <></>}
 
                 </Body2>

@@ -77,13 +77,15 @@ const StyledStudy = styled.div`
 export const Study = ({studyId, studyProfile, studyTitle, studyIntro, studyTag, studyDate, studyUserLimit, studyUserCount})  => {
   const navigate = useNavigate();
   const onClick = () => {
-    navigate(`/study/studyroom/Main/${studyId}`)
+    navigate(`/study/studyRoom/Main/${studyId}`)
   }
 
   return (
     <StyledStudy onClick={onClick}>
 
-      <StudyDesc size={"l"} study_profile={studyProfile}
+      <StudyDesc size={"l"}
+        study_profile={studyProfile}
+        studyId={studyId}
         study_name={studyTitle}
         study_tag={studyTag}
         study_intro={studyIntro}

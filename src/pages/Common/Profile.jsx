@@ -49,9 +49,9 @@ const MyInfo = styled.div`
   margin-left: 10px;
 `;
 
-export const Profile = ({ size, isStroom }) => {
+export const Profile = ({ size, isStroom, userName }) => {
   const sizeStyle = SIZES[size];
-  const { nickname, img, userName } = useContext(LoginContext);
+  const { nickname, img } = useContext(LoginContext);
   const [downloadURL, setDownloadURL] = useState('');
 
   useEffect(() => {

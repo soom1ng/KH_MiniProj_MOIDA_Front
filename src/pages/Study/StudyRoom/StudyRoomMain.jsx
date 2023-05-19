@@ -27,6 +27,8 @@ const StudyRoomMain = () => {
                 studyUserCount,
                 studyUserLimit,
                 userName,
+                studyContent,
+                studyProfile
               } = data;
     
               window.localStorage.setItem("studyName", studyName);
@@ -36,6 +38,8 @@ const StudyRoomMain = () => {
               window.localStorage.setItem("studyUserCount", studyUserCount);
               window.localStorage.setItem("studyUserLimit", studyUserLimit);
               window.localStorage.setItem("userName", userName);
+              window.localStorage.setItem("studyContent", studyContent);
+              window.localStorage.setItem("studyProfile", studyProfile);
             }
           } catch (error) {
             console.error(error);
@@ -52,7 +56,7 @@ const StudyRoomMain = () => {
             <HeaderStudy/>
             )}
             <StudyRoom>
-                <div className="content" style={{ fontSize: "18px", width: "900px" }}>{studyData.studyIntro}</div>
+                <div className="content" style={{ fontSize: "18px", width: "900px" }}>{studyData.studyContent}</div>
             </StudyRoom>
         </>
     );

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { CountMem } from "./CountMem";
 
@@ -74,7 +74,7 @@ const StyledStudyDesc = styled.div`
 
 `;
 
-export const StudyDesc = ({ size, study_profile, study_name, study_tag, study_intro, isMember, isTagTitle }) => {
+export const StudyDesc = ({ size, studyId, study_profile, study_name, study_tag, study_intro, isMember, isTagTitle }) => {
     const sizeStyle = SIZES[size];
     return (
         <StyledStudyDesc sizeStyle={sizeStyle}>
@@ -82,7 +82,7 @@ export const StudyDesc = ({ size, study_profile, study_name, study_tag, study_in
                 <div className='StudyName'>
                 <div className='StudyProfile' style={{ backgroundColor: study_profile}}></div>
 
-                    <Link to="/Study/StudyRoom" style={{ textDecoration: "none", color: "#111" }}>{study_name}</Link>
+                    <Link to={`/study/studyroom/Main/${studyId}`} style={{ textDecoration: "none", color: "#111" }}>{study_name}</Link>
                 </div>
 
                 <h2>{isMember ? <CountMem

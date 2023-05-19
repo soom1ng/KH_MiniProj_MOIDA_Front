@@ -87,24 +87,23 @@ import { InputLabel } from "../../styles/StyledComponent";
 //   `;
 
 const StyledCategory = styled.div`
-  display: flex;
+  display: ${props => props.display};
   flex-direction: var(--flex-direction);
   text-align: left;
-  align-items: center;
-  justify-content:space-between;
+  align-items: center;  
   margin-left: 0;
 
   .dropBox{
-    width: 60px;
+    width: 70px;
     height: 30px;
-    margin-left: -20px;
+    margin-left: 0px;
     margin-right: 50px;
   }
 
   `;
 
 
-export const Category = ({propFunction}) => {
+export const Category = ({propFunction, display}) => {
     const DropChange = (e) => {
       const selectedValue = e.target.value;
       propFunction(selectedValue);
@@ -113,7 +112,7 @@ export const Category = ({propFunction}) => {
 
     return (
 
-        <StyledCategory>
+        <StyledCategory display={display}>
             <InputLabel>카테고리</InputLabel>
             <select className="dropBox" onChange={DropChange}>
                     <option value="전체" selected>전체</option>
