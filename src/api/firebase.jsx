@@ -13,4 +13,4 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-export const storage = firebase.storag
+export const storage = firebase.storage();
