@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "../../Header";
 import { StudyList } from "../../Common/StudyList";
-// import { MyStudyBlock } from "../../Common/MyStudyBlock";
-// import  { MyStudyList } from "../../Common/MyStudyList";
 
 // 캘린더 라이브러리
 import Calendar from "react-calendar";
@@ -11,14 +9,6 @@ import 'react-calendar/dist/Calendar.css';
 import '../../../styles/calendar.css';
 import { MyStudyList } from "../../Common/MyStudyList";
 
-
-
-
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
 
 
 const CalendarBox = () => {
@@ -91,13 +81,10 @@ form {
     max-width: 1100px;
     padding : 20px 100px 20px 100px;
 }
-
 `;
 
 
-
 const StudyMain = () => {
-
 
     return (
         <>
@@ -105,13 +92,10 @@ const StudyMain = () => {
 
             <StudyContainer>
 
-
                 <div className="list_box">
                     <h1 className="title_my">나의 스터디 📚</h1>
                     <MyStudyList />
                 </div>
-
-
 
 
                 <form>

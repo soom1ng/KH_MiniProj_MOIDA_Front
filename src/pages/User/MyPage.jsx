@@ -6,15 +6,6 @@ import MyInformationEdit from "../Common/MyInformationEdit";
 import { MyPageList } from "../Common/MyStudyList";
 import { MyPageTitle } from "../../styles/StyledComponent";
 
-// ---------------------------------수민&다혜 수정예정------------------------------------- //
-// ---------------------------------수민&다혜 수정예정------------------------------------- //
-// ---------------------------------수민&다혜 수정예정------------------------------------- //
-// ---------------------------------수민&다혜 수정예정------------------------------------- //
-// ---------------------------------수민&다혜 수정예정------------------------------------- //
-// ---------------------------------수민&다혜 수정예정------------------------------------- //
-
-
-
 const Container = styled.div`
   margin-top: 90px;
   margin-left: 200px;
@@ -46,7 +37,6 @@ const Container = styled.div`
     height: 200px;
     margin-right: 50px;
     border: 1px solid #F3F3F3;
-    
   } */
 
   .title_my {
@@ -67,7 +57,6 @@ const Container = styled.div`
 
 const MyPage = () => {
 
-
   return (
     <>
       <Header />
@@ -75,18 +64,6 @@ const MyPage = () => {
       <Container>
         <div className="myPageContainer">
           <MyInformationEdit />
-
-          {/* 내 스터디 */}
-          {/* <div>
-            <Title>내 스터디</Title>
-
-            <div className="studyContainer">
-              <div className="studyItemContainer">
-                <img className="plusImg" src={plusImg} alt="아이콘" onClick={onClickCreateStudy} />
-              </div>
-
-            </div>
-          </div> */}
           
           <div className="list_box">
           <MyPageTitle>나의 스터디 📚</MyPageTitle>

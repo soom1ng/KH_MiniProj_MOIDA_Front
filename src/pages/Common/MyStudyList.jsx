@@ -77,12 +77,10 @@ const MyListset = {
   slidesToScroll: 1, // 넘어가는 갯수
   // centerMode: true, // 슬라이드 시작점 중앙 설정
   centerPadding: '0px', // 0px 일 때, 슬라이드 끝쪽 이미지가 잘리지 않음
-  arrows: true,
+  // arrows: true,
   pauseOnHover: true,
   // nextArrow: <NextArrow />,
   // prevArrow: <PrevArrow />,
-  // prevArrow : "<button type='button' class='slick-prev'> Previous </button>", // 이전 화살표 모양 설정
-  // nextArrow : "<button type='button' class='slick-next'> Next </button>"
 };
 
 //슬라이드 설정
@@ -92,7 +90,6 @@ const MyPageset = {
   dots: true,
   drabble: true,
   speed: 500,
-  autoplayspeed: 0, // 넘어가는 속도
   slidesToShow: 2, // 보이는 갯수
   slidesToScroll: 1, // 넘어가는 갯수
   centerPadding: '0px', // 0px 일 때, 슬라이드 끝쪽 이미지가 잘리지 않음
@@ -102,10 +99,6 @@ const MyPageset = {
 
 // 슬라이드 CSS
 const StyledSlider = styled(Slider)`
-  /* margin-left: 19%;
-  width: 60%;
-  text-align: center; */
-
 
 display: flex;
 
@@ -132,8 +125,6 @@ vertical-align: middle;
 
   .slick-arrow {
     display: flex;
-    /* width: 1vw;
-    height: 1vw; */
   }
 
   /* .slick-prev {
@@ -152,14 +143,5 @@ vertical-align: middle;
       content: '';
     }
   } */
-
-  /* .StudyBlock {
-    display: flex;
-    flex-direction: column;
-    width: var(--width);
-    padding-top: 80px;
-    background-color: #f1f1f1;
-    height: 500px;
-} */
 `;
 
