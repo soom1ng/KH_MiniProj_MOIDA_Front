@@ -1,18 +1,12 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { StudyDesc } from "./StudyDesc";
 import plusImg from "../../Images/plus.png";
-
-
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-
+import { useContext } from "react";
+import { LoginContext } from "../../context/AuthContext";
 
 const StyledMyStudyBlock = styled.div`
+
     .plusImg {
     width: 50px;
     height: 50px;
@@ -37,13 +31,14 @@ const StyledMyStudyBlock = styled.div`
 
 export const MyStudyBlock = ({ isNew }) => {
     const navigate = useNavigate();
-
+    const studyId = useParams();
     const onClickCreateStudy = () => {
-        navigate('/Study/Create');
+        navigate('/study/create');
     }
     const onClickStudyRoom = () => {
-        navigate('/Study/StudyRoom')
+        navigate(`/study/studyRoom/Main/${studyId}`)
     }
+
 
 
     return (

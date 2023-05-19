@@ -76,8 +76,6 @@ const StyledStudyDesc = styled.div`
 
 export const StudyDesc = ({ size, study_profile, study_name, study_tag, study_intro, isMember, isTagTitle }) => {
     const sizeStyle = SIZES[size];
-    console.log(study_profile);
-
     return (
         <StyledStudyDesc sizeStyle={sizeStyle}>
             <div className="box">
