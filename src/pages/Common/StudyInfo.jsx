@@ -143,7 +143,8 @@ export const StudyInfo = ({ size, studyProfile, studyName, studyTag, studyIntro,
             <Body>
                 <Body1>
                     <StudyDesc
-                        size={"s"} study_profile={"#fffff"}
+                        size={"s"}
+                        study_profile={studyProfile}
                         study_name={studyName}
                         study_tag={studyTag}
                         study_intro={studyIntro}

@@ -74,9 +74,8 @@ const StyledStudy = styled.div`
     }
 `;
 
-export const Study = ({studyId, studyTitle, studyIntro, studyTag, studyDate, studyUserLimit, studyUserCount})  => {
+export const Study = ({studyId, studyProfile, studyTitle, studyIntro, studyTag, studyDate, studyUserLimit, studyUserCount})  => {
   const navigate = useNavigate();
-
   const onClick = () => {
     navigate(`/study/studyroom/Main/${studyId}`)
   }
@@ -84,7 +83,7 @@ export const Study = ({studyId, studyTitle, studyIntro, studyTag, studyDate, stu
   return (
     <StyledStudy onClick={onClick}>
 
-      <StudyDesc size={"l"} study_profile={"#fffff"}
+      <StudyDesc size={"l"} study_profile={studyProfile}
         study_name={studyTitle}
         study_tag={studyTag}
         study_intro={studyIntro}

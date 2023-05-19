@@ -48,7 +48,7 @@ const StyledStudyDesc = styled.div`
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background-color: #E2fff9;
+        /* background-color: #E2fff9; */
         display: flex;
         margin: 10px;
         margin-left: 0px;
@@ -76,12 +76,14 @@ const StyledStudyDesc = styled.div`
 
 export const StudyDesc = ({ size, study_profile, study_name, study_tag, study_intro, isMember, isTagTitle }) => {
     const sizeStyle = SIZES[size];
+    console.log(study_profile);
 
     return (
         <StyledStudyDesc sizeStyle={sizeStyle}>
             <div className="box">
                 <div className='StudyName'>
-                    <div className='StudyProfile' style={{ backgroundColor: `${study_profile}` }}></div>
+                <div className='StudyProfile' style={{ backgroundColor: study_profile}}></div>
+
                     <Link to="/Study/StudyRoom" style={{ textDecoration: "none", color: "#111" }}>{study_name}</Link>
                 </div>
 

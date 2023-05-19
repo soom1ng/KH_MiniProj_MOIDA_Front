@@ -160,9 +160,15 @@ const DeleteImg = styled.img`
 
 
 
-const HeaderStudy = ({studyProfile, studyName, studyTag, studyIntro, studyLink, studyUserCount, studyUserLimit, userName }) => {
+const HeaderStudy = () => {
   const {studyId} = useParams();
-
+  const studyName = window.localStorage.getItem("studyName"); 
+  const studyTag = window.localStorage.getItem("studyTag"); 
+  const studyIntro = window.localStorage.getItem("studyIntro"); 
+  const studyLink = window.localStorage.getItem("studyLink"); 
+  const studyUserCount = window.localStorage.getItem("studyUserCount"); 
+  const studyUserLimit = window.localStorage.getItem("studyUserLimit"); 
+  const userName = window.localStorage.getItem("userName"); 
   return (
     <>
       <StudyHeader>

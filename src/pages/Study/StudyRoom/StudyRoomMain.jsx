@@ -12,34 +12,44 @@ const StudyRoomMain = () => {
     const [studyData, setstudyData] = useState('');
     
     useEffect(() => {
-        const studyHeaderInfo = async () => {
-          
-          try{
-              const rsp = await AxiosApi.studyViewGet(studyId); // 전체 조회
-              setstudyData(rsp.data);
-              console.log(rsp.data);
-          } catch(error) {
-              console.error(error);
+        const fetchStudyData = async () => {
+          try {
+            const response = await AxiosApi.studyViewGet(studyId);
+            const data = response.data;
+            setstudyData(data);
+    
+            if (data) {
+              const {
+                studyName,
+                tagName,
+                studyIntro,
+                studyChatUrl,
+                studyUserCount,
+                studyUserLimit,
+                userName,
+              } = data;
+    
+              window.localStorage.setItem("studyName", studyName);
+              window.localStorage.setItem("studyTag", tagName);
+              window.localStorage.setItem("studyIntro", studyIntro);
+              window.localStorage.setItem("studyLink", studyChatUrl);
+              window.localStorage.setItem("studyUserCount", studyUserCount);
+              window.localStorage.setItem("studyUserLimit", studyUserLimit);
+              window.localStorage.setItem("userName", userName);
+            }
+          } catch (error) {
+            console.error(error);
           }
-          
         };
-        studyHeaderInfo();
-      }, []);
+    
+        fetchStudyData();
+      }, [studyId]);
 
     return (
         <>
             <Header />
             {studyData && (
-            <HeaderStudy
-                studyProfile=''
-                studyName={studyData.studyName} 
-                studyTag={studyData.tagName}
-                studyIntro={studyData.studyIntro}
-                studyLink={studyData.studyChatUrl}
-                studyUserCount={studyData.studyUserCount}
-                studyUserLimit={studyData.studyUserLimit}
-                userName={studyData.userName}
-            />
+            <HeaderStudy/>
             )}
             <StudyRoom>
                 <div className="content" style={{ fontSize: "18px", width: "900px" }}>{studyData.studyIntro}</div>

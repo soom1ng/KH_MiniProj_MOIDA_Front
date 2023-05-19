@@ -181,6 +181,7 @@ const StudyList = () => {
                 studyDate={study.studyDeadline}
                 studyUserCount={study.studyUserCount}
                 studyUserLimit={study.studyUserLimit}
+                studyProfile={study.studyProfile}
               />
             ))
           }

@@ -157,7 +157,7 @@ const SchedulBox = ({ study_sc_date, study_sc_content, study_name, study_member_
 
 const StudyRoomSchedule = () => {
     const {studyId} = useParams();
-    const [studySc, setStudySc] = useState([]);
+    const [studySchedule, setStudySchedule] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const closeModal = () => {
         setModalOpen(false);
@@ -167,14 +167,14 @@ const StudyRoomSchedule = () => {
     useEffect(() => {
         const studyScInfo = async () => {
             const rsp = await AxiosApi.studyMemGet(studyId); // 전체 조회
-            if(rsp.status === 200) setStudySc(rsp.data);
+            if(rsp.status === 200) setStudySchedule(rsp.data);
             console.log(rsp.data);
           
         };
         studyScInfo();
       }, [studyId]);
 
-      console.log(studySc);
+      console.log(studySchedule);
     return (
         <>
             <Header />
@@ -186,7 +186,7 @@ const StudyRoomSchedule = () => {
                 </Box>
                 <BoardBox>
                 <BoardContainerWrapper>
-                    {studySc && studySc.map((sc) => (
+                    {studySchedule && studySchedule.map((sc) => (
                         <SchedulBox
                         key={sc.studyScId}
                         study_sc_date={"3/21"}
