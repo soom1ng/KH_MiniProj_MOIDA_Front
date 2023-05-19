@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React,{ useState, useContext, useEffect } from "react";
 import styled, { css } from "styled-components";
 import LOGO_imgOnly from "../../Images/LOGO_imgOnly.png"
 import {LoginContext} from "../../context/AuthContext"
-//import AxiosApi from "../../api/AxiosAPI";
+import { storage } from "../../api/firebase";
 
 const SIZES = {
   s: css`
@@ -49,23 +49,36 @@ const MyInfo = styled.div`
   margin-left: 10px;
 `;
 
-export const Profile = ({ size, userName, isStroom }) => {
+export const Profile = ({ size, isStroom }) => {
   const sizeStyle = SIZES[size];
-  const [showMyImgInPut, setShowMyImgInPut] = useState('');
-  const [myImg, setMyImg] = useState(null);
-  const { nickname } = useContext(LoginContext);
+  const { nickname, img, userName } = useContext(LoginContext);
+  const [downloadURL, setDownloadURL] = useState('');
+
+  useEffect(() => {
+    if (img) {
+      const storageRef = storage.ref();
+      const fileRef = storageRef.child(img.name);
+
+      fileRef.put(img).then(() => {
+        fileRef.getDownloadURL().then((url) => {
+          setDownloadURL(url);
+        }).catch((error) => {
+          console.log('이미지 URL 가져오기 오류:', error.message);
+        });
+      }).catch((error) => {
+        console.log('이미지 업로드 오류:', error.message);
+      });
+    }
+  }, [img]);
 
   return (
     <ProfileContainer sizeStyle={sizeStyle}>
-      {showMyImgInPut ? (
-        <MyImage src={showMyImgInPut} alt="이미지 미리보기" />
-      ) : (
-        myImg ? (
-          <MyImage src={URL.createObjectURL(myImg)} alt="이미지 미리보기" />
-        ) : (
-          <MyImage src={LOGO_imgOnly} alt="기본 이미지" />
-        )
-      )}
+     {!downloadURL ? (
+            <MyImage src={LOGO_imgOnly} alt="기본 이미지" />
+          ) : (
+            <MyImage src={downloadURL} alt="이미지 미리보기" />
+          )}
+
       {isStroom ? <MyInfo>{userName}</MyInfo> : <MyInfo>{nickname}</MyInfo>}
       <InfoText>님</InfoText>
     </ProfileContainer>

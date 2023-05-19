@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+//이거 새로고침 로그아웃 안 되게 수정하기
 
 export const LoginContext = createContext({
     userId: '',

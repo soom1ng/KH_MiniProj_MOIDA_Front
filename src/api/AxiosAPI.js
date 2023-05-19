@@ -50,10 +50,11 @@ const AxiosApi = {
   },
 
   // 마이페이지 프로필 수정
-  updatePassword: async (userId, pw) => {
+  updatePassword: async (userId, password, newPassword) => {
     const requestData = {
       userId: userId,
-      pw: pw
+      pw: password,
+      newPw: newPassword
     };
     try {
       const response = await axios.post(`${MOIDA_DOMAIN}/pw`, requestData);
@@ -107,6 +108,19 @@ const AxiosApi = {
   },
 
   // 이미지 수정
+  uploadImageURL: async (userId, downloadURL) => {
+    const requestData = {
+      userId: userId,
+      img: downloadURL
+    };
+    try {
+      const response = await axios.post(`${MOIDA_DOMAIN}/img`, requestData);
+      return response.data;
+    } catch (error) {
+      console.log("번호 변경 에러:", error.message);
+      throw error;
+    }
+  },
 
 
   // 게시물 리스트 GET
