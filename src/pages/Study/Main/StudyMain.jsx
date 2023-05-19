@@ -43,14 +43,15 @@ flex-direction: column;
     display: flex;
     flex-direction: column;
     width: 1200px;
+    height: 500px;
     padding-top: 80px;
     background-color: #f1f1f1;
-    height: 500px;
-}
-.block_box {
-        display: flex;
-    flex-direction: row;
 
+}
+
+.block_box {
+    display: flex;
+    flex-direction: row;
 }
 
 .item {
@@ -58,9 +59,7 @@ flex-direction: column;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-
 }
-
 
 
 .StudySchedule {
@@ -86,38 +85,6 @@ flex-direction: column;
     margin: 0;
 }
 
-
-// 스터디 박스
-
-/* .listAll_box {
-    margin-top: 70px;
-    display: flex;
-    width: 1200px;
-    flex-direction: column;
-    background-color: #f1f1f1;
-    height: 1150px;
-}
-
-.study_menu {
-    display: flex;
-    flex-direction: row;
-}
-
-
-.title_all {
-    padding : 30px 0 0 60px;
-    width: 300px;
-}
-
-
-.new_study {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-} */
-
-
 form {
     display: flex;
     flex-direction: column;
@@ -137,34 +104,15 @@ const StudyMain = () => {
             <Header></Header>
 
             <StudyContainer>
-                <div className="StudyList">
-                    <div className="list_box">
-                        {/* <h1 className="title_my">나의 스터디 📚</h1>
-                            <div className="block_box">
-                            <MyStudyBlock isNew={1}/>
-                            <MyStudyBlock/>
-                            </div> */}
-                            <MyStudyList/>
-                        {/* <div className="item">
 
-                            
 
-                            컴포넌트 수정 예정
-
-                            <div className="item-1">
-                                <img className="plusImg" src={plusImg} alt="아이콘" onClick={onClickCreateStudy} />
-                            </div>
-                            <div className="item-1" onClick={onClickStudyRoom}>
-                                <StudyDesc size={"xs"} study_profile={"#fffff"}
-                                    study_name={"백준방범대"}
-                                    study_tag={"#코딩 #자바"}
-                                    study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."} 
-                                    isMember={1}/>
-                            </div>
-                        </div> */}
-                        
-                    </div>
+                <div className="list_box">
+                    <h1 className="title_my">나의 스터디 📚</h1>
+                    <MyStudyList />
                 </div>
+
+
+
 
                 <form>
                     <h1 className="title_schdule">나의 일정 🗓</h1>

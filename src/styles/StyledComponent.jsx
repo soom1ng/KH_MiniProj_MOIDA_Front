@@ -38,6 +38,13 @@ const SmallTitle = styled.text`
     font-weight: bolder;
 `;
 
+const MyPageTitle = styled.p`
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-bottom: 16px;
+`;
+
 const Search = styled.div`
     font-size:16px;
     color: rgb(127, 127, 127);
@@ -152,5 +159,5 @@ const Input = styled.input`
 `;
 
 
-export {BigTitle, SmallTitle, Search, Button, InputButton, BlockBox, Container, MyDiv, StudyRoom, Profile, BoardBox, BoardContainerWrapper, InputLabel, InputLabelBig, Input};
+export {BigTitle, SmallTitle, MyPageTitle, Search, Button, InputButton, BlockBox, Container, MyDiv, StudyRoom, Profile, BoardBox, BoardContainerWrapper, InputLabel, InputLabelBig, Input};
 export default GlobalStyle;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { StudyDesc } from "./StudyDesc";
 import plusImg from "../../Images/plus.png";
@@ -13,12 +13,13 @@ import plusImg from "../../Images/plus.png";
 
 
 const StyledMyStudyBlock = styled.div`
+
     .plusImg {
     width: 50px;
     height: 50px;
     }
 
-    .item-1 {
+    .study-block {
         background-color: white;
         border-radius: 10px;
         display: flex;
@@ -26,16 +27,16 @@ const StyledMyStudyBlock = styled.div`
         vertical-align: middle;
         align-items: center;
         justify-content: center;
-        width: 350px;
+        width: 340px;
         height: 200px;
-        margin-left: 50px;
+        margin: 0 30px;
         border: 1px solid #F3F3F3;
         border-radius: 10px;
         cursor: pointer;
     }
 `;
 
-export const MyStudyBlock = ({ isNew }) => {
+export const MyStudyBlock = ({ isCreate }) => {
     const navigate = useNavigate();
 
     const onClickCreateStudy = () => {
@@ -47,25 +48,23 @@ export const MyStudyBlock = ({ isNew }) => {
 
 
     return (
-        <StyledMyStudyBlock>
-            <div className="create">
+        <StyledMyStudyBlock >
 
-                {/* 값이 있으면 무조건 TRUE */}
-                {isNew ?
-                    <div className="item-1" onClick={onClickCreateStudy}>
-                        <img className="plusImg" src={plusImg} alt="아이콘" />
-                    </div>
-                    :
-                    <div className="item-1" onClick={onClickStudyRoom}>
-                        <StudyDesc size={"xs"} study_profile={"#fffff"}
-                            study_name={"백준방범대"}
-                            study_tag={"#코딩 #자바"}
-                            study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."}
-                            isMember={1} />
-                    </div>}
-            </div>
-
-
+                <div>
+                    {/* 값이 있으면 무조건 TRUE */}
+                    {isCreate ? <div className="study-block" onClick={onClickCreateStudy}>
+                             <img className="plusImg" src={plusImg} alt="아이콘" />
+                             </div>
+                        :
+                        <div className="study-block" onClick={onClickStudyRoom}>
+                            <StudyDesc size={"xs"} study_profile={"#fffff"}
+                                study_name={"백준방범대"}
+                                study_tag={"#코딩 #자바"}
+                                study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."}
+                                isMember={1} />
+                        </div>
+                    }
+                </div> 
         </StyledMyStudyBlock>
     );
 };
