@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from 'styled-components';
+import AxiosApi from "../../../api/AxiosAPI";
 
 const Container = styled.div`
   background-color: #F3F3F3;
@@ -85,19 +87,57 @@ const FindButton = styled.button`
 
 
 function CreateSc() {
+
+  const userId = 1;
+  const navigate = useNavigate();
+  const {studyId} = useParams();
+
+  // 일정 input
+  const [scheduleDate, setScheduleDate] = useState('');
+  const [scheduleName, setScheduleName] = useState('');
+  const [scheduleUserLimit, setScheduleUserLimit] = useState('');
+
+  const onChangescheduleDate = (e) => {
+    setScheduleDate(e.target.value);
+  };
+  const onChangescheduleName = (e) => {
+    setScheduleName(e.target.value);
+  };
+  const onChangescheduleUserLimit = (e) => {
+    setScheduleUserLimit(e.target.value);
+  };
+
+  const onCreateSc = async () => {
+    try {
+      const createSc = await AxiosApi.createStudySchedule(userId, studyId, scheduleDate, scheduleName, scheduleUserLimit);
+      console.log(createSc.data.result);
+
+      if (createSc.data.result === "OK") {
+        navigate(`/study/studyRoom/Schedule/${studyId}`);
+      } else {
+        console.log("입력 실패");
+        navigate(`/study/studyRoom/Schedule/${studyId}`);
+      }
+    } catch (error) {
+      console.log("에러:", error);
+    }
+  };
+
+
+
     return (
         <Container>
             <div className="idBox" >
             <div className="title">📅 스터디 일정 생성</div>
             <TextBox>
             <TextOn>일정 날짜: 
-            <Input type="date"  /></TextOn>
+            <Input type="date" onChange={onChangescheduleDate} /></TextOn>
             <TextOn>일정 이름: 
-            <Input type="text"  /></TextOn>
+            <Input type="text" onChange={onChangescheduleName} /></TextOn>
             <TextOn>멤버 제한: 
-            <Input type="number"  /></TextOn>
+            <Input type="number" onChange={onChangescheduleUserLimit} /></TextOn>
             </TextBox>
-            <div className="buttonBox"><FindButton >생성</FindButton></div>
+            <div className="buttonBox"><FindButton onClick={() => onCreateSc()}>생성</FindButton></div>
             </div>
             <div className="idBox">
             <div className="find"><TextOn></TextOn></div>

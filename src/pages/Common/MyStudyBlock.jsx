@@ -54,8 +54,8 @@ export const MyStudyBlock = ({ isCreate, studyId, studyProfile, studyTitle, stud
                                 study_tag={studyTag}
                                 study_intro={studyIntro}
                                 isMember={1}
-                                study_user_count={studyUserLimit}
-                                study_user_limit={studyUserCount} />
+                                study_user_count={studyUserCount}
+                                study_user_limit={studyUserLimit} />
                         </div>
                     }
                 </div> 

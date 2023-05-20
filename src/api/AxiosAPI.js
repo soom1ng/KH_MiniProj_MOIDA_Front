@@ -19,6 +19,7 @@ const AxiosApi = {
   studyMemGet : async(studyId) => {
       return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Member/${studyId}`);
   },
+
   // 스터디 일정 정보
   studyScGet : async(studyId) => {
       return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Schedule/${studyId}`);
@@ -27,7 +28,7 @@ const AxiosApi = {
 
   // 스터디 생성
   createStudy: async (userId, studyName, category, studyUserLimit, studyChatUrl, studyIntro, studyContent, studyDeadline, randomColor, tagString) => {
-    const post = {
+    const study = {
       userId: userId,
       studyName: studyName,
       studyCategory: category,
@@ -39,7 +40,19 @@ const AxiosApi = {
       studyProfile : randomColor,
       tagName : tagString
     };
-    return await axios.post(MOIDA_DOMAIN + `/study/create`, post);
+    return await axios.post(MOIDA_DOMAIN + `/study/create`, study);
+  },
+
+  // 스터디 일정 생성
+  createStudySchedule : async (userId, studyId, studyScDate, studyScContent, studyScUserLimit) => {
+    const schedule = {
+      userId : userId,
+      studyId : studyId,
+      studyScDate : studyScDate,
+      studyScContent : studyScContent,
+      studyScUserLimit : studyScUserLimit
+    };
+    return await axios.post(MOIDA_DOMAIN + `/study/studyRoom/Schedule/${studyId}`, schedule)
   },
 
   // 로그인

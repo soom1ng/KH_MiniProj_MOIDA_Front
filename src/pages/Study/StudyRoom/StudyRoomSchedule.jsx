@@ -13,6 +13,7 @@ import { ViewScMem } from "./ViewScMem";
 import { useParams } from "react-router-dom/dist";
 import AxiosApi from "../../../api/AxiosAPI";
 import CreateSc from "./CreateSc";
+import moment from "moment/moment";
 const CalendarBox = () => {
     const [value, onChange] = useState(new Date());
     return (
@@ -159,6 +160,10 @@ const StudyRoomSchedule = () => {
     const {studyId} = useParams();
     const [studySchedule, setStudySchedule] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
+
+    const studyName = window.localStorage.getItem("studyName"); 
+    const studyProfile = window.localStorage.getItem("studyProfile");
+    
     const closeModal = () => {
         setModalOpen(false);
     };
@@ -166,15 +171,21 @@ const StudyRoomSchedule = () => {
 
     useEffect(() => {
         const studyScInfo = async () => {
-            const rsp = await AxiosApi.studyMemGet(studyId); // 전체 조회
-            if(rsp.status === 200) setStudySchedule(rsp.data);
-            console.log(rsp.data);
-          
+          try {
+            const rsp = await AxiosApi.studyScGet(studyId); // 전체 조회
+            if (rsp.status === 200) {
+              setStudySchedule(rsp.data);
+              console.log(rsp.data);
+            }
+          } catch (error) {
+            console.error('스터디 일정 정보를 가져오는 중 에러가 발생했습니다:', error);
+          }
         };
+      
         studyScInfo();
       }, [studyId]);
 
-      console.log(studySchedule);
+     
     return (
         <>
             <Header />
@@ -189,13 +200,13 @@ const StudyRoomSchedule = () => {
                     {studySchedule && studySchedule.map((sc) => (
                         <SchedulBox
                         key={sc.studyScId}
-                        study_sc_date={"3/21"}
+                        study_sc_date={moment(sc.studyScDate).format('MM/DD')}
                         study_sc_content={sc.studyScContent}
-                        study_name={"백준방범대"}
+                        study_name={studyName}
                         study_member_count={sc.studyScUserCount}
                         study_user_count={sc.studyScUserLimit}
-                        study_color={"#000000"}
-                        study_user_name={"윤홍비 김수민 한다혜 홍상우"}/>
+                        study_color={studyProfile}
+                        />
                     ))}
                         
                         <AddSc onClick={() => setModalOpen(true)} size={600} marginRight={140}></AddSc>
