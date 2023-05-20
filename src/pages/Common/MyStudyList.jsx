@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { MyStudyBlock } from "./MyStudyBlock";
+import AxiosApi from "../../api/AxiosAPI";
 
 
 // 슬라이드 슬릭에 화살표 추가 -> 위치 조정이 복잡해서 구현X
@@ -29,16 +30,41 @@ import { MyStudyBlock } from "./MyStudyBlock";
 
 
 export const MyStudyList = ( ) => {
+  const[myStudyInfo, setMyStudyInfo] = useState([]);
+  const userId = 1  ;
+
+  useEffect(() => {
+    const studyInfo = async() => {
+        const rsp = await AxiosApi.studyListGet(); // 전체 조회
+        if(rsp.status === 200) setMyStudyInfo(rsp.data);
+        console.log(rsp.data);
+    };
+    studyInfo();
+}, []);
 
   return (
 
-      <StyledSlider { ...MyListset }>
 
-        <MyStudyBlock isCreate={1} />
-        <MyStudyBlock />
-        <MyStudyBlock />
-        <MyStudyBlock />
-        <MyStudyBlock />
+      <StyledSlider { ...MyListset }>
+         <MyStudyBlock isCreate={1} />
+        {myStudyInfo && myStudyInfo
+        .filter((study) => study.userId === userId)
+        .map((study) => (
+          <MyStudyBlock 
+            key={study.studyId}
+            studyId={study.studyId}
+            studyProfile={study.studyProfile}
+            studyTitle={study.studyName}
+            studyIntro={study.studyIntro}
+            studyTag={study.tagName}
+            studyUserCount={study.studyUserCount}
+            studyUserLimit={study.studyUserLimit}
+          />
+        ))
+        }
+       
+        
+
 
       </StyledSlider>
 

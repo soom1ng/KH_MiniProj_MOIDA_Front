@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { CountMem } from "./CountMem";
 
@@ -71,24 +71,33 @@ const StyledStudyDesc = styled.div`
         font-size: 1.5em;
         font-weight: bold;
     }
+    .title{
+        font-size: 27px;
+        margin: 0;
+    }
 
 `;
 
-export const StudyDesc = ({ size, studyId, study_profile, study_name, study_tag, study_intro, isMember, isTagTitle }) => {
+export const StudyDesc = ({ size, studyId, study_profile, study_name, study_tag, study_intro, isMember, isTagTitle, study_user_count, study_user_limit }) => {
     const sizeStyle = SIZES[size];
+    const navigate = useNavigate();
+    const onClick = () => {
+        navigate(`/study/studyRoom/Main/${studyId}`)
+      }
+
     return (
-        <StyledStudyDesc sizeStyle={sizeStyle}>
+        <StyledStudyDesc onClick={onClick} sizeStyle={sizeStyle}>
             <div className="box">
                 <div className='StudyName'>
                 <div className='StudyProfile' style={{ backgroundColor: study_profile}}></div>
 
-                    <Link to={`/study/studyroom/Main/${studyId}`} style={{ textDecoration: "none", color: "#111" }}>{study_name}</Link>
+                    <h2 className="title">{study_name}</h2>
                 </div>
 
                 <h2>{isMember ? <CountMem
                     size={"s"}
-                    study_user_count={"2"}
-                    study_user_limit={"20"}></CountMem> : <></>}</h2>
+                    study_user_count={study_user_count}
+                    study_user_limit={study_user_limit}></CountMem> : <></>}</h2>
 
             </div>
             <p className="itemText">{study_intro}</p>

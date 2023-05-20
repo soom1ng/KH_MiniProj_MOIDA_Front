@@ -27,15 +27,12 @@ const StyledMyStudyBlock = styled.div`
     }
 `;
 
-export const MyStudyBlock = ({ isCreate }) => {
+export const MyStudyBlock = ({ isCreate, studyId, studyProfile, studyTitle, studyIntro, studyTag, studyUserLimit, studyUserCount }) => {
     const navigate = useNavigate();
-    const studyId = useParams();
     const onClickCreateStudy = () => {
         navigate('/study/create');
     }
-    const onClickStudyRoom = () => {
-        navigate(`/study/studyRoom/Main/${studyId}`)
-    }
+   
 
 
 
@@ -48,12 +45,17 @@ export const MyStudyBlock = ({ isCreate }) => {
                              <img className="plusImg" src={plusImg} alt="아이콘" />
                              </div>
                         :
-                        <div className="study-block" onClick={onClickStudyRoom}>
-                            <StudyDesc size={"xs"} study_profile={"#fffff"}
-                                study_name={"백준방범대"}
-                                study_tag={"#코딩 #자바"}
-                                study_intro={"스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다. 스터디 설명입니다."}
-                                isMember={1} />
+                        <div className="study-block">
+                            <StudyDesc 
+                                studyId={studyId}
+                                size={"xs"}
+                                study_profile={studyProfile}
+                                study_name={studyTitle}
+                                study_tag={studyTag}
+                                study_intro={studyIntro}
+                                isMember={1}
+                                study_user_count={studyUserLimit}
+                                study_user_limit={studyUserCount} />
                         </div>
                     }
                 </div> 

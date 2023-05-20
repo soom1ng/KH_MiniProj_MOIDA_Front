@@ -23,6 +23,8 @@ const AxiosApi = {
   studyScGet : async(studyId) => {
       return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Schedule/${studyId}`);
   },
+
+
   // 스터디 생성
   createStudy: async (userId, studyName, category, studyUserLimit, studyChatUrl, studyIntro, studyContent, studyDeadline, randomColor, tagString) => {
     const post = {
