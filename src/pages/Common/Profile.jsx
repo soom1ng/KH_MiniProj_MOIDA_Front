@@ -73,11 +73,11 @@ export const Profile = ({ size, isStroom, userName }) => {
 
   return (
     <ProfileContainer sizeStyle={sizeStyle}>
-     {!downloadURL ? (
-            <MyImage src={LOGO_imgOnly} alt="기본 이미지" />
-          ) : (
-            <MyImage src={downloadURL} alt="이미지 미리보기" />
-          )}
+      {img ? (
+        <MyImage src={img} alt="이미지 미리보기" />
+      ) : (
+          <MyImage src={LOGO_imgOnly} alt="기본 이미지" />
+      )}
 
       {isStroom ? <MyInfo>{userName}</MyInfo> : <MyInfo>{nickname}</MyInfo>}
       <InfoText>님</InfoText>

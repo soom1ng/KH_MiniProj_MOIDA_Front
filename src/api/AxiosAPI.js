@@ -24,7 +24,6 @@ const AxiosApi = {
       return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Schedule/${studyId}`);
   },
 
-
   // 스터디 생성
   createStudy: async (userId, studyName, category, studyUserLimit, studyChatUrl, studyIntro, studyContent, studyDeadline, randomColor, tagString) => {
     const post = {
@@ -40,6 +39,32 @@ const AxiosApi = {
       tagName : tagString
     };
     return await axios.post(MOIDA_DOMAIN + `/study/create`, post);
+  },
+
+  // 회원가입
+  signUp: async (username, pw, pwConfirm, email, phone, nickname) => {
+    if (pw !== pwConfirm) {
+      console.log("비밀번호가 일치하지 않습니다.");
+      return false;
+    }
+
+    const signUpData = {
+      userName: username,
+      pw: pw,
+      pwConfirm: pwConfirm,
+      email: email,
+      phone: phone,
+      nickname: nickname
+    };
+
+    try {
+      const response = await axios.post(MOIDA_DOMAIN + "/new", signUpData);
+      console.log("회원가입이 완료되었습니다.", response.data);
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   },
 
   // 로그인

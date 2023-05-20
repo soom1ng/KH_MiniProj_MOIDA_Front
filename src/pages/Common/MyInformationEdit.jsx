@@ -278,7 +278,7 @@ try {
   const storageRef = storage.ref();
   const fileRef = storageRef.child(img.name);
 
-  // 이미지 업로드
+  // 이미지 업로드 
   await fileRef.put(img);
 
   // 이미지 다운로드 URL 가져오기
@@ -328,11 +328,14 @@ try {
           <MyPageTitle>내 정보</MyPageTitle>
         <div className="infoContainer">
           <ProfileBox>
-          {!downloadURL ? (
-            <MyImage src={LOGO_imgOnly} alt="기본 이미지" />
-          ) : (
+          {img ? (
+            <MyImage src={img} alt="이미지 미리보기" />
+          ) : downloadURL ? (
             <MyImage src={downloadURL} alt="이미지 미리보기" />
+          ) : (
+            <MyImage src={LOGO_imgOnly} alt="기본 이미지" />
           )}
+          
         <div className="editButtonBox">
           <div className="nickNameBox">
         {isEditing ? (

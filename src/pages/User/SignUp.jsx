@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-// import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from 'styled-components';
 import { InputLabel, InputLabelBig, Input, InputButton } from "../../styles/StyledComponent";
+import AxiosApi from "../../api/AxiosAPI";
 
 const SignContainer = styled.div`
   width: 800px;
@@ -27,7 +28,7 @@ const Form = styled.form`
   align-items: center;
 `;
 
-const Body = styled.form`
+const Body = styled.div`
   margin-left: 40px;
   display: flex;
   text-align: left;
@@ -63,21 +64,44 @@ const InputCheckBox = styled.input`
 const SignUp = () => {
 
   const [isAgreed, setIsAgreed] = useState(false); // 개인 정보 제공 동의
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [pw, setPw] = useState('');
+  const [pwConfirm, setPwConfirm] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [nickname, setNickname] = useState('');
+
 
   const handleCheckBoxChange = (e) => {
     setIsAgreed(e.target.checked);
   };
 
   // 회원가입 버튼 클릭
-  const handleSignUp = () => {
-    // 개인 정보 제공 동의 체크 여부 확인
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+
     if (isAgreed) {
-      // 체크 박스에 동의한 경우 회원가입
       console.log('회원가입 버튼이 클릭되었습니다. 개인 정보 제공에 동의하였습니다.');
     } else {
       console.log('개인 정보 제공에 동의해야 회원가입이 가능합니다.');
     }
+
+    try {
+      const signUpSuccess = await AxiosApi.signUp(username, pw, pwConfirm, email, phone, nickname);
+
+      if (signUpSuccess) {
+        console.log('회원가입이 완료되었습니다.');
+        navigate('/SignIn');
+      } else {
+        console.log('회원가입에 실패했습니다.');
+      }
+    } catch (error) {
+      console.log('회원가입 에러:', error.message);
+    }
   };
+
+  
 
   return (
     <SignContainer>
@@ -86,23 +110,23 @@ const SignUp = () => {
         <Body>
           <Body1>
             <InputLabel>아이디</InputLabel>
-            <Input type="id" placeholder="아이디를 입력해주세요." required />
+            <Input type="id" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="아이디를 입력해주세요." required />
 
             <InputLabel>비밀번호</InputLabel>
-            <Input type="password" placeholder="비밀번호를 입력해주세요." required />
+            <Input type="password" value={pw} onChange={(e) => setPw(e.target.value)} placeholder="비밀번호를 입력해주세요." required />
 
             <InputLabelBig>비밀번호 확인</InputLabelBig>
-            <Input type="password" placeholder="비밀번호를 다시 입력해주세요." required />
+            <Input type="password" value={pwConfirm} onChange={(e) => setPwConfirm(e.target.value)}  placeholder="비밀번호를 다시 입력해주세요." required />
           </Body1>
           <Body2>
             <InputLabel>닉네임</InputLabel>
-            <Input type="text" placeholder="닉네임을 입력해주세요." required />
+            <Input type="text" value={nickname}  onChange={(e) => setNickname(e.target.value)} placeholder="닉네임을 입력해주세요." required />
 
             <InputLabel>전화번호</InputLabel>
-            <Input type="text" placeholder="전화번호를 입력해주세요." required />
+            <Input type="text" value={phone}  onChange={(e) => setPhone(e.target.value)} placeholder="전화번호를 입력해주세요." required />
 
             <InputLabel>이메일</InputLabel>
-            <Input type="email" placeholder="이메일을 입력해주세요." required />
+            <Input type="email" value={email}  onChange={(e) => setEmail(e.target.value)} placeholder="이메일을 입력해주세요." required />
           </Body2>
         </Body>
 
