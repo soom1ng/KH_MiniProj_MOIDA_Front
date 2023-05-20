@@ -34,7 +34,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    
+
     .comment-nickname {
       width: 100%;
       text-align: left;
@@ -71,29 +71,29 @@ const Container = styled.div`
 // 타입을 lounge와 story로 나누면 되려나
 // 아니면 게시물 + 댓글list로 VO가 구성되어 있고 한번에 받아오니까
 // 댓글 list를 받아서 열어주는걸로 할까?? 괜찮을듯
-const CommentsList = ({ commentsList, page, setPage }) => {
-  const listPerPage = 8; // 페이지 당 보여줄 댓글 개수 개수
-  const offset = listPerPage * (page - 1); // 리스트를 슬라이스 하기 위한 변수
-  const maxPage = Math.ceil(commentsList.length / listPerPage); // 현재 리스트의 최대 페이지
+const CommentsList = ({ storyId, postId, commentsList, page, setPage, update, setUpdate }) => {
+    const listPerPage = 8; // 페이지 당 보여줄 댓글 개수 개수
+    const offset = listPerPage * (page - 1); // 리스트를 슬라이스 하기 위한 변수
+    const maxPage = Math.ceil(commentsList.length / listPerPage); // 현재 리스트의 최대 페이지
 
 
 
-  return (
-    <Container>
-      <div className="comment-header">댓글 📑</div>
+    return (
+        <Container>
+            <div className="comment-header">댓글 📑</div>
 
-      <div className="comment-list">
-        <CommentWriter></CommentWriter>
+            <div className="comment-list">
+                <CommentWriter postId={postId} storyId={storyId} update={update} setUpdate={setUpdate}/>
 
-        {commentsList && commentsList.slice(offset, offset + listPerPage).map((comment) => (
-          <Comment comment={comment} />
-        ))}
+                {commentsList && commentsList.slice(offset, offset + listPerPage).map((comment) => (
+                    <Comment comment={comment} update={update} setUpdate={setUpdate} />
+                ))}
 
-        {maxPage > 0 && <Paging maxPage={maxPage} page={page} setPage={setPage}></Paging>}
-      </div>
-    </Container>
+                {maxPage > 0 && <Paging maxPage={maxPage} page={page} setPage={setPage}></Paging>}
+            </div>
+        </Container>
 
-  )
+    )
 }
 
 export default CommentsList;

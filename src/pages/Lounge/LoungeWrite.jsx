@@ -86,7 +86,7 @@ const LoungeWrite = () => {
         console.log("inputTitle = " + inputTitle);
         console.log("inputContent = " + inputContents);
         console.log(postReg1.data.result);
-        if (postReg1.data.result === "OK") {
+        if (postReg1.data) {
             navigate(`/lounge/${boardName}`);
         }// } else {
         //     setModalOpen(true);

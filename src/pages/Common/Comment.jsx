@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 import enterIcon from "../../Images/enter.png"
 import CommentWriter from "./CommentWriter";
-import { formatRegTime } from "./formatRegTime";
+import {formatRegTime} from "./formatRegTime";
 // 접속한 아이디가 댓글 쓴 본인이면 수정/삭제가 보여야 함 => context API 로 유저의 아이디 값을 가져오고 비교한다?
 
 const EnterIcon = styled.img`
@@ -12,17 +12,17 @@ const StyledComment = styled.div`
   display: flex;
   justify-content: center;
   margin: 10px auto;
-  
+
   .comment-child {
     display: flex;
     align-items: center;
     width: 100px;
     justify-content: center;
     margin-left: 100px;
-    
+
   }
-  
- 
+
+
   .comment-body {
     width: 880px;
     height: 125px;
@@ -32,7 +32,7 @@ const StyledComment = styled.div`
     align-items: center;
     border-radius: 10px;
     background-color: white;
-    
+
     img {
       margin-left: 20px;
       width: 65px;
@@ -40,39 +40,41 @@ const StyledComment = styled.div`
       border-radius: 50%;
       border: 1px solid gray;
     }
-    
+
     .comment-body-text {
       padding: 20px;
       height: 100%;
       display: flex;
       flex-direction: column;
       width: 600px;
-      
+
       .comment-nickname {
         font-size: 2rem;
         font-weight: bold;
       }
-      
+
       .comment-content {
         font-size: 1.7rem;
-        
+
       }
     }
+
     .comment-footer {
       display: flex;
-      
+
       .modify {
         cursor: pointer;
       }
+
       .reply {
         margin-left: 20px;
         cursor: pointer;
       }
-      
+
     }
   }
-  
-  
+
+
 `;
 
 
@@ -87,7 +89,6 @@ const StyledComment = styled.div`
 // 다음페이지에 랜더링되면 알기가 힘들것이다
 
 
-
 // 내 아이디 값을 가져와서 수정/삭제가 가능해야함 댓글 삭제하면 대댓글은 어떻게 처리하냐?? 전부 삭제 처리하나?
 // 닉네임은 변경가능한 값이다, 고유 아이디값과 비교하는 것이 맞다
 // isChild = parent 컬럼에 값이 있으면 true 아니면 null 이니까 false로 쓸 수 있다
@@ -96,45 +97,56 @@ const StyledComment = styled.div`
 // context를 사용하여 닉네임 id를 가져온다
 // 댓글 수정,삭제 기능을 context의 id값을 통해 랜더링한다.
 // 댓글 작성시 닉네임을 가져와서 상단에 랜더링한다 -- commentWrite 컴포넌트를 만들깝쇼?
-const Comment = ({ comment }) => {
-  const { userId, commentId, parentId, nickname, regTime, contents, imgUrl } = comment;
-
-  const [isModify, setIsModify] = useState(false);
-  const [reply, setReply] = useState(false);
-
-
-  return (
-    <>
-      <StyledComment>
-
-        {(parentId !== 0) &&
-          <div className="comment-child">
-            <EnterIcon src={enterIcon} alt="#" />
-          </div>
-        }
-        {isModify ? <CommentWriter parentId={parentId} content={contents} isModify={isModify} setIsModify={setIsModify} /> :
-
-          <div className="comment-body">
-            <img src={imgUrl} alt="#" />
-            <div className="comment-body-text">
-              <div className="comment-nickname">{nickname}</div>
-              <div className="comment-content">{contents}</div>
-              <div className="comment-footer">
-                <div className="time">{formatRegTime(regTime)}</div>
-                {/* context의 정보와 comment의 userId비교*/}
-                {userId && <div className="modify" onClick={() => setIsModify(true)}>수정</div>}
-                {!parentId && <div className="reply" onClick={() => setReply(true)}>답글달기</div>}
-              </div>
-            </div>
-          </div>
-        }
-      </StyledComment>
-      {reply && <CommentWriter parentId={commentId} reply={reply} setReply={setReply} />}
-    </>
+const Comment = ({comment, update, setUpdate}) => {
+    const {userId, commentId, parentId, postId, storyId, nickname, regTime, contents, imgUrl} = comment;
+    const [isModify, setIsModify] = useState(false);
+    const [reply, setReply] = useState(false);
 
 
+    return (
+        <>
+            <StyledComment>
+                {(parentId !== 0) &&
+                    <div className="comment-child">
+                        <EnterIcon src={enterIcon} alt="#"/>
+                    </div>
+                }
+                {isModify ?
+                    <CommentWriter postId={postId}
+                                   storyId={storyId}
+                                   commentId={commentId}
+                                   content={contents}
+                                   isModify={isModify}
+                                   setIsModify={setIsModify}
+                                   update={update}
+                                   setUpdate={setUpdate}/> :
 
-  );
+                    <div className="comment-body">
+                        <img src={imgUrl} alt="#"/>
+                        <div className="comment-body-text">
+                            <div className="comment-nickname">{nickname}</div>
+                            <div className="comment-content">{contents}</div>
+                            <div className="comment-footer">
+                                <div className="time">{formatRegTime(regTime)}</div>
+                                {/* context의 정보와 comment의 userId비교*/}
+                                {userId && <div className="modify" onClick={() => setIsModify(true)}>수정</div>}
+                                {!parentId && <div className="reply" onClick={() => setReply(true)}>답글달기</div>}
+                            </div>
+                        </div>
+                    </div>
+                }
+            </StyledComment>
+            {reply && <CommentWriter postId={postId}
+                                     storyId={storyId}
+                                     parentId={commentId}
+                                     reply={reply}
+                                     setReply={setReply}
+                                     update={update}
+                                     setUpdate={setUpdate}/>}
+        </>
+
+
+    );
 };
 
 export default Comment;

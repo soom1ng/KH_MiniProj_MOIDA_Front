@@ -44,11 +44,17 @@ const Container = styled.div`
 
 
 const LoungePost = () => {
-
     const { boardName, postId } = useParams();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState([]);
     const [page, setPage] = useState(1);
+    const [update, setUpdate] = useState(1); // 페이지 업데이트용
+
+
+    // 댓글 등록 시 페이지를 다시 랜더링 시켜줘야하는데 어떻게 할까....
+    // viewPost함수를 실행시켜야함 다시 랜더링이 일어나야 함..
+    // 아 여기서 더 props를 늘려야 한다니..................
+
 
     useEffect(() => {
         const viewPost = async () => {
@@ -62,7 +68,9 @@ const LoungePost = () => {
             }
         }
         viewPost();
-    }, [boardName, postId]);
+    }, [update]);
+
+
 
     return (
 
@@ -75,10 +83,19 @@ const LoungePost = () => {
                 post={post}
             />}
             <div className="content">
-
                 {post && <p dangerouslySetInnerHTML={{ __html: post.contents.toString() }}></p>}
             </div>
-            {post && <CommentsList commentsList={post.comments} page={page} setPage={setPage} />}
+
+            {post &&
+                <CommentsList
+                    postId={postId}
+                    commentsList={comments}
+                    setComments={setComments}
+                    page={page}
+                    setPage={setPage}
+                    update={update}
+                    setUpdate={setUpdate}
+                />}
 
 
         </Container>

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import ThumbsUp from '../../Images/thumbsup.png';
 
@@ -13,15 +13,15 @@ const Recommend = styled.img`
 
 const StyledBoard = styled.div`
   background-color: white;
-  width: ${props => props.size}px;
+  width: ${props => props.size ? props.size + 'px' : '1100px'};
   height: 150px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 25px 25px 25px 50px;
+  padding: 20px 25px 10px 50px;
   border-radius: 10px;
   cursor: pointer;
-  margin: 15px 0 30px 0;
+  margin: 0 0 30px 0;
 
   &:hover {
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
@@ -29,41 +29,43 @@ const StyledBoard = styled.div`
 
   div {
     display: flex;
-    height: 100%;
     align-items: center;
-    justify-content: space-between;
   }
 
   .board-body-text {
+    height: 100%;
     width: 700px;
-    padding: 5px 25px 5px 25px;
+    padding: 0;
     display: flex;
     flex-direction: column;
 
     .nickname {
       width: 100%;
       margin: 0;
+      padding-left: 10px;
       font-size: 1.6rem;
       color: gray;
       height: auto;
     }
 
     .title {
-      font-size: 2rem;
+      margin: 0;
+      font-size: 2.4rem;
       font-weight: bold;
       width: 100%;
     }
 
     .content {
-      height: 4.2rem;
+      display: block;
+      margin-top: 0;
+      padding-left: 10px;
+      height: 5rem;
       width: 100%;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       color: gray;
       overflow: hidden;
       text-overflow: ellipsis;
-      padding-bottom: 20px;
       white-space: pre-line;
-      align-items: normal;
     }
   }
 
@@ -106,37 +108,55 @@ const StyledBoard = styled.div`
     }
   }
 `;
+const tagDelete = (text, row) => {
+  const tempElement = document.createElement("div")
+  tempElement.innerHTML = text;
+  const paragraphs = tempElement.querySelectorAll("p");
+  const lines = [];
+  for (let i = 0; i< paragraphs.length; i++) {
+    lines.push(paragraphs[i].textContent);
+  }
+  const rowsLine = lines.slice(0, row);
+  const result = rowsLine.join("\n");
 
-export const Board = ({ postId, type, nickname, title, content, img_url, date, recommend, size, boardName }) => {
+  if (paragraphs.length > row) { return result + "   ..."}
+  else {return result}
+
+}
+
+export const Board = ({postId, type, nickname, title, content, img_url, date, recommend, size, boardName}) => {
   const navigate = useNavigate();
+  content = tagDelete(content, 3);
+
+
   const OnClick = () => {
     navigate(`/${type}/${boardName}/${postId}`)
 
   }
 
   return (
-    <StyledBoard size={size} onClick={OnClick}>
+      <StyledBoard size={size} onClick={OnClick}>
 
-      <div className="board-body-text">
-        <h2 className="nickname">{nickname}</h2>
-        <h2 className="title">{title}</h2>
-        <div className="content">{content}</div>
-      </div>
-      <div className="board-body-side">
-        <div className="side-left">
-          <div className="date">{date}</div>
-          <div className="recommend">
-            <Recommend src={ThumbsUp} alt="추천" />
-            <h3>{recommend}</h3>
-          </div>
+        <div className="board-body-text">
+          <h2 className="nickname">{nickname}</h2>
+          <h2 className="title">{title}</h2>
+          <div className="content">{content}</div>
         </div>
-        {img_url &&
-          <div className="board-body-img">
-            <img src={img_url} />
+        <div className="board-body-side">
+          <div className="side-left">
+            <div className="date">{date}</div>
+            <div className="recommend">
+              <Recommend src={ThumbsUp} alt="추천"/>
+              <h3>{recommend}</h3>
+            </div>
           </div>
-        }
-      </div>
+          {img_url &&
+              <div className="board-body-img">
+                <img src={img_url}/>
+              </div>
+          }
+        </div>
 
-    </StyledBoard>
+      </StyledBoard>
   );
 };
