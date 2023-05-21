@@ -99,9 +99,12 @@ const MyInfo = styled.div`
 
 
 
-export const MyInformation = ({ myInfo, mgrName}) => {
+export const MyInformation = ({ myInfo, mgrName, mgrId}) => {
+
+  const userId = 1;
 
   const onclickManage = () => {
+   
   };
 
   const onclickBan = () => {
@@ -113,18 +116,28 @@ export const MyInformation = ({ myInfo, mgrName}) => {
       <ProfileBox>
         <Profile size={'l'} isStroom={'1'} userName={mgrName} />
 
-        <div className="moreDiv" onClick={() => {
-          setView(!view)
-        }}><img className="moreImg" src={more} /> {" "}
-          {view && (
-            <MenuDiv>
-              <DropDown onClick={onclickManage}>
-                <MenuImg src={manage} /> <h3 className="manage">권한 넘기기</h3> </DropDown>
-              <DropDown onClick={onclickBan}>
-                <MenuImg src={ban} /> <h3 className="ban">멤버강퇴</h3> </DropDown>
-            </MenuDiv>
-          )}
-        </div>
+        {userId === mgrId && (
+          <div className="moreDiv" onClick={() => {
+            setView(!view)
+          }}>
+            <img className="moreImg" src={more} /> {" "}
+            {view && (
+              <MenuDiv>
+                <>
+                  <DropDown onClick={onclickManage}>
+                    <MenuImg src={manage} />
+                    <h3 className="manage">권한 넘기기</h3>
+                  </DropDown>
+                  <DropDown onClick={onclickBan}>
+                    <MenuImg src={ban} />
+                    <h3 className="ban">멤버강퇴</h3>
+                  </DropDown>
+                </>
+              </MenuDiv>
+            )}
+          </div>
+        )}
+
       </ProfileBox>
 
       <div>

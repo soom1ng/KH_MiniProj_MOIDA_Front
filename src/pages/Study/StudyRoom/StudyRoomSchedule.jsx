@@ -10,19 +10,11 @@ import user from "../../../Images/user.png"
 import { AddSc } from "../../Common/AddSc";
 import Modal from "../../utils/Modal";
 import { ViewScMem } from "./ViewScMem";
-import { useParams } from "react-router-dom/dist";
+import { useNavigate, useParams } from "react-router-dom/dist";
 import AxiosApi from "../../../api/AxiosAPI";
 import CreateSc from "./CreateSc";
 import moment from "moment/moment";
-const CalendarBox = () => {
-    const [value, onChange] = useState(new Date());
-    return (
-        <Calendar onChange={onChange}
-            value={value}
-        ></Calendar>
-    );
-};
-
+  
 const StyledSchedulBox = styled.div`
     background-color: white;
     width: 600px;
@@ -38,6 +30,12 @@ const StyledSchedulBox = styled.div`
         padding-left: 25px;
 
     }
+    .dot {
+        width: 6px;
+        height: 6px;
+        background-color: red;
+        border-radius: 50%;
+        }
 
     .profile {
         border-radius: 50%;
@@ -93,6 +91,10 @@ const AddButton = styled.button`
     margin-left: 20px;
     font-weight : bolder;
     cursor: pointer;
+
+    &.disable {
+        background-color: gray;
+    }
 `;
 const MyDiv = styled.div`
     background-color: white;
@@ -112,19 +114,41 @@ const Box = styled.div`
     justify-content: center;
 `;
 
-const SchedulBox = ({ study_sc_date, study_sc_content, study_name, study_member_count, study_user_count, study_color, study_user_name }) => {
+const SchedulBox = ({ study_sc_id, study_sc_date, study_sc_content, study_name, study_member_count, study_user_count, study_color, study_user_name }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const navigate = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
+    const [member, setMember] = useState(false);
+    const [memberCnt, setmemberCnt] = useState(study_member_count);
+    const userId = 1;
     const closeModal = () => {
         setModalOpen(false);
     };
-    console.log(modalOpen)
+    const buttonText = () => {
+        if(isButtonDisabled) {
+            return "참가취소"
+        }else return "참가하기"
+    }
 
-    const handleClick = () => {
-      setIsButtonDisabled(true);
-    };
+    const handleClick = async () => {
+        setIsButtonDisabled(!isButtonDisabled);
+        try {
+            if(!isButtonDisabled){
+                const mgrNext = await AxiosApi.scheduleMemReg(study_sc_id, userId);
+                setmemberCnt(memberCnt+1);
+            }else{
+                const mgrDelete = await AxiosApi.scheduleMemDel(study_sc_id, userId);
+                console.log(mgrDelete.data)
+                setmemberCnt(memberCnt-1);
+            }
+            
+            
+        } catch (error) {
+          console.log("에러:", error);
+        }
+      };
 
-    const [member, setMember] = useState(false);
+
     return (
         <>
             <StyledSchedulBoxContainer>
@@ -138,7 +162,7 @@ const SchedulBox = ({ study_sc_date, study_sc_content, study_name, study_member_
                         <h2 className="scName">{study_sc_content}</h2>
                         <div className="member" onClick={() => setModalOpen(true)}>
                         <img src={user} width={"20px"}/>
-                        <p style={{fontSize:"18px"}}>{study_member_count}/{study_user_count}</p>
+                        <p style={{fontSize:"18px"}}>{memberCnt}/{study_user_count}</p>
                         {member && (
                             <MyDiv>{study_user_name}</MyDiv>
                         )}
@@ -146,8 +170,12 @@ const SchedulBox = ({ study_sc_date, study_sc_content, study_name, study_member_
                     </div>
                 </StyledSchedulBox>
                 <Modal open={modalOpen} close={closeModal}><ViewScMem scName={"일정 이름"} /></Modal>
-            <AddButton onClick={handleClick} disabled={isButtonDisabled}>
-                참가하기
+            <AddButton
+                onClick={handleClick}   
+                className={isButtonDisabled ? "disable" : " "}
+                innerText={"test"}
+            >
+            {buttonText()}
             </AddButton>
            
         </StyledSchedulBoxContainer>
@@ -160,14 +188,37 @@ const StudyRoomSchedule = () => {
     const {studyId} = useParams();
     const [studySchedule, setStudySchedule] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
-
+    const [value, setValue] = useState(new Date());
     const studyName = window.localStorage.getItem("studyName"); 
     const studyProfile = window.localStorage.getItem("studyProfile");
+
+
+
+    const tileContent = ({ date }) => {
+        const formattedDate = date.toISOString().split('T')[0];
+        const matchingDataCount = studySchedule.filter(sc => moment(sc.studyScDate).format('YYYY-MM-DD') === formattedDate).length;
+      
+        if (matchingDataCount > 0) {
+          return (
+            <div className="tileContentContainer">
+              {Array.from({ length: matchingDataCount }, (_, index) => (
+                <div key={index} className="dot" />
+              ))}
+            </div>
+          );
+        }
+      
+        return null;
+      };
+
+
+    const onChange = (date) => {
+        setValue(date);
+    };
     
     const closeModal = () => {
         setModalOpen(false);
     };
-    console.log(modalOpen)
 
     useEffect(() => {
         const studyScInfo = async () => {
@@ -175,7 +226,6 @@ const StudyRoomSchedule = () => {
             const rsp = await AxiosApi.studyScGet(studyId); // 전체 조회
             if (rsp.status === 200) {
               setStudySchedule(rsp.data);
-              console.log(rsp.data);
             }
           } catch (error) {
             console.error('스터디 일정 정보를 가져오는 중 에러가 발생했습니다:', error);
@@ -193,13 +243,37 @@ const StudyRoomSchedule = () => {
             <StudyRoom>
                 <h1 style={{ paddingBottom: "50px", marginTop: "0" }}>스터디 일정 🗓</h1>
                 <Box>
-                    <CalendarBox></CalendarBox>
+                <Calendar
+                    onChange={onChange}
+                    value={value}
+                    tileContent={tileContent}
+                />
+                <style>
+                    {`
+                    .tileContentContainer {
+                        display: flex;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                        
+                      }
+                      
+                      .dot {
+                        width: 10px;
+                        height: 10px;
+                        background-color: ${studyProfile};
+                        border-radius: 50%;
+                        margin-right: 4px; 
+
+                      }
+                    `}
+                </style>
                 </Box>
                 <BoardBox>
                 <BoardContainerWrapper>
                     {studySchedule && studySchedule.map((sc) => (
                         <SchedulBox
                         key={sc.studyScId}
+                        study_sc_id ={sc.studyScId}
                         study_sc_date={moment(sc.studyScDate).format('MM/DD')}
                         study_sc_content={sc.studyScContent}
                         study_name={studyName}

@@ -31,6 +31,7 @@ const StudyRoomMember = () => {
                     {studyMemInfo && studyMemInfo.map((mem) => (
                         <MyInformation
                         key={mem.userId}
+                        mgrId={mem.userId}
                         mgrName={mem.userName}
                         myInfo={mem.userIntro} />
                         ))
