@@ -81,6 +81,11 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
 
+    if (pw !== pwConfirm) {
+      console.log("비밀번호가 일치하지 않습니다.");
+      return false;
+    }
+
     if (isAgreed) {
       console.log('회원가입 버튼이 클릭되었습니다. 개인 정보 제공에 동의하였습니다.');
     } else {

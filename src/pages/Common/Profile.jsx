@@ -1,8 +1,9 @@
-import React,{ useState, useContext, useEffect } from "react";
+import React,{ useState, useContext } from "react";
 import styled, { css } from "styled-components";
 import LOGO_imgOnly from "../../Images/LOGO_imgOnly.png"
 import {LoginContext} from "../../context/AuthContext"
-import { storage } from "../../api/firebase";
+//import { storage } from "../../api/firebase";
+import AxiosApi from "../../api/AxiosAPI";
 
 const SIZES = {
   s: css`
@@ -51,34 +52,27 @@ const MyInfo = styled.div`
 
 export const Profile = ({ size, isStroom, userName }) => {
   const sizeStyle = SIZES[size];
-  const { nickname, img } = useContext(LoginContext);
-  const [downloadURL, setDownloadURL] = useState('');
+  const { userId } = useContext(LoginContext);
+  const [img, setImg] = useState('');
+  const [nickname, setNickname] = useState('');
 
-  useEffect(() => {
-    if (img) {
-      const storageRef = storage.ref();
-      const fileRef = storageRef.child(img.name);
-
-      fileRef.put(img).then(() => {
-        fileRef.getDownloadURL().then((url) => {
-          setDownloadURL(url);
-        }).catch((error) => {
-          console.log('이미지 URL 가져오기 오류:', error.message);
-        });
-      }).catch((error) => {
-        console.log('이미지 업로드 오류:', error.message);
-      });
-    }
-  }, [img]);
+  AxiosApi.myProfile(userId)
+  .then(response => {
+    const userInfo = response.data;
+    const nickname = userInfo.nickname;
+    const img = userInfo.img;
+    setNickname(nickname);
+    setImg(img);
+    console.log(response.data); // 응답 데이터는 response.data에서 사용 가능
+  })
+  .catch(error => {
+    // 오류 처리
+    console.error(error);
+  });
 
   return (
     <ProfileContainer sizeStyle={sizeStyle}>
-      {img ? (
-        <MyImage src={img} alt="이미지 미리보기" />
-      ) : (
-          <MyImage src={LOGO_imgOnly} alt="기본 이미지" />
-      )}
-
+      <MyImage src={img} alt="이미지 미리보기" />
       {isStroom ? <MyInfo>{userName}</MyInfo> : <MyInfo>{nickname}</MyInfo>}
       <InfoText>님</InfoText>
     </ProfileContainer>

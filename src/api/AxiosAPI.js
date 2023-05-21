@@ -1,5 +1,5 @@
 import axios from 'axios';
-const MOIDA_DOMAIN = "http://localhost:8080";
+const MOIDA_DOMAIN = "http://localhost:8090";
 
 
 // 근데 이거 postListGET이렇게 하면 POST 는 postPost 라고해야하나???? board 로 바꿀까??
@@ -73,11 +73,6 @@ const AxiosApi = {
 
   // 회원가입
   signUp: async (username, pw, pwConfirm, email, phone, nickname) => {
-    if (pw !== pwConfirm) {
-      console.log("비밀번호가 일치하지 않습니다.");
-      return false;
-    }
-
     const signUpData = {
       userName: username,
       pw: pw,
@@ -105,6 +100,12 @@ const AxiosApi = {
     };
     return await axios.post(MOIDA_DOMAIN + "/login", signIn);
   },
+
+  // 마이페이지 프로필 확인
+  myProfile: async (userId) => {
+    return await axios.get(MOIDA_DOMAIN + `/myInfo/${userId}`);
+  },
+
 
   // 마이페이지 프로필 수정
   updatePassword: async (userId, password, newPassword) => {
@@ -165,19 +166,32 @@ const AxiosApi = {
   },
 
   // 이미지 수정
-  uploadImageURL: async (userId, downloadURL) => {
+  uploadImageURL: async (userId, url) => {
     const requestData = {
       userId: userId,
-      img: downloadURL
+      img: url
     };
+  
     try {
-      const response = await axios.post(`${MOIDA_DOMAIN}/img`, requestData);
-      return response.data;
-    } catch (error) {
-      console.log("번호 변경 에러:", error.message);
+        const response = await axios.post(`${MOIDA_DOMAIN}/img`, requestData);
+        return response.data;
+      } catch (error) {
+      console.log("이미지 업로드 에러:", error.message);
       throw error;
     }
   },
+  
+
+  // 회원탈퇴
+  deleteMember: async (userId, password) => {
+    const delData = {
+      userId: userId, 
+      pw: password
+    };
+  
+    return await axios.post(MOIDA_DOMAIN + "/del", delData);
+  },
+  
 
 
 

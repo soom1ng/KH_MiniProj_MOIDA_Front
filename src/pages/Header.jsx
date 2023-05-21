@@ -163,10 +163,10 @@ const IsLogin = () => {
   // isLogin 상태만 가지고 로그인버튼 표시할지 마이페이지 표시할지 정하면 되지 않을까?
   const [view, setView] = useState(false);
   const navigate = useNavigate();
-  const { clearStorage } = useContext(LoginContext);
+  const { logout } = useContext(LoginContext);
 
   const handleLogout = () => {
-    clearStorage(); // 로그아웃
+    logout(); // 로그아웃
     navigate('/signin');
   };
 

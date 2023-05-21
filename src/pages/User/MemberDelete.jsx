@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-//import { Link } from "react-router-dom";
-import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
+import { LoginContext } from "../../context/AuthContext";
+import AxiosApi from "../../api/AxiosAPI";
 
 const Container = styled.div`
   display: flex;
@@ -30,7 +31,7 @@ const Title = styled.div`
   margin-bottom: 24px;
 `;
 
-const InputLabel = styled.p`
+const InputLabel = styled.div`
   text-align: left;
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: bold;
@@ -73,7 +74,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const Check = styled.p`
+const Check = styled.div`
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 18px;
     padding: 10px;
@@ -86,47 +87,42 @@ const List = styled.p`
 
 const MemberDelete = () => {
   const [agreeTerms, setAgreeTerms] = useState(false);
-  const [userId, setUserId] = useState('');
+  const {username, userId, logout} = useContext(LoginContext);
   const [password, setPassword] = useState('');
-  const [isPasswordEmpty, setIsPasswordEmpty] = useState(true); // State to keep track of password input field value
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // API 호출 데이터
-    axios.get('/api/getUserId') // 서버 API URL
-      .then(response => setUserId(response.data.userId))
-      .catch(error => console.error(error));
-  }, []);
 
   const handleCheckboxChange = () => {
     setAgreeTerms(!agreeTerms);
   };
+  
 
-  const handlePasswordChange = (e) => {
-    const inputValue = e.target.value;
-    setPassword(inputValue);
-    setIsPasswordEmpty(inputValue.trim() === ''); // Update the isPasswordEmpty state based on the input value
-  };
-
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
+  
     if (agreeTerms) {
-      if (!isPasswordEmpty) {
-        // 약관 동의가 체크되어 있고, 비밀번호가 입력되어 있는 경우에만 회원탈퇴 로직 수행
-        // 비밀번호 입력 로직 받아와서 입력하게 하기
-        //console.log(`회원탈퇴 처리를 수행합니다. 비밀번호: ${password}`);
-      } else {
-        alert('비밀번호를 입력해야 회원탈퇴가 가능합니다.'); // Show an alert if password is not entered
-      }
+        try {
+            await AxiosApi.deleteMember(userId, password);
+            console.log('회원탈퇴가 완료되었습니다.');
+            logout();
+            navigate('/');
+        } catch (error) {
+          console.log('에러:', error.message);
+        }
     } else {
       alert('약관에 동의해야 회원탈퇴가 가능합니다.');
     }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
 
   return (
     <Container>
       <Title>회원탈퇴</Title>
-      <Form onSubmit={handleFormSubmit}>
+      <Form>
         <Check>
           약관
           <List>*회원 탈퇴 전 반드시 약관을 읽고 동의하신 후 회원 탈퇴 바랍니다.</List>
@@ -140,14 +136,9 @@ const MemberDelete = () => {
           <CheckboxLabel>약관에 동의합니다.</CheckboxLabel>
         </CheckboxContainer>
 
-        <InputLabel>비밀번호를 입력하시면 {userId}님의 탈퇴가 진행됩니다.</InputLabel>
-        <Input
-          type="password"
-          placeholder="비밀번호를 입력해주세요."
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <Button type="submit">회원탈퇴</Button>
+        <InputLabel>비밀번호를 입력하시면 {username}님의 탈퇴가 진행됩니다.</InputLabel>
+        <Input type="password" placeholder="비밀번호를 입력해주세요." value={password} onChange={handlePasswordChange} />
+        <Button onClick={handleFormSubmit}>회원탈퇴</Button>
       </Form>
     </Container>
   );
