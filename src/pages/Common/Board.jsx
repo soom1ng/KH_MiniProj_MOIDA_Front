@@ -4,7 +4,7 @@ import ThumbsUp from '../../Images/thumbsup.png';
 
 const SIZES = {
   s: css`
-      --width: 750px;
+      --width: 800px;
       --height: 120px;
     `,
   l: css`

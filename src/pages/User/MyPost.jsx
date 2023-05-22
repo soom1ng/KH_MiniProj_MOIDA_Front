@@ -6,6 +6,8 @@ import Header from "../Header";
 import CommentsList from "../Common/CommentsList";
 import { Board } from "../Common/Board";
 
+
+// --------------------------------- 페이지네이션 ------------------------------------ //
 // ---------------------------------상우 수정예정------------------------------------- //
 // ---------------------------------상우 수정예정------------------------------------- //
 // ---------------------------------상우 수정예정------------------------------------- //
@@ -42,7 +44,7 @@ const InfoContainer = styled.div`
 
   .box {
     border-radius: 0px;
-    border-bottom: 2px solid gray;
+    border-bottom: 1px solid gray;
     height: 130px;
     margin-bottom: 10px;
     }
