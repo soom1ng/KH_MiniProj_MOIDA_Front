@@ -43,13 +43,12 @@ export const MyStudyList = ( ) => {
 }, []);
 
   return (
-
-
-      <StyledSlider { ...MyListset }>
-         <MyStudyBlock isCreate={1} />
+    <>
+    <StyledSlider { ...MyListset }>
+        <MyStudyBlock isCreate={1} />
         {myStudyInfo && myStudyInfo
         .filter((study) => study.userId === userId)
-        .map((study) => (
+        .map((study) => (  
           <MyStudyBlock 
             key={study.studyId}
             studyId={study.studyId}
@@ -60,13 +59,10 @@ export const MyStudyList = ( ) => {
             studyUserCount={study.studyUserCount}
             studyUserLimit={study.studyUserLimit}
           />
-        ))
-        }
-       
-        
-
-
+        ))}
       </StyledSlider>
+    </>
+      
 
   );
 };

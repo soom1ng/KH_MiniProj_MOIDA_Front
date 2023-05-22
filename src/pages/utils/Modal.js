@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ModalStyle = styled.div`
+    
+
     .modal {
     display: none;
     position: fixed;
@@ -11,6 +13,7 @@ const ModalStyle = styled.div`
     left: 0;
     z-index: 99;
     background-color: rgba(0, 0, 0, 0.6);
+    
     }
     .modal button {
         outline: none;

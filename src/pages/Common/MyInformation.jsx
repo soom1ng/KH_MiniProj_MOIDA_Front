@@ -4,6 +4,8 @@ import ban from "../../Images/ban.png"
 import manage from "../../Images/user.png"
 import more from "../../Images/more.png"
 import { useState } from 'react';
+import AxiosApi from "../../api/AxiosAPI";
+import { useParams } from "react-router-dom";
 
 const Container = styled.div`
 
@@ -99,15 +101,29 @@ const MyInfo = styled.div`
 
 
 
-export const MyInformation = ({ myInfo, mgrName, mgrId}) => {
-
+export const MyInformation = ({ myInfo, mgrName, mgrId, myImg, memId}) => {
+  const {studyId} = useParams();
   const userId = 1;
 
-  const onclickManage = () => {
-   
+  const onclickManage = async () => {
+    if(userId === memId){
+      alert(`본인에겐 권한을 넘겨줄 수 없어요 😥`)
+    }else{
+      await AxiosApi.studyMgrNext(studyId, memId);
+      alert(`스터디 권한을 ${mgrName}님에게 넘겼어요 !🤗`)
+    }
+    
   };
 
-  const onclickBan = () => {
+  const onclickBan = async () => {
+    if(userId === memId) {
+      await AxiosApi.studyMemDel(studyId, memId);
+      alert(`본인은 강퇴할 수 없어요 😥`)
+    }else{
+     
+      alert(`${mgrName}님을 강퇴했어요 !🤫`)
+    }
+
   };
 
   const [view, setView] = useState(false);

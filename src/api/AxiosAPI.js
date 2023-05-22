@@ -25,6 +25,24 @@ const AxiosApi = {
       return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Schedule/${studyId}`);
   },
 
+  // 스터디 가입
+  studyInsert : async(studyId, userId) => {
+    const studyInsert = {
+      studyId : studyId,
+      userId : userId
+    }
+    return await axios.post(MOIDA_DOMAIN + `/study/studyRoom/Main/studyInsert`, studyInsert);
+  },
+
+  // 스터디 탈퇴
+  studyDelete: async (studyId, userId) => {
+    const studyDelete = {
+      studyId: studyId,
+      userId: userId
+    };
+    return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/Main/studyOut`, { data: studyDelete });
+  },
+
   // 스터디 생성
   createStudy: async (userId, studyName, category, studyUserLimit, studyChatUrl, studyIntro, studyContent, studyDeadline, randomColor, tagString) => {
     const study = {
@@ -65,11 +83,40 @@ const AxiosApi = {
   //일정 참여취소
   scheduleMemDel: async (studyScId, userId) => {
     const schedulMem = {
-      studyScId : studyScId,
-      userId : userId
+      studyScId: studyScId,
+      userId: userId
     };
-    return await axios.post(MOIDA_DOMAIN + `/study/studyRoom/Schedule/MemberDelete`, schedulMem);
+    return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/Schedule/MemberDelete`, { data: schedulMem });
   },
+
+  // 일정 멤버 정보
+  studyScMemGet: async (studyScId) => {
+    return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Schedule/MemberGet/${studyScId}`);
+  },
+
+  //일정 삭제
+  scheduleMemDel: async (studyScId) => {
+    const schedulDelete = {
+      studyScId : studyScId,
+    };
+    return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/Schedule/ScheduleDelete`, { data : schedulDelete});
+  },
+  
+  //스터디 권한 넘기기
+  studyMgrNext: async (studyId, memId) => {
+    const newData = { memId: memId.toString() };
+    return await axios.patch(MOIDA_DOMAIN + `/study/studyRoom/Member/MemberNext/${studyId}`, newData);
+  },
+
+  //스터디 강퇴
+  studyMemDel: async (studyId, memId) => {
+    const studyMemDelete = {
+      studyId : studyId,
+      userId : memId
+    };
+    return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/Member/MemberDelete`, { data : studyMemDelete});
+  },
+
 
   // 회원가입
   signUp: async (username, pw, pwConfirm, email, phone, nickname) => {

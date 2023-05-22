@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
 import { MyInformation } from "../../Common/MyInformation";
+import { useEffect } from "react";
+import AxiosApi from "../../../api/AxiosAPI";
 
 const Container = styled.div`
   background-color: #F3F3F3;
-  margin-left: 25%;
-
+  padding-left: 27%;
 
   .idBox, .pwBox{
     display: flex;
@@ -83,14 +84,45 @@ const FindButton = styled.button`
     background-color: #543ad4;
   }
 `;
+const Content = styled.div`
+  max-height: 100%;
+  overflow-y: auto;
+`;
 
 
-export const ViewScMem =({scName, userName, userIntro, userProfile}) => {
+export const ViewScMem =({scName, userName, userIntro, userProfile, studyScId}) => {
+  const [studyScheduleMember, setStudyScheduleMember] = useState([]);
+  useEffect(() => {
+    const studyScInfo = async () => {
+      try {
+        console.log(studyScId);
+        const rsp = await AxiosApi.studyScMemGet(studyScId);
+        if (rsp.status === 200) {
+          setStudyScheduleMember(rsp.data);
+          console.log(studyScheduleMember);
+        }
+      } catch (error) {
+        console.error('스터디 일정 멤버정보를 가져오는 중 오류가 발생했습니다:', error);
+      }
+    };
+  
+    studyScInfo();
+  }, [studyScId]);
     return (
         <Container>
             <div className="idBox" >
             <div className="title">{scName}</div>
-            <MyInformation/>
+            <Content>
+              {studyScheduleMember && studyScheduleMember.map((mem) => (
+                <MyInformation
+                key={mem.studyScId}
+                myInfo={mem.userIntro}
+                mgrName={mem.userName}
+                />
+              ))}
+            </Content>
+            
+            
             </div>
 
         </Container>

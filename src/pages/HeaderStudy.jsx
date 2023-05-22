@@ -5,6 +5,9 @@ import { Link, NavLink } from 'react-router-dom';
 import { StudyInfo } from './Common/StudyInfo';
 import logout from '../Images/logout.png';
 import { useParams } from 'react-router-dom/dist';
+import AxiosApi from '../api/AxiosAPI';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 // Study 왼쪽 Nav
 const StudyHeader = styled.div`
@@ -135,7 +138,7 @@ const StudyDelete = styled.div`
 
 `;
 
-const StudyDeleteLink = styled(Link)`
+const StudyDeleteLink = styled.p`
   text-decoration: none;
   color: #ff4f4f;
 
@@ -149,19 +152,21 @@ const DeleteImg = styled.img`
   margin-right: 5px;
 `;
 
-// const Content = styled.div`
-// display: flex;
-// flex-direction: column;
-// align-items: center;
-// justify-content: center;
-// margin-top: 20vh;
+const Content = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin-top: 20vh;
 
-// `;
+`;
 
 
 
 const HeaderStudy = () => {
   const {studyId} = useParams();
+  const userId = 1;
+  const [isOk, setisOk] = useState(false);
   const studyName = window.localStorage.getItem("studyName"); 
   const studyTag = window.localStorage.getItem("studyTag"); 
   const studyIntro = window.localStorage.getItem("studyIntro"); 
@@ -170,6 +175,30 @@ const HeaderStudy = () => {
   const studyUserLimit = window.localStorage.getItem("studyUserLimit"); 
   const userName = window.localStorage.getItem("userName"); 
   const studyProfile = window.localStorage.getItem("studyProfile");
+
+  const onStudyInsert = async () => {
+    await AxiosApi.studyInsert(studyId, userId);
+    window.location.reload();
+  }
+
+  const onStudyDelete = async() => {
+    await AxiosApi.studyDelete(studyId, userId);
+    window.location.reload();
+  }
+
+  useEffect(() => {
+    const studyMemInfo = async () => {
+      const rsp = await AxiosApi.studyMemGet(studyId);
+      if (rsp.status === 200) {
+        console.log(rsp.data);
+        const isUserMember = rsp.data.some((mem) => mem.userId === userId);
+        setisOk(isUserMember);
+      }
+    };
+    studyMemInfo();
+  }, [studyId, userId]);
+
+
   return (
     <>
       <StudyHeader>
@@ -185,22 +214,24 @@ const HeaderStudy = () => {
         <NavLink to={`/study/studyRoom/Member/${studyId}`} style={({ isActive }) => {
           return isActive ? navSelect : navDefault
         }}>멤버</NavLink>
-        <StudyDelete>
-          <StudyDeleteLink to="/Study/List">
-            <DeleteImg src={logout} alt="" />스터디 나가기
+        <StudyDelete onClick={() => onStudyDelete()}>
+          <StudyDeleteLink>
+            <DeleteImg src={logout}/>스터디 나가기
           </StudyDeleteLink>
         </StudyDelete>
 
 
         {/* 스터디 미가입자에게 보이게 설정 */}
         {/* 백엔드 구현하면서 함께 구현해야 함. */}
-        {/* <div className='indexBox'>
-          <Content>
-            <div className="button" onClick={onClick}>
-              <InputButton>스터디 가입</InputButton>
-            </div>
-          </Content>
-        </div> */}
+        {isOk === false ? (
+        <div className='indexBox'>    
+            <Content>
+              <div className="button" onClick={() => onStudyInsert()}>
+                <button onClick={onStudyInsert}>스터디 가입</button>
+              </div>
+            </Content>   
+        </div>
+        ) : null}
 
       </StudyHeader>
 

@@ -105,6 +105,7 @@ const StudyMain = () => {
                             <CalendarBox></CalendarBox>
                         </div>
                         <div className="schedule_box">
+                            
                         </div>
 
                     </div>

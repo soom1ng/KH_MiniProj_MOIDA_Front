@@ -14,6 +14,7 @@ import { useNavigate, useParams } from "react-router-dom/dist";
 import AxiosApi from "../../../api/AxiosAPI";
 import CreateSc from "./CreateSc";
 import moment from "moment/moment";
+import trash from "../../../Images/trash-can.png";
   
 const StyledSchedulBox = styled.div`
     background-color: white;
@@ -46,6 +47,7 @@ const StyledSchedulBox = styled.div`
     .studyName {
         font-size: 18px;
         margin-left: 10px;
+        margin-right:5px;
     }
     .scName {
         font-weight: bolder;
@@ -68,9 +70,6 @@ const StyledSchedulBox = styled.div`
         align-items: center;
         margin-top: -30px;
     }
-
-
-
    
 `;
 const StyledSchedulBoxContainer = styled.div`
@@ -114,7 +113,8 @@ const Box = styled.div`
     justify-content: center;
 `;
 
-const SchedulBox = ({ study_sc_id, study_sc_date, study_sc_content, study_name, study_member_count, study_user_count, study_color, study_user_name }) => {
+
+const SchedulBox = ({ study_sc_id, sc_user_id, study_sc_date, study_sc_content, study_name, study_member_count, study_member_limit, study_color, study_user_name }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const navigate = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
@@ -130,16 +130,32 @@ const SchedulBox = ({ study_sc_id, study_sc_date, study_sc_content, study_name, 
         }else return "참가하기"
     }
 
+    const onClickScDelete = async () => {
+        console.log(study_sc_id)
+        const mgrNext = await AxiosApi.scheduleMemDel(study_sc_id);
+        alert("일정을 삭제 했어요 !😀")
+    }
+
     const handleClick = async () => {
         setIsButtonDisabled(!isButtonDisabled);
         try {
             if(!isButtonDisabled){
-                const mgrNext = await AxiosApi.scheduleMemReg(study_sc_id, userId);
-                setmemberCnt(memberCnt+1);
+                if(study_member_limit === study_member_count){
+                    alert("일정 멤버 수가 가득 찼어요 !😥")
+                    setIsButtonDisabled(false);
+                }else{
+                    const mgrNext = await AxiosApi.scheduleMemReg(study_sc_id, userId);
+                    setmemberCnt(memberCnt+1);
+                }
+                
             }else{
-                const mgrDelete = await AxiosApi.scheduleMemDel(study_sc_id, userId);
-                console.log(mgrDelete.data)
-                setmemberCnt(memberCnt-1);
+                if(study_member_limit === study_member_count){
+                }else{
+                    const mgrDelete = await AxiosApi.scheduleMemDel(study_sc_id, userId);
+                    console.log(mgrDelete.data)
+                    setmemberCnt(memberCnt-1);
+                }
+                
             }
             
             
@@ -157,23 +173,24 @@ const SchedulBox = ({ study_sc_id, study_sc_date, study_sc_content, study_name, 
                         <h1 className="date">{study_sc_date}</h1>
                         <div className="profile" style={{ background: `${study_color}` }}></div>
                         <p className="studyName">{study_name}</p>
+                        {sc_user_id === userId && <img src={trash} width="15px" onClick={() =>onClickScDelete()} />}
                     </div>
                     <div className="item2">
                         <h2 className="scName">{study_sc_content}</h2>
                         <div className="member" onClick={() => setModalOpen(true)}>
                         <img src={user} width={"20px"}/>
-                        <p style={{fontSize:"18px"}}>{memberCnt}/{study_user_count}</p>
+                        <p style={{fontSize:"18px"}}>{memberCnt}/{study_member_limit}</p    >
                         {member && (
                             <MyDiv>{study_user_name}</MyDiv>
                         )}
+                        
                     </div>
                     </div>
                 </StyledSchedulBox>
-                <Modal open={modalOpen} close={closeModal}><ViewScMem scName={"일정 이름"} /></Modal>
+                <Modal open={modalOpen} close={closeModal}><ViewScMem scName={study_sc_content} studyScId={study_sc_id}/></Modal>
             <AddButton
                 onClick={handleClick}   
                 className={isButtonDisabled ? "disable" : " "}
-                innerText={"test"}
             >
             {buttonText()}
             </AddButton>
@@ -273,12 +290,13 @@ const StudyRoomSchedule = () => {
                     {studySchedule && studySchedule.map((sc) => (
                         <SchedulBox
                         key={sc.studyScId}
+                        sc_user_id={sc.userId}
                         study_sc_id ={sc.studyScId}
                         study_sc_date={moment(sc.studyScDate).format('MM/DD')}
                         study_sc_content={sc.studyScContent}
                         study_name={studyName}
                         study_member_count={sc.studyScUserCount}
-                        study_user_count={sc.studyScUserLimit}
+                        study_member_limit={sc.studyScUserLimit}
                         study_color={studyProfile}
                         />
                     ))}
