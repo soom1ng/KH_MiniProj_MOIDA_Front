@@ -40,8 +40,6 @@ const Button = styled.button`
 
 `;
 const Paging = ({ maxPage, page, setPage }) => {
-
-
     const limit = 10; // 1~ 10 버튼 보이게 설정
     const totalPageArray = [];
     for (let i = 1; i <= maxPage; i += limit) {

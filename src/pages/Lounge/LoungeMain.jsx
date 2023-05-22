@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import { NavLink, useParams } from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import AxiosAPI from "../../api/AxiosAPI";
 import Header from "../Header";
 import HeaderLounge from "../HeaderLounge";
@@ -88,10 +88,10 @@ const LoungeMain = () => {
   const [lastId, setLastId] = useState('');
   const [page, setPage] = useState(1); // 현재 페이지
   const listPerPage = 10; // 페이지 당 보여줄 리스트 개수
-  const {userId} = useContext(LoginContext);
+  const {userId, isLogin} = useContext(LoginContext);
   const offset = listPerPage * (page - 1); // 리스트를 슬라이스 하기 위한 변수
   const maxPage = Math.ceil(postList.length / listPerPage); // 현재 리스트의 최대 페이지
-
+  const navigate = useNavigate();
   const writeLink = `/lounge/${boardName}/write`;
 
 
@@ -99,7 +99,6 @@ const LoungeMain = () => {
   // 문제! useEffect가 실행될 당시의 lastId 상태값을 가져오기 때문에 api호출에 lastId값을 직접 사용할 수 없다
   // 또한 내부에서 useState의 상태를 변경 후 함수에 적용할 수 없나
   useEffect(() => {
-
     const initialize = async (lastId) => {
       const rsp = await AxiosAPI.postListGet(boardName, '');
       console.log("lastId = " + lastId);
@@ -134,6 +133,16 @@ const LoungeMain = () => {
     getPostList();
   }, [page]);
 
+  const onClickWriteCheck = () => {
+    if (isLogin) {
+      console.log("로그인 상태입니다")
+      navigate(writeLink);
+    }
+    else {
+      console.log("로그인이 필요합니다");
+      navigate('/signin');
+    }
+  }
 
   return (
       <Container>
@@ -142,7 +151,7 @@ const LoungeMain = () => {
         <div className='board-top'>
           <div className='board-title'>
             <h1>{BOARD[boardName]} 게시판</h1>
-            <NavLink to={writeLink}><Button font={1.5}>글쓰기</Button></NavLink>
+            <Button font={1.5} onClick={onClickWriteCheck}>글쓰기</Button>
           </div>
           <div className='board-list'>
             <div>
