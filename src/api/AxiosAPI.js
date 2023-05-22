@@ -24,7 +24,7 @@ const AxiosApi = {
   studyScGet : async(studyId) => {
       return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Schedule/${studyId}`);
   },
-  
+
   // 스터디 일정 참여 정보
   studyUserScGet : async(userId) => {
     return await axios.get(MOIDA_DOMAIN + `/study/${userId}`);
@@ -100,12 +100,12 @@ const AxiosApi = {
   },
 
   //일정 삭제
-  // scheduleMemDel: async (studyScId) => {
-  //   const schedulDelete = {
-  //     studyScId : studyScId,
-  //   };
-  //   return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/Schedule/ScheduleDelete`, { data : schedulDelete});
-  // },
+  scheduleMemDel: async (studyScId) => {
+    const schedulDelete = {
+      studyScId : studyScId,
+    };
+    return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/Schedule/ScheduleDelete`, { data : schedulDelete});
+  },
   
   //스터디 권한 넘기기
   studyMgrNext: async (studyId, memId) => {
