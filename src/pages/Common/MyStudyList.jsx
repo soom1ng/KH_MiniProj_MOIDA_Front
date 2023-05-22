@@ -29,6 +29,7 @@ import AxiosApi from "../../api/AxiosAPI";
 // };
 
 
+
 export const MyStudyList = ( ) => {
   const[myStudyInfo, setMyStudyInfo] = useState([]);
   const userId = 1  ;
@@ -41,27 +42,55 @@ export const MyStudyList = ( ) => {
     };
     studyInfo();
 }, []);
+console.log(myStudyInfo.length);
 
   return (
     <>
-    <StyledSlider { ...MyListset }>
-        <MyStudyBlock isCreate={1} />
-        {myStudyInfo && myStudyInfo
-        .filter((study) => study.userId === userId)
-        .map((study) => (  
-          <MyStudyBlock 
-            key={study.studyId}
-            studyId={study.studyId}
-            studyProfile={study.studyProfile}
-            studyTitle={study.studyName}
-            studyIntro={study.studyIntro}
-            studyTag={study.tagName}
-            studyUserCount={study.studyUserCount}
-            studyUserLimit={study.studyUserLimit}
-          />
-        ))}
+  {myStudyInfo.length > 2 ? (
+    <>
+      <StyledSlider {...MyListset}>
+      <MyStudyBlock isCreate={true} />
+        {myStudyInfo
+          .filter((study) => study.userId && study.userId === userId)
+          .map((study) => (
+            <MyStudyBlock 
+              isCreate={false}
+              key={study.studyId}
+              studyId={study.studyId}
+              studyProfile={study.studyProfile}
+              studyTitle={study.studyName}
+              studyIntro={study.studyIntro}
+              studyTag={study.tagName}
+              studyUserCount={study.studyUserCount}
+              studyUserLimit={study.studyUserLimit}
+            />
+          ))}
       </StyledSlider>
     </>
+    ) : (
+      <>
+      <div style={{display:'flex'}}>
+        <MyStudyBlock isCreate={true} />
+        {myStudyInfo !== [] && myStudyInfo
+          .filter((study) => study.userId && study.userId === userId)
+          .map((study) => (
+            <MyStudyBlock 
+              isCreate={false}
+              key={study.studyId}
+              studyId={study.studyId}
+              studyProfile={study.studyProfile}
+              studyTitle={study.studyName}
+              studyIntro={study.studyIntro}
+              studyTag={study.tagName}
+              studyUserCount={study.studyUserCount}
+              studyUserLimit={study.studyUserLimit}
+            />
+          ))}
+        </div>
+      
+        </>
+    )}
+  </>
       
 
   );

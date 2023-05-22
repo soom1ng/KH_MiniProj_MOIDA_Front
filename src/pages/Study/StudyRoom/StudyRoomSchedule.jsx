@@ -134,6 +134,7 @@ const SchedulBox = ({ study_sc_id, sc_user_id, study_sc_date, study_sc_content, 
         console.log(study_sc_id)
         const mgrNext = await AxiosApi.scheduleMemDel(study_sc_id);
         alert("일정을 삭제 했어요 !😀")
+        window.location.reload();
     }
 
     const handleClick = async () => {
@@ -143,6 +144,7 @@ const SchedulBox = ({ study_sc_id, sc_user_id, study_sc_date, study_sc_content, 
                 if(study_member_limit === study_member_count){
                     alert("일정 멤버 수가 가득 찼어요 !😥")
                     setIsButtonDisabled(false);
+                    window.location.reload();
                 }else{
                     const mgrNext = await AxiosApi.scheduleMemReg(study_sc_id, userId);
                     setmemberCnt(memberCnt+1);

@@ -114,10 +114,10 @@ function CreateSc() {
       console.log(createSc.data.result);
 
       if (createSc.data.result === "OK") {
-        navigate(`/study/studyRoom/Main/${studyId}`);
+        window.location.reload();
       } else {
         console.log("입력 실패");
-        navigate(`/study/studyRoom/Main/${studyId}`);
+        window.location.reload();
       }
     } catch (error) {
       console.log("에러:", error);

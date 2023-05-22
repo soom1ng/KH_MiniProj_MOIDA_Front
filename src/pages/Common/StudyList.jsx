@@ -64,6 +64,7 @@ export const StudyList = () => {
             </div>
             <div className="new_study">
                 {studyInfo && studyInfo.slice(0, disPlayCount).map(study => (
+                    study && (
                     <Study 
                     key={study.studyId}
                     studyId={study.studyId}
@@ -75,6 +76,8 @@ export const StudyList = () => {
                     studyUserLimit={study.studyUserLimit}
                     studyProfile={study.studyProfile}
                     ></Study>
+                    )
+                    
                 ))}
                 </div>
 

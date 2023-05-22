@@ -167,7 +167,7 @@ const StudyList = () => {
           
 
         <div className="list_box">
-        {studyInfo && studyInfo
+        {studyInfo.length > 1 && studyInfo
             .filter((study) => category === '전체' || study.studyCategory === category)
             .filter((study) => tags.length === 0 ||  tags.some(tag => study.tagName.includes(tag.tag)))
             .filter((study) => date <= new Date(study.studyDeadline))
