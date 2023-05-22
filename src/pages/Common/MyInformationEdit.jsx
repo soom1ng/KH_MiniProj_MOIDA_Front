@@ -6,7 +6,6 @@ import AxiosApi from "../../api/AxiosAPI";
 import { storage } from "../../api/firebase";
 import { MyPageTitle } from "../../styles/StyledComponent";
 
-// 추가 고려 : 수정 버튼 누르면 비밀번호 재입력 후 수정 가능하게 변경...? 아니면 기존 비밀번호 입력-동일하면 비밀번호 변경 가능?
 // ---------------------------------다혜 수정예정------------------------------------- //
 
 
@@ -192,13 +191,32 @@ const MyInformationEdit = () => {
   const [isNotAttach, setIsNotAttach] = useState(false)
   const [isEditing, setIsEditing] = useState(false);
   const [myInfo, setMyInfo] = useState('자기 소개를 입력하세요.');
-  const {nickname, setNickname, phone, setPhone, email, setEmail, userId, img, setImg} = useContext(LoginContext);
-  const [downloadURL, setDownloadURL] = useState('');
+  const {password, setPassword, userId, username} = useContext(LoginContext);
+  const [nickname, setNickname] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [img, setImg] = useState(null);
+  const [previewURL, setPreviewURL] = useState('');
   const [newPassword, setNewPassword]= useState('');
-  const [password, setPassword]= useState('');
-  const [selectedImage, setSelectedImage] = useState(null);
 
-
+  // 프로필 확인
+  AxiosApi.myProfile(userId)
+  .then(response => {
+    const userInfo = response.data;
+    const nickname = userInfo.nickname;
+    const email = userInfo.email;
+    const phone = userInfo.phone;
+    const img = userInfo.img;
+    setNickname(nickname);
+    setEmail(email);
+    setPhone(phone);
+    setImg(img);
+    console.log(response.data); // 응답 데이터는 response.data에서 사용 가능
+  })
+  .catch(error => {
+    // 오류 처리
+    console.error(error);
+  });
 
   // 수정하기
   const handleMyInfoChange = (e) => {
@@ -210,34 +228,24 @@ const MyInformationEdit = () => {
     setIsNotAttach(true);
   };
 
-  const handleMyImgChange = (event) => {
-    const img = event.target.files[0];
-    setSelectedImage(img);
-    if (img) {
-      setImg(img); // 선택된 파일 정보를 상태로 저장
-    } else {
-      setImg(null); // 파일이 선택되지 않은 경우 상태 초기화
-    }
-  };
-  
-
   // 이미지 초기화 핸들러
   const handleReset = () => {
-    setImg(null);
-    setDownloadURL(''); // URL 초기화
+    setPreviewURL(''); // URL 초기화
   };
 
-  useEffect(() => {
-    if (selectedImage) {
+  const handleMyImgChange = (e) => {
+    if (e.target.files[0]) {
+      const selectedImage = e.target.files[0];
+      setImg(selectedImage);
+
+      // 이미지 미리 보기 생성
       const reader = new FileReader();
       reader.onload = () => {
-        setDownloadURL(reader.result);
+        setPreviewURL(reader.result);
       };
       reader.readAsDataURL(selectedImage);
     }
-  }, [selectedImage]);
-
-  
+  };
 
   const handleSaveMyInfo = async () => {
     setIsEditing(false);
@@ -274,30 +282,15 @@ const MyInformationEdit = () => {
     }
   
     // 이미지 수정
-try {
-  const storageRef = storage.ref();
-  const fileRef = storageRef.child(img.name);
-
-  // 이미지 업로드 
-  await fileRef.put(img);
-
-  // 이미지 다운로드 URL 가져오기
-  const url = await fileRef.getDownloadURL();
-  console.log("저장경로 확인 : " + url);
-
-  try {
-    await AxiosApi.uploadImageURL(userId, url);
-    console.log('이미지 URL이 성공적으로 업로드되었습니다.');
-  } catch (error) {
-    console.log('이미지 URL 업로드 오류:', error.message);
-  }
-
-  // 이미지 다운로드 URL 설정
-  setDownloadURL(url);
-} catch (error) {
-  console.log(error);
-}
-
+    const storageRef = storage.ref();
+    const fileRef = storageRef.child(img.name);
+    fileRef.put(img).then(() => {
+      console.log('파일이 성공적으로 업로드되었습니다!');
+      fileRef.getDownloadURL().then((url) => {
+        console.log("저장 경로 확인 : " + url);
+        setPreviewURL(url);
+      });
+    });
   };
   
 
@@ -321,6 +314,7 @@ try {
     setNewPassword(e.target.value);
   };
   
+  
  
 
   return (
@@ -328,13 +322,8 @@ try {
           <MyPageTitle>내 정보</MyPageTitle>
         <div className="infoContainer">
           <ProfileBox>
-          {img ? (
-            <MyImage src={img} alt="이미지 미리보기" />
-          ) : downloadURL ? (
-            <MyImage src={downloadURL} alt="이미지 미리보기" />
-          ) : (
-            <MyImage src={LOGO_imgOnly} alt="기본 이미지" />
-          )}
+          {previewURL &&
+            <MyImage src={previewURL} alt="이미지 미리보기" />}
           
         <div className="editButtonBox">
           <div className="nickNameBox">

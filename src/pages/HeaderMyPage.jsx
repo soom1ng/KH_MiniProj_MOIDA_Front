@@ -98,9 +98,6 @@ const HeaderMyPage = () => {
             나의 작성
           </NavigationLink>
         </NavigationItem>
-        <NavigationItem>
-          <NavigationLink to="/SignIn">확인용(로그인 연결)</NavigationLink>
-        </NavigationItem>
         <MemDelete>
           <MemDeleteLink to="/MyPage/MemberDelete">
             <MemDeleteImg src={logout} alt="" />회원 탈퇴

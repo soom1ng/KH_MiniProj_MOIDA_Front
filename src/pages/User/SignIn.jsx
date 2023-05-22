@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { LoginContext } from '../../context/AuthContext';
 import { useNavigate, Link } from "react-router-dom";
 import styled from 'styled-components';
@@ -70,7 +70,7 @@ const SignUp = styled.p`
 `;
 
 const SignIn = () => {
-  const { username, password, setUsername, setPassword, setIsLogin, setUserId, setNickname, setPhone, setEmail, setImg, setIntro } = useContext(LoginContext);
+  const { username, password, setUsername, setPassword, login } = useContext(LoginContext);
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -81,14 +81,8 @@ const SignIn = () => {
   const onClickLogin = async () => {
     try {
       const response = await AxiosApi.signIn(username, password);
+      login(response.data.userId, username, password);
       navigate('/');
-      setIsLogin(true);
-      setUserId(response.data.userId);
-      setNickname(response.data.nickname);
-      setPhone(response.data.phone);
-      setEmail(response.data.email);
-      setImg(response.data.img);
-      setIntro(response.data.intro);
     } catch (error) {
       console.log('로그인 에러:', error.message);
     }
@@ -112,7 +106,8 @@ const SignIn = () => {
         </Body>
         {(username && password) ?
           <InputButton onClick={onClickLogin}>로그인</InputButton> :
-          <InputButton >로그인</InputButton>}
+          <><h1>다시 로그인하세요</h1>
+          <InputButton >로그인</InputButton></>}
       </Form>
       <Body2>
       </Body2>
