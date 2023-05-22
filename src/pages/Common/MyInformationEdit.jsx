@@ -237,7 +237,7 @@ const MyInformationEdit = () => {
   // 이미지 초기화 핸들러
   const handleReset = () => {
     setPreviewURL('https://firebasestorage.googleapis.com/v0/b/photo-moida.appspot.com/o/LOGO_imgOnly.png?alt=media&token=28c02812-d6d0-4b84-80f8-ef3103fa8462'); // URL 초기화
-    setImg('https://firebasestorage.googleapis.com/v0/b/photo-moida.appspot.com/o/LOGO_imgOnly.png?alt=media&token=28c02812-d6d0-4b84-80f8-ef3103fa8462');
+    setImg(null);
   };
 
   const handleMyImgChange = (e) => {
@@ -299,26 +299,37 @@ const MyInformationEdit = () => {
     
   
     // 이미지 수정
-    const storageRef = storage.ref();
-  const fileRef = storageRef.child(img.name);
+    if (img !== null) {
+      const storageRef = storage.ref();
+      const fileRef = storageRef.child(img.name);
 
-  try {
-    await fileRef.put(img);
-    console.log('파일이 성공적으로 업로드되었습니다!');
-    const url = await fileRef.getDownloadURL();
-    console.log("저장 경로 확인 : " + url);
-    setPreviewURL(url);
+      try {
+        await fileRef.put(img);
+        console.log('파일이 성공적으로 업로드되었습니다!');
+        const url = await fileRef.getDownloadURL();
+        console.log("저장 경로 확인 : " + url);
+        setPreviewURL(url);
 
-    try {
-      await AxiosApi.uploadImageURL(userId, url);
-      console.log('이미지 URL이 성공적으로 업데이트되었습니다.');
-    } catch (error) {
-      console.log('이미지 URL 업데이트 오류:', error.message);
+        try {
+          await AxiosApi.uploadImageURL(userId, url);
+          console.log('이미지 URL이 성공적으로 업데이트되었습니다.');
+        } catch (error) {
+          console.log('이미지 URL 업데이트 오류:', error.message);
+        }
+      } catch (error) {
+        console.log('파일 업로드 오류:', error.message);
+      }
+    } else {
+      // 이미지가 null인 경우 "aaa"로 설정
+      setImg("https://firebasestorage.googleapis.com/v0/b/photo-moida.appspot.com/o/LOGO_imgOnly.png?alt=media&token=28c02812-d6d0-4b84-80f8-ef3103fa8462");
+      setPreviewURL("");
+      try {
+        await AxiosApi.uploadImageURL(userId, "https://firebasestorage.googleapis.com/v0/b/photo-moida.appspot.com/o/LOGO_imgOnly.png?alt=media&token=28c02812-d6d0-4b84-80f8-ef3103fa8462");
+        console.log('이미지 URL이 성공적으로 업데이트되었습니다.');
+      } catch (error) {
+        console.log('이미지 URL 업데이트 오류:', error.message);
+      }
     }
-  } catch (error) {
-    console.log('파일 업로드 오류:', error.message);
-  }
-
   window.location.reload();
     
   };
