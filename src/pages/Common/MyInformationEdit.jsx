@@ -1,6 +1,5 @@
 import React,{ useState, useContext, useEffect } from "react";
 import styled from "styled-components";
-import LOGO_imgOnly from "../../Images/LOGO_imgOnly.png";
 import {LoginContext} from "../../context/AuthContext";
 import AxiosApi from "../../api/AxiosAPI";
 import { storage } from "../../api/firebase";
@@ -190,37 +189,44 @@ const MyInformationEdit = () => {
 
   const [isNotAttach, setIsNotAttach] = useState(false)
   const [isEditing, setIsEditing] = useState(false);
-  const [myInfo, setMyInfo] = useState('자기 소개를 입력하세요.');
-  const {password, setPassword, userId, username} = useContext(LoginContext);
+  const {password, setPassword, userId} = useContext(LoginContext);
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [intro, setIntro] = useState('');
   const [img, setImg] = useState(null);
   const [previewURL, setPreviewURL] = useState('');
   const [newPassword, setNewPassword]= useState('');
 
   // 프로필 확인
-  AxiosApi.myProfile(userId)
-  .then(response => {
-    const userInfo = response.data;
-    const nickname = userInfo.nickname;
-    const email = userInfo.email;
-    const phone = userInfo.phone;
-    const img = userInfo.img;
-    setNickname(nickname);
-    setEmail(email);
-    setPhone(phone);
-    setImg(img);
-    console.log(response.data); // 응답 데이터는 response.data에서 사용 가능
-  })
-  .catch(error => {
-    // 오류 처리
-    console.error(error);
-  });
+  useEffect(() => {
+    const fetchMyProfile = async () => {
+      try {
+        const response = await AxiosApi.myProfile(userId);
+        const userInfo = response.data;
+        const nickname = userInfo.nickname;
+        const email = userInfo.email;
+        const phone = userInfo.phone;
+        const img = userInfo.img;
+        const intro = userInfo.intro;
+        setNickname(nickname);
+        setEmail(email);
+        setPhone(phone);
+        setImg(img);
+        setIntro(intro);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchMyProfile();
+  }, [userId]);
+  
 
   // 수정하기
   const handleMyInfoChange = (e) => {
-    setMyInfo(e.target.value);
+    setIntro(e.target.value);
   };
 
   const handleEditmyInfo = () => {
@@ -251,6 +257,7 @@ const MyInformationEdit = () => {
     setIsEditing(false);
     alert('저장되었습니다');
     setIsNotAttach(false);
+
   
     try {
       await AxiosApi.updateNickname(userId, nickname);
@@ -272,6 +279,14 @@ const MyInformationEdit = () => {
     } catch (error) {
       console.log('번호 업데이트 오류:', error.message);
     }
+
+    // 자기소개 수정
+    try {
+      await AxiosApi.uploadIntro(userId, intro);
+      console.log('자기소개가 성공적으로 업데이트되었습니다.');
+    } catch (error) {
+      console.log('자기소개 업데이트 오류:', error.message);
+    }
   
     // 비밀번호 수정
     try {
@@ -280,18 +295,34 @@ const MyInformationEdit = () => {
     } catch (error) {
       console.log('비밀번호 업데이트 오류:', error.message);
     }
+    
   
     // 이미지 수정
     const storageRef = storage.ref();
-    const fileRef = storageRef.child(img.name);
-    fileRef.put(img).then(() => {
-      console.log('파일이 성공적으로 업로드되었습니다!');
-      fileRef.getDownloadURL().then((url) => {
-        console.log("저장 경로 확인 : " + url);
-        setPreviewURL(url);
-      });
-    });
+  const fileRef = storageRef.child(img.name);
+
+  try {
+    await fileRef.put(img);
+    console.log('파일이 성공적으로 업로드되었습니다!');
+    const url = await fileRef.getDownloadURL();
+    console.log("저장 경로 확인 : " + url);
+    setPreviewURL(url);
+
+    try {
+      await AxiosApi.uploadImageURL(userId, url);
+      console.log('이미지 URL이 성공적으로 업데이트되었습니다.');
+    } catch (error) {
+      console.log('이미지 URL 업데이트 오류:', error.message);
+    }
+  } catch (error) {
+    console.log('파일 업로드 오류:', error.message);
+  }
+
+  window.location.reload();
+    
   };
+
+  
   
 
   const handleNicknameChange = (e) => {
@@ -313,6 +344,8 @@ const MyInformationEdit = () => {
   const handleNewPasswordChange = (e) => {
     setNewPassword(e.target.value);
   };
+
+
   
   
  
@@ -322,9 +355,11 @@ const MyInformationEdit = () => {
           <MyPageTitle>내 정보</MyPageTitle>
         <div className="infoContainer">
           <ProfileBox>
-          {previewURL &&
-            <MyImage src={previewURL} alt="이미지 미리보기" />}
-          
+          {isEditing ? (
+          <>{<MyImage src={previewURL || img} alt="이미지 미리보기" />}</>
+          ) : (
+          <>{img && <MyImage src={img} alt="이미지 미리보기" />}</>
+          )}
         <div className="editButtonBox">
           <div className="nickNameBox">
         {isEditing ? (
@@ -382,11 +417,11 @@ const MyInformationEdit = () => {
           <InfoText>자기소개 </InfoText>
           {isEditing ? (
             <MyInfoTextChangeBox>
-            <MyInfoTextarea value={myInfo} onChange={handleMyInfoChange}/>
+            <MyInfoTextarea value={intro} onChange={handleMyInfoChange}/>
             <div className="saveButtonBox"><MyInfoButton onClick={handleSaveMyInfo}>저장</MyInfoButton></div>
             </MyInfoTextChangeBox>
           ) : (
-              <Introduce>{myInfo}</Introduce>
+              <Introduce>{intro}</Introduce>
           )}
           </div>
         </div>

@@ -81,7 +81,7 @@ const SignIn = () => {
   const onClickLogin = async () => {
     try {
       const response = await AxiosApi.signIn(username, password);
-      login(response.data.userId, username, password);
+      login(response.data.userId, username, password, response.data.img, response.data.nickname);
       navigate('/');
     } catch (error) {
       console.log('로그인 에러:', error.message);

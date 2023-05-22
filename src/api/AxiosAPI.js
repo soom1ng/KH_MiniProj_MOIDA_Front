@@ -227,6 +227,34 @@ const AxiosApi = {
       throw error;
     }
   },
+
+    // 자기소개 업로드
+    uploadIntro: async (userId, intro) => {
+      const requestData = {
+        userId: userId,
+        intro: intro
+      };
+    
+      try {
+          const response = await axios.post(`${MOIDA_DOMAIN}/intro`, requestData);
+          return response.data;
+        } catch (error) {
+        console.log(userId);
+        console.log(intro);
+        console.log("자기소개 업로드 에러:", error.message);
+        throw error;
+      }
+    },
+
+    //아이디, 비밀 번호 찾기
+
+    signIn: async (username, email) => {
+      const signIn = {
+        userName: username,
+        email: email
+      };
+      return await axios.post(MOIDA_DOMAIN + "/find", signIn);
+    },
   
 
   // 회원탈퇴

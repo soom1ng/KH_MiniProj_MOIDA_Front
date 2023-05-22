@@ -48,7 +48,7 @@ const MemDelete = styled.li`
   font-size: 20px;
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: bold;
-  margin-top: 220px;
+  margin-top: 280px;
   margin-bottom: 30px;
   margin-right: 30px;
 `;
