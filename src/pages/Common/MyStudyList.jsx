@@ -98,18 +98,78 @@ console.log(myStudyInfo.length);
 };
 
 export const MyPageList = ( ) => {
+  const[myPageList, setMyPageList] = useState([]);
+  const {userId} = useContext(LoginContext);
+
+  useEffect(() => {
+    const PageList = async() => {
+        const rsp = await AxiosApi.studyListGet(); // 전체 조회
+        if(rsp.status === 200) setMyPageList(rsp.data);
+        console.log(rsp.data);
+    };
+    PageList();
+}, []);
+
+console.log(myPageList.length);
 
   return (
+    <>
+    {myPageList.length > 1 ? (
+      <>
+        <StyledSlider {...MyPageset}>
+          {myPageList
+            .filter((study) => study.userId && study.MgrId === userId)
+            .map((study) => (
+              <MyStudyBlock 
+                isCreate={false}
+                key={study.studyId}
+                studyId={study.studyId}
+                studyProfile={study.studyProfile}
+                studyTitle={study.studyName}
+                studyIntro={study.studyIntro}
+                studyTag={study.tagName}
+                studyUserCount={study.studyUserCount}
+                studyUserLimit={study.studyUserLimit}
+              />
+            ))}
+        </StyledSlider>
+      </>
+      ) : (
+        <>
+        <div style={{display:'flex'}}>
+          <MyStudyBlock isCreate={true} />
+          {myPageList !== [] && myPageList
+            .filter((study) => study.userId && study.MgrId === userId)
+            .map((study) => (
+              <MyStudyBlock 
+                isCreate={false}
+                key={study.studyId}
+                studyId={study.studyId}
+                studyProfile={study.studyProfile}
+                studyTitle={study.studyName}
+                studyIntro={study.studyIntro}
+                studyTag={study.tagName}
+                studyUserCount={study.studyUserCount}
+                studyUserLimit={study.studyUserLimit}
+              />
+            ))}
+          </div>
+        
+          </>
+      )}
+      
+      </>
+      
 
-      <StyledSlider { ...MyPageset }>
+      // <StyledSlider { ...MyPageset }>
 
-        <MyStudyBlock />
-        <MyStudyBlock />
-        <MyStudyBlock />
-        <MyStudyBlock />
-        <MyStudyBlock />
+      //   <MyStudyBlock />
+      //   <MyStudyBlock />
+      //   <MyStudyBlock />
+      //   <MyStudyBlock />
+      //   <MyStudyBlock />
 
-      </StyledSlider>
+      // </StyledSlider>
 
   );
 };
