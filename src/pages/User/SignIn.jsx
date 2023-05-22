@@ -106,7 +106,7 @@ const SignIn = () => {
         </Body>
         {(username && password) ?
           <InputButton onClick={onClickLogin}>로그인</InputButton> :
-          <><h1>다시 로그인하세요</h1>
+          <>
           <InputButton >로그인</InputButton></>}
       </Form>
       <Body2>

@@ -236,7 +236,8 @@ const MyInformationEdit = () => {
 
   // 이미지 초기화 핸들러
   const handleReset = () => {
-    setPreviewURL(''); // URL 초기화
+    setPreviewURL('https://firebasestorage.googleapis.com/v0/b/photo-moida.appspot.com/o/LOGO_imgOnly.png?alt=media&token=28c02812-d6d0-4b84-80f8-ef3103fa8462'); // URL 초기화
+    setImg('https://firebasestorage.googleapis.com/v0/b/photo-moida.appspot.com/o/LOGO_imgOnly.png?alt=media&token=28c02812-d6d0-4b84-80f8-ef3103fa8462');
   };
 
   const handleMyImgChange = (e) => {

@@ -52,16 +52,19 @@ const MyInfo = styled.div`
 
 export const Profile = ({ size, isStroom }) => {
   const sizeStyle = SIZES[size];
-  const { userId, userName, nickname } = useContext(LoginContext);
+  const { userId, userName } = useContext(LoginContext);
   const [img, setImg] = useState(null);
+  const [nickname, setNickname] = useState('');
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const response = await AxiosApi.myProfile(userId);
         const userInfo = response.data;
+        const nickname = userInfo.nickname;
         const img = userInfo.img;
         setImg(img);
+        setNickname(nickname);
         console.log(response.data);
       } catch (error) {
         console.error(error);

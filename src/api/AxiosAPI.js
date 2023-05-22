@@ -159,7 +159,7 @@ const AxiosApi = {
     const requestData = {
       userId: userId,
       pw: password,
-      newPw: newPassword
+      newPw: newPassword || password
     };
     try {
       const response = await axios.post(`${MOIDA_DOMAIN}/pw`, requestData);
@@ -169,6 +169,7 @@ const AxiosApi = {
       throw error;
     }
   },
+  
 
   updateEmail: async (userId, email) => {
     const requestData = {
@@ -248,7 +249,7 @@ const AxiosApi = {
 
     //아이디, 비밀 번호 찾기
 
-    signIn: async (username, email) => {
+    findPw: async (username, email) => {
       const signIn = {
         userName: username,
         email: email
