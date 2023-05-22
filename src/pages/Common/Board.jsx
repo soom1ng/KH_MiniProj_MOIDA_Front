@@ -1,6 +1,19 @@
 import {useNavigate} from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import ThumbsUp from '../../Images/thumbsup.png';
+
+const SIZES = {
+  s: css`
+      --width: 750px;
+      --height: 120px;
+    `,
+  l: css`
+      --width: 1100px;
+      --height : 150px;
+      --box-shadow : 0 0 10px 5px rgba(0, 0, 0, 0.2);
+
+    `
+}
 
 const Recommend = styled.img`
   width: 20px;
@@ -12,9 +25,11 @@ const Recommend = styled.img`
 `;
 
 const StyledBoard = styled.div`
+ ${(p) => p.sizeStyle}
+  
   background-color: white;
-  width: ${props => props.size ? props.size + 'px' : '1100px'};
-  height: 150px;
+  width: var(--width);
+  height: var(--height);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,7 +39,7 @@ const StyledBoard = styled.div`
   margin: 0 0 30px 0;
 
   &:hover {
-    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--box-shadow);
   }
 
   div {
@@ -32,9 +47,10 @@ const StyledBoard = styled.div`
     align-items: center;
   }
 
+
   .board-body-text {
     height: 100%;
-    width: 700px;
+    /* width: 500px; */
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -95,7 +111,6 @@ const StyledBoard = styled.div`
       }
     }
 
-
     .board-body-img {
       width: 120px;
       height: 100%;
@@ -108,6 +123,7 @@ const StyledBoard = styled.div`
     }
   }
 `;
+
 const tagDelete = (text, row) => {
   const tempElement = document.createElement("div")
   tempElement.innerHTML = text;
@@ -125,6 +141,8 @@ const tagDelete = (text, row) => {
 }
 
 export const Board = ({postId, type, nickname, title, content, img_url, date, recommend, size, boardName}) => {
+  const sizeStyle = SIZES[size];
+
   const navigate = useNavigate();
   content = tagDelete(content, 3);
 
@@ -135,7 +153,7 @@ export const Board = ({postId, type, nickname, title, content, img_url, date, re
   }
 
   return (
-      <StyledBoard size={size} onClick={OnClick}>
+      <StyledBoard sizeStyle={sizeStyle} onClick={OnClick}>
 
         <div className="board-body-text">
           <h2 className="nickname">{nickname}</h2>

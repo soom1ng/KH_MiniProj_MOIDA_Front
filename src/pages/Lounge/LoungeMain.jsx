@@ -130,53 +130,54 @@ const LoungeMain = () => {
 
 
   return (
-      <Container>
-        <Header />
-        <HeaderLounge boardName={boardName} />
-        <div className='board-top'>
-          <div className='board-title'>
-            <h1>{BOARD[boardName]} 게시판</h1>
-            <NavLink to={writeLink}><Button font={1.5}>글쓰기</Button></NavLink>
+    <Container>
+      <Header />
+      <HeaderLounge boardName={boardName} />
+      <div className='board-top'>
+        <div className='board-title'>
+          <h1>{BOARD[boardName]} 게시판</h1>
+          <NavLink to={writeLink}><Button font={1.5}>글쓰기</Button></NavLink>
+        </div>
+        <div className='board-list'>
+          <div>
+            <h2>공지</h2>
+            <li>이제</li>
+            <li>누가</li>
+            <li>공지해주냐</li>
           </div>
-          <div className='board-list'>
+          {boardName === "free" &&
             <div>
-              <h2>공지</h2>
-              <li>이제</li>
-              <li>누가</li>
-              <li>공지해주냐</li>
+              <h2>Hot</h2>
+              <li>너무</li>
+              <li>뜨거워</li>
             </div>
-            {boardName === "free" &&
-                <div>
-                  <h2>Hot</h2>
-                  <li>너무</li>
-                  <li>뜨거워</li>
-                </div>
-            }
-          </div>
+          }
         </div>
+      </div>
 
-        <div className='board-bottom'>
-          {postList.slice(offset, offset + 10) && postList.slice(offset, offset + 10).map(post => (
+      <div className='board-bottom'>
+        {postList.slice(offset, offset + 10) && postList.slice(offset, offset + 10).map(post => (
 
-              <Board
-                  postId={post.postId}
-                  type='lounge'
-                  nickname={post.nickname}
-                  title={post.title}
-                  content={post.contents}
-                  date={formatRegTime(post.regTime)}
-                  boardName={boardName}
-                  isNim={1}
-                  recommend={post.recommend}
-                  img_url={post.imgUrl}
-              ></Board>
+          <Board
+            size={'l'}
+            postId={post.postId}
+            type='lounge'
+            nickname={post.nickname}
+            title={post.title}
+            content={post.contents}
+            date={formatRegTime(post.regTime)}
+            boardName={boardName}
+            isNim={1}
+            recommend={post.recommend}
+            img_url={post.imgUrl}
+          ></Board>
 
-          ))}
-          {maxPage > 0 && <Paging maxPage={maxPage} page={page} setPage={setPage}></Paging>}
-        </div>
+        ))}
+        {maxPage > 0 && <Paging maxPage={maxPage} page={page} setPage={setPage}></Paging>}
+      </div>
 
 
-      </Container>
+    </Container>
   )
 }
 
