@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from 'styled-components';
 import AxiosApi from "../../../api/AxiosAPI";
+import { LoginContext } from "../../../context/AuthContext";
 
 const Container = styled.div`
   background-color: #F3F3F3;
@@ -88,7 +89,7 @@ const FindButton = styled.button`
 
 function CreateSc() {
 
-  const userId = 1;
+  const {userId} = useContext(LoginContext);
   const navigate = useNavigate();
   const {studyId} = useParams();
 

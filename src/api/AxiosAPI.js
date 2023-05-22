@@ -27,7 +27,7 @@ const AxiosApi = {
 
   // 스터디 일정 참여 정보
   studyUserScGet : async(userId) => {
-    return await axios.get(MOIDA_DOMAIN + `/study/${userId}`);
+    return await axios.get(MOIDA_DOMAIN + `/study/mySc/${userId}`);
 },
 
   // 스터디 가입

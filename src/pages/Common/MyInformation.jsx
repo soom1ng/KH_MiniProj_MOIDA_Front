@@ -3,9 +3,10 @@ import { Profile } from "./Profile";
 import ban from "../../Images/ban.png"
 import manage from "../../Images/user.png"
 import more from "../../Images/more.png"
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import AxiosApi from "../../api/AxiosAPI";
 import { useParams } from "react-router-dom";
+import { LoginContext } from "../../context/AuthContext";
 
 const Container = styled.div`
 
@@ -103,7 +104,7 @@ const MyInfo = styled.div`
 
 export const MyInformation = ({ myInfo, mgrName, mgrId, myImg, memId}) => {
   const {studyId} = useParams();
-  const userId = 1;
+  const {userId} = useContext(LoginContext);
 
   const onclickManage = async () => {
     if(userId === memId){

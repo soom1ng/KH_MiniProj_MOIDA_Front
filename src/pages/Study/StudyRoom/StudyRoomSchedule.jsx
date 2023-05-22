@@ -214,7 +214,7 @@ const StudyRoomSchedule = () => {
 
 
     const tileContent = ({ date }) => {
-        const formattedDate = date.toISOString().split('T')[0];
+        const formattedDate = moment(date).format('YYYY-MM-DD');
         const matchingDataCount = studySchedule.filter(sc => moment(sc.studyScDate).format('YYYY-MM-DD') === formattedDate).length;
       
         if (matchingDataCount > 0) {

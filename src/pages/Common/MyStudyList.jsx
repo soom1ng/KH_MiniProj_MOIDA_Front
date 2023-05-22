@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { MyStudyBlock } from "./MyStudyBlock";
 import AxiosApi from "../../api/AxiosAPI";
+import { LoginContext } from "../../context/AuthContext";
 
 
 // 슬라이드 슬릭에 화살표 추가 -> 위치 조정이 복잡해서 구현X
@@ -32,7 +33,7 @@ import AxiosApi from "../../api/AxiosAPI";
 
 export const MyStudyList = ( ) => {
   const[myStudyInfo, setMyStudyInfo] = useState([]);
-  const userId = 1  ;
+  const {userId} = useContext(LoginContext);
 
   useEffect(() => {
     const studyInfo = async() => {

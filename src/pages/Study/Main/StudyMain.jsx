@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../Header";
 import { StudyList } from "../../Common/StudyList";
@@ -10,6 +10,7 @@ import '../../../styles/calendar.css';
 import { MyStudyList } from "../../Common/MyStudyList";
 import AxiosApi from "../../../api/AxiosAPI";
 import moment from "moment";
+import { LoginContext } from "../../../context/AuthContext";
 
 
 
@@ -129,23 +130,23 @@ form {
 
 
 const StudyMain = () => {
-    const [studyMemInfo, setstudyMemInfo] = useState([]);
+    const [studyMyScInfo, setStudyMyScInfo] = useState([]);
     const [value, onChange] = useState(new Date());
-    const userId = 1;
+    const {userId} = useContext(LoginContext);
 
     
     useEffect(() => {
-        const studyMemInfo = async () => {
-            const rsp = await AxiosApi.studyUserScGet(userId); // 전체 조회
-            if(rsp.status === 200) setstudyMemInfo(rsp.data);
+        const studyMyScSelect = async () => {
+            const rsp = await AxiosApi.studyUserScGet(userId); 
+            if(rsp.status === 200) setStudyMyScInfo(rsp.data);
             console.log(rsp.data);
         };
-        studyMemInfo();
+        studyMyScSelect();
       }, [userId])
 
       const tileContent = ({ date }) => {
         const formattedDate = date.toISOString().split('T')[0];
-        const matchingDataCount = studyMemInfo.filter(sc => moment(sc.studyScDate).format('YYYY-MM-DD') === formattedDate).length;
+        const matchingDataCount = studyMyScInfo.filter(sc => moment(sc.studyScDate).format('YYYY-MM-DD') === formattedDate).length;
       
         if (matchingDataCount > 0) {
           return (
@@ -180,17 +181,18 @@ const StudyMain = () => {
                             value={value}
                             tileContent={tileContent}
                         />
-                       
+                        
                         </div>
                         <div className="schedule_box">
-                            {studyMemInfo &&
-                            studyMemInfo.map((sc) => (
+                            {studyMyScInfo &&
+                            studyMyScInfo.map((sc) => (
                                 <div className="scBox" key={sc.studyScId}>
                                 <div className="item">
                                     <h1 className="date">{moment(sc.studyScDate).format('MM월DD일')}</h1>
                                     <div className="profile" style={{ background: `${sc.studyProfile}` }}></div>
                                     <p className="scName">{sc.studyName}</p>
-                                    <style>
+                                </div>
+                                <style>
                                     {`
                                     .tileContentContainer {
                                         display: flex;
@@ -208,9 +210,7 @@ const StudyMain = () => {
 
                                     }
                                     `}
-                                </style>
-                                </div>
-
+                                    </style>
                                 <div className="item2">
                                     <h2 className="scName">{sc.studyScContent}</h2>
                                 </div>

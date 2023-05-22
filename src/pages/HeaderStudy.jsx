@@ -6,8 +6,9 @@ import { StudyInfo } from './Common/StudyInfo';
 import logout from '../Images/logout.png';
 import { useParams } from 'react-router-dom/dist';
 import AxiosApi from '../api/AxiosAPI';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useState } from 'react';
+import { LoginContext } from '../context/AuthContext';
 
 // Study 왼쪽 Nav
 const StudyHeader = styled.div`
@@ -165,7 +166,7 @@ margin-top: 20vh;
 
 const HeaderStudy = () => {
   const {studyId} = useParams();
-  const userId = 1;
+  const {userId} = useContext(LoginContext);
   const [isOk, setisOk] = useState(false);
   const studyName = window.localStorage.getItem("studyName"); 
   const studyTag = window.localStorage.getItem("studyTag"); 

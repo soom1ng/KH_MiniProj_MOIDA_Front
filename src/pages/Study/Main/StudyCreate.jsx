@@ -92,7 +92,7 @@ const StudyCreate = () => {
   //useContext
   const { clearStorage } = useContext(LoginContext);
   const navigate = useNavigate();
-  const userId = 1;
+  const {userId} = useContext(LoginContext);
 
   //태그, 카테고리 
   const [category, setCategory] = useState('전체');
