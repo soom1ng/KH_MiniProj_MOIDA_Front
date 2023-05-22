@@ -95,12 +95,12 @@ const AxiosApi = {
   },
 
   //일정 삭제
-  scheduleMemDel: async (studyScId) => {
-    const schedulDelete = {
-      studyScId : studyScId,
-    };
-    return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/Schedule/ScheduleDelete`, { data : schedulDelete});
-  },
+  // scheduleMemDel: async (studyScId) => {
+  //   const schedulDelete = {
+  //     studyScId : studyScId,
+  //   };
+  //   return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/Schedule/ScheduleDelete`, { data : schedulDelete});
+  // },
   
   //스터디 권한 넘기기
   studyMgrNext: async (studyId, memId) => {
@@ -287,6 +287,7 @@ const AxiosApi = {
       userId: userId,
       title: title,
       contents: contents,
+      boardName: boardName,
       imgUrl: imgUrl
     };
     return await axios.post(MOIDA_DOMAIN + `/lounge/post/insert`, post);

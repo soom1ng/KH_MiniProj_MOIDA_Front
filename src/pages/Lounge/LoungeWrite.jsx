@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 // import { Link } from "react-router-dom";
 //import { NavLink } from "react-router-dom";
 import Header from "../Header";
@@ -9,6 +9,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {BOARD} from "./LoungeMain";
 import AxiosApi from "../../api/AxiosAPI";
 import Modal from "../utils/Modal";
+import {LoginContext} from "../../context/AuthContext";
 
 // ---------------------------------상우님 수정예정------------------------------------- //
 // ---------------------------------상우님 수정예정------------------------------------- //
@@ -67,9 +68,11 @@ const EditorContainer = styled.div`
 const LoungeWrite = () => {
     const navigate = useNavigate();
     const {boardName} = useParams();
+    console.log("boardName = " + boardName);
 
     // 등록 input값
-    const userId = "1";
+    const { userId } = useContext(LoginContext);
+    console.log("userID = " + userId)
     const [inputTitle, setInputTitle] = useState("1");
     const [inputContents, setInputContents] = useState("");
     const [inputImgUrl, setInputImgUrl] = useState("");
