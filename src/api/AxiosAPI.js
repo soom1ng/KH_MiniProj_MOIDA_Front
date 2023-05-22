@@ -254,14 +254,25 @@ const AxiosApi = {
 
   //아이디, 비밀 번호 찾기
 
-  findPw: async (username, email) => {
-    const signIn = {
-      userName: username,
-      email: email
-    };
-    return await axios.post(MOIDA_DOMAIN + "/find", signIn);
-  },
+    findId: async (idEmail, idPhone) => {
+      const requestData = {
+        type : "findId",
+        email: idEmail,
+        phone: idPhone
+      };
+      return await axios.post(MOIDA_DOMAIN + "/findId", requestData);
+    },
 
+    findPw: async (username, pwEmail, pwPhone) => {
+      const requestData = {
+        type : "findPw",
+        username: username,
+        email: pwEmail,
+        phone: pwPhone
+      };
+      return await axios.post(MOIDA_DOMAIN + "/findPw", requestData);
+    },
+  
 
   // 회원탈퇴
   deleteMember: async (userId, password) => {
