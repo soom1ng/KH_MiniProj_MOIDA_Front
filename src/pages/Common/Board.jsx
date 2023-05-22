@@ -19,8 +19,9 @@ const Recommend = styled.img`
   width: 20px;
 
   // 이미 추천 누른 상태면 보라색으로 보이게 만들수도...
-  &:hover {
+  &.active {
     filter: invert(30%) sepia(40%) saturate(6276%) hue-rotate(240deg) brightness(105%) contrast(103%);
+    
   }
 `;
 
@@ -91,13 +92,19 @@ const StyledBoard = styled.div`
     margin-right: 30px;
 
     .side-left {
+      width: 240px;
       flex-direction: column;
       margin-right: 30px;
 
       .date {
         font-size: 1.6rem;
       }
-
+      .views {
+        display: block;
+        width: 150px;
+        text-align: right;
+        font-size: 1.4rem;
+      }
       .recommend {
         height: 50px;
         font-size: 1.8rem;
@@ -139,12 +146,14 @@ const tagDelete = (text, row) => {
   else {return result}
 
 }
-
-export const Board = ({postId, type, nickname, title, content, img_url, date, recommend, size, boardName}) => {
+export const Board = ({postId, type, nickname, title, content, views, img_url, date, recommend, size, boardName}) => {
   const sizeStyle = SIZES[size];
-
   const navigate = useNavigate();
   content = tagDelete(content, 3);
+
+  const recommendList = JSON.parse(window.localStorage.getItem("recommendList"));
+  console.log("recommendList = " + recommendList);
+  console.log("includes = " + recommendList.includes(99));
 
 
   const OnClick = () => {
@@ -163,9 +172,12 @@ export const Board = ({postId, type, nickname, title, content, img_url, date, re
         <div className="board-body-side">
           <div className="side-left">
             <div className="date">{date}</div>
-            <div className="recommend">
-              <Recommend src={ThumbsUp} alt="추천"/>
-              <h3>{recommend}</h3>
+            <div className="view-recommend">
+              {views >= 0 && <div className="views">조회수: {views}</div>}
+              <div className="recommend">
+                <Recommend className={recommendList && recommendList.includes(postId) && "active"} src={ThumbsUp} alt="추천"/>
+                <h3>{recommend}</h3>
+              </div>
             </div>
           </div>
           {img_url &&

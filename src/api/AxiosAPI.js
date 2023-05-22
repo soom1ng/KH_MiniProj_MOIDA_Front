@@ -100,7 +100,7 @@ const AxiosApi = {
   },
 
   //일정 삭제
-  scheduleMemDel: async (studyScId) => {
+  scheduleDelete: async (studyScId) => {
     const schedulDelete = {
       studyScId: studyScId,
     };
@@ -276,6 +276,7 @@ const AxiosApi = {
 
 
 
+
   // 게시물 리스트 GET
   postListGet: async (boardName, lastId) => {
     return await axios.get(MOIDA_DOMAIN + `/lounge/${boardName}?lastId=${lastId}`);
@@ -298,6 +299,37 @@ const AxiosApi = {
     return await axios.post(MOIDA_DOMAIN + `/lounge/post/insert`, post);
   },
 
+  // 조회수 증가
+  viewIncrease: async (postId) => {
+    console.log("조회수 증가 api호출");
+    return await axios.post(MOIDA_DOMAIN+`/lounge/post/view?postId=${postId}`);
+  },
+
+  // 추천 리스트 불러오기
+  getRecommendList: async (userId) => {
+    return await axios.get(MOIDA_DOMAIN + `/lounge/post/recommendList?userId=${userId}`);
+  },
+
+  // 추천하기
+  postRecommend: async (postId, userId) => {
+    console.log("추천발생")
+    const data = {
+      postId: postId,
+      userId: userId
+    };
+    return await axios.post(MOIDA_DOMAIN + '/lounge/post/recommend', data);
+  },
+
+  // 추천취소
+  postUndoRecommend: async (postId, userId) => {
+    console.log("추천취소 발생")
+    const data = {
+      postId: postId,
+      userId: userId
+    };
+    return await axios.post(MOIDA_DOMAIN + '/lounge/post/undoRecommend', data);
+  },
+
   // 댓글 등록 POST
   postCommentReg: async (userId, postId, parentId, contents) => {
     const comment = {
@@ -309,7 +341,7 @@ const AxiosApi = {
     return await axios.post(MOIDA_DOMAIN + `/lounge/comment/insert`, comment);
   },
 
-  // 댓글 수정 post
+  // 댓글 수정 POST
   postCommentModify: async (commentId, contents) => {
     const comment = {
       commentId: commentId,

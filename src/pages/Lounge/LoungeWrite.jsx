@@ -53,18 +53,6 @@ const EditorContainer = styled.div`
 `;
 
 
-// const Button = styled.button`
-//   width: 100px;
-//   font-size:17px;
-//   font-family: 'Noto Sans KR', sans-serif;
-//   padding: 8px;
-//   background-color: rgb(107, 78, 254);
-//   color: white;
-//   border: none;
-//   border-radius: 5px;
-//   cursor: pointer;
-// `;
-
 const LoungeWrite = () => {
     const navigate = useNavigate();
     const {boardName} = useParams();
