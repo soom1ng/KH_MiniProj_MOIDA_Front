@@ -364,13 +364,13 @@ const AxiosApi = {
 
 
   // 스토리 리스트 GET
-  ListGet: async () => {
+  storyListGet: async () => {
     return await axios.get(MOIDA_DOMAIN + `/story`);
   },
 
   // 스토리 페이지 GET
-  storyViewGet: async (userId) => {
-    return await axios.get(MOIDA_DOMAIN + `/story/${userId}`);
+  storyViewGet: async (storyId) => {
+    return await axios.get(MOIDA_DOMAIN + `/story/${storyId}`);
   },
 
   // 스토리 등록 POST

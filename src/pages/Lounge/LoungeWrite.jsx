@@ -3,20 +3,14 @@ import React, {useContext, useState} from "react";
 //import { NavLink } from "react-router-dom";
 import Header from "../Header";
 import styled from "styled-components";
-import {Editor} from "../Common/Editor";
+import { Editor } from "../Common/Editor";
 import HeaderLounge from "../HeaderLounge";
-import {useNavigate, useParams} from "react-router-dom";
-import {BOARD} from "./LoungeMain";
-import AxiosApi from "../../api/AxiosAPI";
+import { useNavigate, useParams } from "react-router-dom";
+import { BOARD } from "./LoungeMain";
+import AxiosAPI from "../../api/AxiosAPI";
 import Modal from "../utils/Modal";
-import {LoginContext} from "../../context/AuthContext";
+import { LoginContext}  from "../../context/AuthContext";
 
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
 
 const Container = styled.div`
   width: 1200px;
@@ -60,7 +54,9 @@ const LoungeWrite = () => {
 
     // 등록 input값
     const { userId } = useContext(LoginContext);
-    console.log("userID = " + userId)
+    console.log("userID = " + userId);
+    // const { postId } = useState("");
+    // console.log("postId = " + postId);
     const [inputTitle, setInputTitle] = useState("1");
     const [inputContents, setInputContents] = useState("");
     const [inputImgUrl, setInputImgUrl] = useState("");
@@ -72,8 +68,9 @@ const LoungeWrite = () => {
 
     // 게시물 등록
     const onClickRegPost = async() => {
-        const postReg1 = await AxiosApi.postReg(userId, inputTitle, inputContents, boardName, inputImgUrl);
+        const postReg1 = await AxiosAPI.postReg(userId, inputTitle, inputContents, boardName, inputImgUrl);
         console.log("userId = " + userId);
+        // console.log("postId = " + postId);
         console.log("inputTitle = " + inputTitle);
         console.log("inputContent = " + inputContents);
         console.log(postReg1.data.result);
