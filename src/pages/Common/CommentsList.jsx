@@ -1,8 +1,9 @@
 import Comment from "./Comment";
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import Paging from "../Common/Paging";
 import CommentWriter from "./CommentWriter";
+import {LoginContext} from "../../context/AuthContext";
 
 const Container = styled.div`
   width: 1200px;
@@ -72,6 +73,7 @@ const Container = styled.div`
 // 아니면 게시물 + 댓글list로 VO가 구성되어 있고 한번에 받아오니까
 // 댓글 list를 받아서 열어주는걸로 할까?? 괜찮을듯
 const CommentsList = ({ storyId, postId, commentsList, page, setPage, update, setUpdate }) => {
+    const {userId} = useContext(LoginContext);
     const listPerPage = 8; // 페이지 당 보여줄 댓글 개수 개수
     const offset = listPerPage * (page - 1); // 리스트를 슬라이스 하기 위한 변수
     const maxPage = Math.ceil(commentsList.length / listPerPage); // 현재 리스트의 최대 페이지

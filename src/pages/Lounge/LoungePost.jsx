@@ -45,6 +45,9 @@ const Container = styled.div`
 
 const LoungePost = () => {
     const { boardName, postId } = useParams();
+
+    console.log("boardName = " + boardName);
+    console.log("postId = " + postId);
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState([]);
     const [page, setPage] = useState(1);

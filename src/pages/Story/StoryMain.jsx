@@ -124,7 +124,7 @@ const StoryMain = () => {
 
         <div className="menuBlock">
 
-          <Category array='r'></Category>
+          <Category display={'flex'} array='r'></Category>
 
           <SearchContainer>
             <SearchBar type="text" placeholder="검색 할 내용을 입력하세요!" />

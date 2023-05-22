@@ -100,12 +100,12 @@ const AxiosApi = {
   },
 
   //일정 삭제
-  scheduleMemDel: async (studyScId) => {
-    const schedulDelete = {
-      studyScId : studyScId,
-    };
-    return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/Schedule/ScheduleDelete`, { data : schedulDelete});
-  },
+  // scheduleMemDel: async (studyScId) => {
+  //   const schedulDelete = {
+  //     studyScId : studyScId,
+  //   };
+  //   return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/Schedule/ScheduleDelete`, { data : schedulDelete});
+  // },
   
   //스터디 권한 넘기기
   studyMgrNext: async (studyId, memId) => {
@@ -164,7 +164,7 @@ const AxiosApi = {
     const requestData = {
       userId: userId,
       pw: password,
-      newPw: newPassword
+      newPw: newPassword || password
     };
     try {
       const response = await axios.post(`${MOIDA_DOMAIN}/pw`, requestData);
@@ -174,6 +174,7 @@ const AxiosApi = {
       throw error;
     }
   },
+  
 
   updateEmail: async (userId, email) => {
     const requestData = {
@@ -232,6 +233,34 @@ const AxiosApi = {
       throw error;
     }
   },
+
+    // 자기소개 업로드
+    uploadIntro: async (userId, intro) => {
+      const requestData = {
+        userId: userId,
+        intro: intro
+      };
+    
+      try {
+          const response = await axios.post(`${MOIDA_DOMAIN}/intro`, requestData);
+          return response.data;
+        } catch (error) {
+        console.log(userId);
+        console.log(intro);
+        console.log("자기소개 업로드 에러:", error.message);
+        throw error;
+      }
+    },
+
+    //아이디, 비밀 번호 찾기
+
+    findPw: async (username, email) => {
+      const signIn = {
+        userName: username,
+        email: email
+      };
+      return await axios.post(MOIDA_DOMAIN + "/find", signIn);
+    },
   
 
   // 회원탈퇴
@@ -263,6 +292,7 @@ const AxiosApi = {
       userId: userId,
       title: title,
       contents: contents,
+      boardName: boardName,
       imgUrl: imgUrl
     };
     return await axios.post(MOIDA_DOMAIN + `/lounge/post/insert`, post);

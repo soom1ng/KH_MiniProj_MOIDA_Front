@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
-function Button({ disabled, backgroundColor, padding, font, children }) {
+function Button({ disabled, backgroundColor, padding, font, children, onClick}) {
     return (
         <StyledButton
             disabled={disabled}
             backgroundColor={backgroundColor}
             padding={padding}
+            onClick={onClick}
             font={font}>
             {children}
         </StyledButton>

@@ -3,12 +3,14 @@ import styled from "styled-components";
 import axios from "axios";
 import HeaderMyPage from "../HeaderMyPage";
 import Header from "../Header";
+import CommentsList from "../Common/CommentsList";
+import { Board } from "../Common/Board";
 
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
-// ---------------------------------수민 수정예정------------------------------------- //
+// ---------------------------------상우 수정예정------------------------------------- //
+// ---------------------------------상우 수정예정------------------------------------- //
+// ---------------------------------상우 수정예정------------------------------------- //
+// ---------------------------------상우 수정예정------------------------------------- //
+// ---------------------------------상우 수정예정------------------------------------- //
 
 
 const Container = styled.div`
@@ -29,6 +31,7 @@ const MyPostContainer = styled.div`
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 800px;
   height: 500px;
   padding: 16px;
@@ -36,6 +39,13 @@ const InfoContainer = styled.div`
   border-radius: 10px;
   border: 1px solid #F3F3F3;
   border-radius: 10px;
+
+  .box {
+    border-radius: 0px;
+    border-bottom: 2px solid gray;
+    height: 130px;
+    margin-bottom: 10px;
+    }
 `;
 
 const Title = styled.p`
@@ -57,6 +67,53 @@ const MyPost = () => {
           <div>
             <Title>내가 작성한 글</Title>
             <InfoContainer>
+              <div className="box">
+              <Board
+                size={'s'}
+                postId={1}
+                type='lounge'
+                nickname={'시루루'}
+                title={'2조 화이팅'}
+                content={'힘내라 힘'}
+                date={'2023-01-23'}
+                boardName={'free'}
+                isNim={1}
+                recommend={30}
+                img_url={null}
+              ></Board>
+              </div>
+
+              <div className="box">
+              <Board
+                size={'s'}
+                postId={1}
+                type='lounge'
+                nickname={'시루루'}
+                title={'2조 화이팅'}
+                content={'힘내라 힘'}
+                date={'2023-01-23'}
+                boardName={'free'}
+                isNim={1}
+                recommend={30}
+                img_url={null}
+              ></Board>
+              </div>
+
+              <div className="box">
+              <Board
+                size={'s'}
+                postId={1}
+                type='lounge'
+                nickname={'시루루'}
+                title={'2조 화이팅'}
+                content={'힘내라 힘'}
+                date={'2023-01-23'}
+                boardName={'free'}
+                isNim={1}
+                recommend={30}
+                img_url={null}
+              ></Board>
+              </div>
 
             </InfoContainer>
 
@@ -65,6 +122,7 @@ const MyPost = () => {
             {/* 내 댓글 */}
             <Title>내가 작성한 댓글</Title>
             <InfoContainer>
+              {/* <CommentsList></CommentsList> */}
             </InfoContainer>
 
           </div>

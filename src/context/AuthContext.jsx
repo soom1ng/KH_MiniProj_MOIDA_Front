@@ -29,26 +29,34 @@ useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
     const storedUsername = localStorage.getItem('username');
     const storedPassword = localStorage.getItem('password');
+    const storedNickname = localStorage.getItem('nickname');
+    const storedImg = localStorage.getItem('img');
     const storedIsLogin = localStorage.getItem('isLogin');
 
     if (storedUserId && storedUsername && storedPassword && storedIsLogin === 'true') {
       setUserId(storedUserId);
       setUsername(storedUsername);
       setPassword(storedPassword);
+      setNickname(storedNickname);
+      setImg(storedImg);
       setIsLogin(true);
     }
   }, []);
 
-  const login = (userId, username, password) => {
+  const login = (userId, username, password, img, nickname) => {
     // 인증 정보 저장
     localStorage.setItem('userId', userId);
     localStorage.setItem('username', username);
     localStorage.setItem('password', password);
+    localStorage.getItem('nickname', nickname);
+    localStorage.getItem('img', img);
     localStorage.setItem('isLogin', 'true');
 
     setUserId(userId);
     setUsername(username);
     setPassword(password);
+    setNickname(nickname);
+    setImg(img);
     setIsLogin(true);
   };
 
@@ -57,11 +65,15 @@ useEffect(() => {
     localStorage.removeItem('userId');
     localStorage.removeItem('username');
     localStorage.removeItem('password');
+    localStorage.getItem('nickname');
+    localStorage.getItem('img');
     localStorage.removeItem('isLogin');
 
     setUserId('');
     setUsername('');
     setPassword('');
+    setNickname('');
+    setImg('');
     setIsLogin(false);
   };
 

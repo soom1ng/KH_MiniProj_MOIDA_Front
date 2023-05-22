@@ -1,6 +1,6 @@
-import React,{ useState, useContext } from "react";
+import React,{ useContext, useState, useEffect } from "react";
 import styled, { css } from "styled-components";
-import LOGO_imgOnly from "../../Images/LOGO_imgOnly.png"
+//import LOGO_imgOnly from "../../Images/LOGO_imgOnly.png"
 import {LoginContext} from "../../context/AuthContext"
 //import { storage } from "../../api/firebase";
 import AxiosApi from "../../api/AxiosAPI";
@@ -50,25 +50,29 @@ const MyInfo = styled.div`
   margin-left: 10px;
 `;
 
-export const Profile = ({ size, isStroom, userName }) => {
+export const Profile = ({ size, isStroom }) => {
   const sizeStyle = SIZES[size];
-  const { userId } = useContext(LoginContext);
-  const [img, setImg] = useState('');
+  const { userId, userName } = useContext(LoginContext);
+  const [img, setImg] = useState(null);
   const [nickname, setNickname] = useState('');
 
-  AxiosApi.myProfile(userId)
-  .then(response => {
-    const userInfo = response.data;
-    const nickname = userInfo.nickname;
-    const img = userInfo.img;
-    setNickname(nickname);
-    setImg(img);
-    console.log(response.data); // 응답 데이터는 response.data에서 사용 가능
-  })
-  .catch(error => {
-    // 오류 처리
-    console.error(error);
-  });
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await AxiosApi.myProfile(userId);
+        const userInfo = response.data;
+        const nickname = userInfo.nickname;
+        const img = userInfo.img;
+        setImg(img);
+        setNickname(nickname);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProfile();
+  }, [userId]);
 
   return (
     <ProfileContainer sizeStyle={sizeStyle}>

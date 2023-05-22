@@ -135,7 +135,7 @@ const InputLabel = styled.p`
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: bold;
   font-size: 19px;
-  margin-right: 10px;
+  /* margin-right: 10px; */
 `;
 
 const InputLabelBig = styled.p`
