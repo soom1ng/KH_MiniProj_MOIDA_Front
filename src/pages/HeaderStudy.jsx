@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
-// import { InputButton } from '../styles/StyledComponent';
+import { InputButton } from '../styles/StyledComponent';
 // import userImg from "../Images/user.png";
 import { StudyInfo } from './Common/StudyInfo';
 import logout from '../Images/logout.png';
@@ -227,7 +227,7 @@ const HeaderStudy = () => {
         <div className='indexBox'>    
             <Content>
               <div className="button" onClick={() => onStudyInsert()}>
-                <button onClick={onStudyInsert}>스터디 가입</button>
+                <InputButton onClick={onStudyInsert}>스터디 가입</InputButton>
               </div>
             </Content>   
         </div>
