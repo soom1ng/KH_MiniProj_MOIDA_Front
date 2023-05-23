@@ -37,7 +37,7 @@ const StyledMyStudyBlock = styled.div`
         justify-content: center;
         width: 340px;
         height: 200px;
-        margin: 0 30px;
+        margin: 0 20px;
         border: 1px solid #F3F3F3;
         border-radius: 10px;
         cursor: pointer;

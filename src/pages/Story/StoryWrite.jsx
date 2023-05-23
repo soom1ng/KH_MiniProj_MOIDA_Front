@@ -25,8 +25,9 @@ flex-direction: column;
 
 
 .StudyList {
-    margin-left: 45px;
+    /* margin-left: 45px; */
 }
+
 .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
   min-height: 600px;
   margin-bottom: 20px;
@@ -42,10 +43,13 @@ form {
 
 .list_box {
     background-color: #f3f3f3;
-    height: 280px;
-    display: flex;
+    padding : 30px;
+    height: auto;
+    /* display: flex; */
     /* flex-direction: column; */
     align-items: center;
+    justify-content: center;
+    vertical-align: center;
 }
 `;
 

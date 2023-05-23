@@ -30,7 +30,7 @@ import { LoginContext } from "../../context/AuthContext";
 // };
 
 
-
+// 스터디 리스트 메인
 export const MyStudyList = () => {
   const [myStudyInfo, setMyStudyInfo] = useState([]);
   const { userId } = useContext(LoginContext);
@@ -97,13 +97,12 @@ export const MyStudyList = () => {
           </div>
         </>
       )}
-
     </>
-
-
   );
 };
 
+
+// 마이페이지 스터디 리스트
 export const MyPageList = () => {
   const [myStudyCreateList, setmyCreateStudyList] = useState([]);
   const { userId } = useContext(LoginContext);
@@ -153,7 +152,6 @@ export const MyPageList = () => {
       ) : (
           <>
             <MyStudyBlock isCreate={true} isEmpty={true} />
-           
           </>
       )}
 
@@ -173,6 +171,63 @@ export const MyPageList = () => {
   );
 };
 
+
+// 스토리 작성 스토리 리스드
+export const ChooseStudyList = () => {
+  const [chooseList, setChooseList] = useState([]);
+  const { userId } = useContext(LoginContext);
+
+  useEffect(() => {
+    const chooseList = async () => {
+      try {
+        const rsp = await AxiosApi.studyMyListGet(userId); // 전체 조회
+        if (rsp.status === 200) {
+          setChooseList(rsp.data);
+          console.log(chooseList);
+        }
+      } catch (error) {
+        console.error('나의 스터디 정보를 가져오는 중 에러가 발생했습니다:', error);
+      }
+    };
+
+    chooseList();
+  }, [userId]);
+
+  console.log(chooseList.length);
+
+  return (
+    <>
+      {chooseList.length > 1 ? (
+        <>
+          <StyledSlider {...MyPageset}>
+            {/* <MyStudyBlock /> */}
+            {chooseList
+              // .filter((study) => study.userId && study.MgrId === userId)
+              .map((study) => (
+                <MyStudyBlock
+                  isCreate={false}
+                  isEmpty={false}
+                  isDelete={1}
+                  key={study.studyId}
+                  studyId={study.studyId}
+                  studyProfile={study.studyProfile}
+                  studyTitle={study.studyName}
+                  studyIntro={study.studyIntro}
+                  studyTag={study.tagName}
+                  studyUserCount={study.studyUserCount}
+                  studyUserLimit={study.studyUserLimit}
+                />
+              ))}
+          </StyledSlider>
+        </>
+      ) : (
+        <>
+          <MyStudyBlock isCreate={true} isEmpty={true} />
+        </>
+      )}
+    </>
+  );
+};
 
 
 //슬라이드 설정
