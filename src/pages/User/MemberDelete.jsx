@@ -76,6 +76,10 @@ const Button1 = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
+&:hover {
+  background-color: #543ad4;
+}
 `;
 
 const Check = styled.div`
@@ -95,7 +99,8 @@ const MemberDelete = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달
-  const [alertMessage, setAlertMessage] = useState(''); 
+  const [alertMessage, setAlertMessage] = useState('');
+  const shouldHover = true; 
 
   // 모달 열기
   const openModal = () => {
@@ -162,7 +167,7 @@ const MemberDelete = () => {
       {/* 알림 모달 */}
       <Modal open={isModalOpen} close={closeModal} width="300px" height="200px">
         <InputLabelBig width = "auto">{alertMessage}</InputLabelBig>
-        <Button onClick={closeModal}>확인</Button>
+        <Button onClick={closeModal} hover={shouldHover}>확인</Button>
       </Modal> 
     </Container>
   );

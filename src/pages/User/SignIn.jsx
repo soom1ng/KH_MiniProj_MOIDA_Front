@@ -73,6 +73,7 @@ const SignIn = () => {
   const { username, password, setUsername, setPassword, login } = useContext(LoginContext);
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
+  const shouldHover = true;
 
   const closeModal = () => {
     setModalOpen(false);
@@ -105,13 +106,13 @@ const SignIn = () => {
           </Body1>
         </Body>
         {(username && password) ?
-          <InputButton onClick={onClickLogin}>로그인</InputButton> :
+          <InputButton onClick={onClickLogin} hover={shouldHover}>로그인</InputButton> :
           <>
-          <InputButton >로그인</InputButton></>}
+          <InputButton hover={shouldHover}>로그인</InputButton></>}
       </Form>
       <Body2>
       </Body2>
-      <Modal open={modalOpen} close={closeModal}><FindMember /></Modal>
+      <Modal open={modalOpen} close={closeModal} ><FindMember /></Modal>
     </SignContainer>
   );
 

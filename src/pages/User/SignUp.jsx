@@ -75,6 +75,7 @@ const P = styled.p`
 const SignUp = () => {
   const [isAgreed, setIsAgreed] = useState(false);
   const navigate = useNavigate();
+  const shouldHover = true;
   const [phone, setPhone] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달
   const [alertMessage, setAlertMessage] = useState(''); 
@@ -112,6 +113,7 @@ const SignUp = () => {
           if (signUpSuccess) {
             setAlertMessage('회원가입이 완료되었습니다.'); // 알림 메시지 설정
             openModal(); // 모달 열기
+            navigate('/SignIn');
           } else {
             setAlertMessage('회원가입에 실패했습니다.'); // 알림 메시지 설정
             openModal(); // 모달 열기
@@ -200,7 +202,7 @@ const SignUp = () => {
       {/* 알림 모달 */}
       <Modal open={isModalOpen} close={closeModal} width="300px" height="200px">
         <InputLabelBig width = "auto">{alertMessage}</InputLabelBig>
-        <Button onClick={closeModal}>확인</Button>
+        <Button onClick={closeModal} hover={shouldHover}>확인</Button>
       </Modal> 
 
     </SignContainer>

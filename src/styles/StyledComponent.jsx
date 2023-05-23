@@ -61,6 +61,14 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
+  ${({ hover }) =>
+    hover &&
+    css`
+      &:hover {
+        background-color: #543ad4;
+      }
+    `}
 `;
 
 
@@ -75,6 +83,14 @@ const InputButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
+  ${({ hover }) =>
+    hover &&
+    css`
+      &:hover {
+        background-color: #543ad4;
+      }
+    `}
 `;
 
 const BlockBox = styled.div`
