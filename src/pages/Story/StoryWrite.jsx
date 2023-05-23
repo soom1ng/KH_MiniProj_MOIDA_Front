@@ -25,8 +25,9 @@ flex-direction: column;
 
 
 .StudyList {
-    margin-left: 45px;
+    /* margin-left: 45px; */
 }
+
 .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
   min-height: 600px;
   margin-bottom: 20px;
@@ -42,10 +43,13 @@ form {
 
 .list_box {
     background-color: #f3f3f3;
-    height: 280px;
-    display: flex;
+    padding : 30px;
+    height: auto;
+    /* display: flex; */
     /* flex-direction: column; */
     align-items: center;
+    justify-content: center;
+    vertical-align: center;
 }
 `;
 
@@ -79,7 +83,7 @@ const StoryWrite = () => {
     const { userId } = useContext(LoginContext);
     console.log("userID = " + userId);
     const { studyId } = useParams();
-    const [inputTitle, setInputTitle] = useState("1");
+    const [inputTitle, setInputTitle] = useState("");
     const [inputContents, setInputContents] = useState("");
     const [inputImgUrl, setInputImgUrl] = useState("");
 
@@ -123,8 +127,8 @@ const StoryWrite = () => {
                     {/* <InputLabel>제목</InputLabel>
                     <Input type="post_title" placeholder="제목을 입력해주세요." required /> */}
                     {/*title 필요에디터*/}
-                    <Editor></Editor>
-                    <Editor isTitle={1} inputTitle={inputTitle} inputContents={inputContents} setInputTitle={setInputTitle} setInputContents={setInputContents}/>
+                    {/* <Editor></Editor> */}
+                    <Editor isTitle={true} inputTitle={inputTitle} inputContents={inputContents} setInputTitle={setInputTitle} setInputContents={setInputContents}/>
 
                     {/* <Input type="post_desc" placeholder="내용을 입력해주세요." required /> */}
 

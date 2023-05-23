@@ -118,6 +118,7 @@ export const ViewScMem =({scName, userName, userIntro, userProfile, studyScId}) 
                 key={mem.studyScId}
                 myInfo={mem.userIntro}
                 mgrName={mem.userName}
+                myImg={mem.userImg}
                 />
               ))}
             </Content>

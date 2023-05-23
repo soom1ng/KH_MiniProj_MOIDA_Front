@@ -71,9 +71,7 @@ display: flex;
   list-style-type: '#';
   font-size: 15px;
   width: 400px;
-  margin-right: -90px;
-  margin-left: 140px;
-  justify-content: right;
+  justify-content: left;
   align-items:right;
 }
 .button {

@@ -58,13 +58,30 @@ const AxiosApi = {
     return await axios.post(MOIDA_DOMAIN + `/study/studyRoom/Main/studyInsert`, studyInsert);
   },
 
+  // 내가 만든 스터디 리스트
+  myStudyListGet: async (userId) => {
+    const studyCreateSelect = {
+      userId: userId
+    }
+    return await axios.get(MOIDA_DOMAIN + `/study/myPage/myCreateStudy/${userId}`, studyCreateSelect);
+  },
+
   // 스터디 탈퇴
   studyDelete: async (studyId, userId) => {
     const studyDelete = {
       studyId: studyId,
       userId: userId
     };
-    return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/Main/studyOut`, { data: studyDelete });
+    return await axios.post(MOIDA_DOMAIN + `/study/studyRoom/Main/studyOut`, studyDelete);
+  },
+
+  // 스터디 삭제
+  studyDrop: async (studyId, userId) => {
+    const studyDrop = {
+      studyId: studyId,
+      userId: userId
+    };
+    return await axios.post(MOIDA_DOMAIN + `/mypage/studyDelete/${studyId}/${userId}`, studyDrop);
   },
 
   // 스터디 생성
@@ -429,14 +446,15 @@ const AxiosApi = {
   },
 
 
+
   // 스토리 리스트 GET
-  storyListGet: async () => {
-    return await axios.get(MOIDA_DOMAIN + `/story`);
+  storyListGet: async (lastId) => {
+    return await axios.get(MOIDA_DOMAIN + `/story?lastId=${lastId}`);
   },
 
   // 스토리 페이지 GET
   storyViewGet: async (storyId) => {
-    return await axios.get(MOIDA_DOMAIN + `/story/${storyId}`);
+    return await axios.get(MOIDA_DOMAIN + `/story/?story${storyId}`);
   },
 
   // 스토리 등록 POST

@@ -13,9 +13,6 @@ import moment from "moment";
 import { LoginContext } from "../../../context/AuthContext";
 
 
-
-
-
 const StudyContainer = styled.div`
 display: flex;
 width: 1200px;
@@ -32,8 +29,8 @@ overflow-x: hidden;
     flex-direction: column;
     width: 1200px;
     height: 500px;
-    padding-top: 80px;
-    background-color: #f1f1f1;
+    padding: 80px 30px;
+    background-color: #f3f3f3;
 
 }
 
@@ -60,11 +57,10 @@ overflow-x: hidden;
     width: 1000px;
 }
 
-.title_schdule {}
 
 .schedule_box {
     width: 400px;
-    background-color: #f1f1f1;
+    background-color: #f3f3f3;
     height: 475px;
     display: flex;
     justify-content:center;
@@ -85,6 +81,7 @@ form {
     max-width: 1100px;
     padding : 20px 100px 20px 100px;
 }
+
 .scBox{
     background-color: white;
     height: 80px;
@@ -92,6 +89,7 @@ form {
     margin-top: 20px;
     border-radius:10px;
 }
+
 .profile {
         border-radius: 50%;
         width: 15px;
@@ -102,6 +100,7 @@ form {
         margin-right:5px;
 
     }
+
 .date {
         font-size : 25px;
         font-weight : bolder;
@@ -110,18 +109,21 @@ form {
         padding-left: 10px;
 
     }
+
     .item {
         display: flex;
         align-items: center;
         margin-top:5px;
 
     }
+
     .item2{
         display: flex;
         align-items: center;
         margin-top: -35px;
         margin-left:120px;
     }
+
     .scName{
         font-size:16px;
         padding-bottom:5px;
@@ -152,7 +154,7 @@ const StudyMain = () => {
           return (
             <div className="tileContentContainer">
               {Array.from({ length: matchingDataCount }, (_, index) => (
-                <div key={index} className="dot" />
+               <div key={index} className="dot"/>
               ))}
             </div>
           );
@@ -181,6 +183,26 @@ const StudyMain = () => {
                             value={value}
                             tileContent={tileContent}
                         />
+                        <style>
+                                    {`
+                                    .tileContentContainer {
+                                        display: flex;
+                                        justify-content: center;
+                                        flex-wrap: wrap;
+                                        
+                                    }
+                                    
+                                    .dot {
+                                        width: 7px;
+                                        height: 7px;
+                                        background-color: #6b4efe;
+                                        border-radius: 50%;
+                                        margin-right: 4px; 
+                                        margin-top:8px;
+
+                                    }
+                                    `}
+                                    </style>
                         
                         </div>
                         <div className="schedule_box">
@@ -192,25 +214,7 @@ const StudyMain = () => {
                                     <div className="profile" style={{ background: `${sc.studyProfile}` }}></div>
                                     <p className="scName">{sc.studyName}</p>
                                 </div>
-                                <style>
-                                    {`
-                                    .tileContentContainer {
-                                        display: flex;
-                                        justify-content: center;
-                                        flex-wrap: wrap;
-                                        
-                                    }
-                                    
-                                    .dot {
-                                        width: 10px;
-                                        height: 10px;
-                                        background-color: ${sc.studyProfile};
-                                        border-radius: 50%;
-                                        margin-right: 4px; 
-
-                                    }
-                                    `}
-                                    </style>
+                                
                                 <div className="item2">
                                     <h2 className="scName">{sc.studyScContent}</h2>
                                 </div>

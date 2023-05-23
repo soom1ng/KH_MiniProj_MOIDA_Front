@@ -56,7 +56,7 @@ const StudyRoomMain = () => {
             <HeaderStudy/>
             )}
             <StudyRoom>
-                <div className="content" style={{ fontSize: "18px", width: "900px" }}>{studyData.studyContent}</div>
+                <div className="content" dangerouslySetInnerHTML={{ __html: studyData.studyContent }} style={{ fontSize: "18px", width: "900px" }}></div>
             </StudyRoom>
         </>
     );

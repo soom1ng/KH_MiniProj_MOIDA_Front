@@ -2,11 +2,25 @@ import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { StudyDesc } from "./StudyDesc";
 import plusImg from "../../Images/plus.png";
+import deleteBoard from "../../Images/trash-can.png";
 import { AlignCenter } from "react-bootstrap-icons";
 import { useContext } from "react";
 import { LoginContext } from "../../context/AuthContext";
+import AxiosApi from "../../api/AxiosAPI";
+
+
 
 const StyledMyStudyBlock = styled.div`
+
+.delete{
+    margin-top: 10px;
+    margin-left: 270px;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
 
     .plusImg {
     width: 50px;
@@ -23,14 +37,21 @@ const StyledMyStudyBlock = styled.div`
         justify-content: center;
         width: 340px;
         height: 200px;
-        margin: 0 30px;
+        margin: 0 20px;
         border: 1px solid #F3F3F3;
         border-radius: 10px;
         cursor: pointer;
     }
 `;
 
-export const MyStudyBlock = ({ isCreate, isEmpty, studyId, studyProfile, studyTitle, studyIntro, studyTag, studyUserLimit, studyUserCount }) => {
+const MenuImg = styled.img`
+width: 18px;
+height: 18px;
+margin-right: 3px;
+text-align: left;
+`;
+
+export const MyStudyBlock = ({ isDelete, isCreate, isEmpty, studyId, studyProfile, studyTitle, studyIntro, studyTag, studyUserLimit, studyUserCount }) => {
     const navigate = useNavigate();
     const {userId} = useContext(LoginContext);
     console.log(`userId 입니다 : ${userId}`);
@@ -43,32 +64,40 @@ export const MyStudyBlock = ({ isCreate, isEmpty, studyId, studyProfile, studyTi
         }
        
     }
+
+
+    const onclickDelete = async() => {
+        
+        await AxiosApi.studyDrop(studyId, userId);
+        window.location.reload();
+        alert("스터디가 삭제되었어요 !😭");
+    
+    }
    
-
-
 
     return (
         <StyledMyStudyBlock >
-
                 <div>
                     {/* 값이 있으면 무조건 TRUE */}
-                    {isCreate ? <div className="pagebox"> {isEmpty ? <>
-                    <h2>내가 만든 스터디가 없습니다. </h2>
+                    {isCreate ? <div className="pagebox"> 
+                        { isEmpty ? <>
+                        <h2>내가 만든 스터디가 없습니다. </h2>
 
-                    {/* <br/> 생성을 원하시면 오른쪽 버튼을 클릭하세요. */}
-                    
-                    {/* <div className="study-block" onClick={onClickCreateStudy}>
-                        <img className="plusImg" src={plusImg} alt="아이콘" />
-                    </div> */}
-                    </>
-                 :
-                    <div className="study-block" onClick={onClickCreateStudy}>
-                        <img className="plusImg" src={plusImg} alt="아이콘" />
+                        {/* <br/> 생성을 원하시면 오른쪽 버튼을 클릭하세요. */}
+                        
+                        {/* <div className="study-block" onClick={onClickCreateStudy}>
+                            <img className="plusImg" src={plusImg} alt="아이콘" />
+                        </div> */}
+                        </>
+                        :
+                        <div className="study-block" onClick={onClickCreateStudy}>
+                            <img className="plusImg" src={plusImg} alt="아이콘" />
+                        </div>
+
+                        }
                     </div>
-
-                }
-                </div>
                     :
+                    <>
                     <div className="study-block">
                         <StudyDesc
                             studyId={studyId}
@@ -81,6 +110,10 @@ export const MyStudyBlock = ({ isCreate, isEmpty, studyId, studyProfile, studyTi
                             study_user_count={studyUserCount}
                             study_user_limit={studyUserLimit} />
                     </div>
+                    { isDelete ? 
+                    <div className="delete" onClick={onclickDelete}><MenuImg src={deleteBoard} />스터디 삭제</div>
+                    : <></>}
+                    </>
                 }
             </div>
         </StyledMyStudyBlock>
