@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import styled from 'styled-components';
 import Modal from "../utils/Modal";
 import FindMember from "./FindMember";
-import { InputLabel, Input, InputButton } from "../../styles/StyledComponent";
+import { InputLabel, Input, InputButton, InputLabelBig, Button } from "../../styles/StyledComponent";
 import AxiosApi from '../../api/AxiosAPI';
 
 const SignContainer = styled.div`
@@ -72,11 +72,23 @@ const SignUp = styled.p`
 const SignIn = () => {
   const { username, password, setUsername, setPassword, login } = useContext(LoginContext);
   const [modalOpen, setModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달
+  const [alertMessage, setAlertMessage] = useState('');
   const navigate = useNavigate();
   const shouldHover = true;
 
-  const closeModal = () => {
-    setModalOpen(false);
+   // 모달 열기
+   const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+
+  const closeModal = (modalName) => {
+    if (modalName === 'findMemberModal') {
+      setModalOpen(false); // findMemberModal 닫기
+    } else if (modalName === 'alertModal') {
+      setIsModalOpen(false); // alertModal 닫기
+    }
   };
 
   const onClickLogin = async () => {
@@ -86,6 +98,8 @@ const SignIn = () => {
       navigate('/');
     } catch (error) {
       console.log('로그인 에러:', error.message);
+      setAlertMessage('아이디나 비밀번호가 잘못 입력됐습니다.');
+      openModal();
     }
   };
 
@@ -112,7 +126,14 @@ const SignIn = () => {
       </Form>
       <Body2>
       </Body2>
-      <Modal open={modalOpen} close={closeModal} ><FindMember /></Modal>
+      <Modal open={modalOpen} close={closeModal} name="findMemberModal" ><FindMember /></Modal>
+
+      {/* 알림 모달 */}
+      <Modal open={isModalOpen} close={closeModal} name="alertModal" width="300px" height="200px">
+        <InputLabelBig width = "auto">{alertMessage}</InputLabelBig>
+        <Button onClick={() => closeModal('alertModal')} hover={shouldHover}>확인</Button>
+      </Modal> 
+
     </SignContainer>
   );
 

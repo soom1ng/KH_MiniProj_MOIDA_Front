@@ -72,7 +72,11 @@ const ModalStyle = styled.div`
 `;
 
 const Modal = (props) => {
-    const { open, close, width, height } = props;
+    const { open, close, name, width, height } = props;
+    
+    const closeModal = () => {
+        close(name);
+      };
 
     return (
         <ModalStyle width={width} height={height}>
@@ -80,7 +84,7 @@ const Modal = (props) => {
                 {open ? (
                     <section>
                         <div className='topButton'>
-                            <button className="close" onClick={close}>
+                            <button className="close" onClick={closeModal}>
                                 &times;
                             </button>
                         </div>
