@@ -14,6 +14,10 @@ const AxiosApi = {
   studyMyListGet : async(userId) => {
     return await axios.get(MOIDA_DOMAIN + `/study/myStudyList/${userId}`);
   },
+   //내가 만든 스터디 리스트
+   studyMyCreateListGet : async(userId) => {
+    return await axios.get(MOIDA_DOMAIN + `/mypage/myCreateStudy/${userId}`);
+  },
 
   // 스터디 헤더 정보
   studyViewGet: async (studyId) => {
@@ -34,8 +38,6 @@ const AxiosApi = {
  studyScOk : async(studyScId, userId) => {
   return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/scIsOk/${studyScId}/${userId}`);
 },
-
-
 
   // 스터디 일정 정보
   studyScGet: async (studyId) => {

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import HeaderMyPage from "../HeaderMyPage";
 import Header from "../Header";
 import MyInformationEdit from "../Common/MyInformationEdit";
 import { MyPageList } from "../Common/MyStudyList";
 import { MyPageTitle } from "../../styles/StyledComponent";
+import AxiosApi from "../../api/AxiosAPI";
+import { LoginContext } from "../../context/AuthContext";
+import { StudyDesc } from "../Common/StudyDesc";
 
 const Container = styled.div`
   margin-top: 80px;
@@ -57,6 +60,18 @@ const Container = styled.div`
 
 
 const MyPage = () => {
+  const {userId} = useContext(LoginContext);
+  const [myStudyList, setmyStudyList] = useState([]);
+
+  useEffect(() => {
+    const myCreateStudyInfo = async() => {
+        const rsp = await AxiosApi.studyMyListGet(userId); // 전체 조회
+        if(rsp.status === 200) setmyStudyList(rsp.data);
+        console.log(rsp.data);
+        
+    };
+    myCreateStudyInfo();
+}, []);
 
   return (
     <>
@@ -68,7 +83,7 @@ const MyPage = () => {
           
           <div className="list_box">
           <MyPageTitle>나의 스터디 📚</MyPageTitle>
-            <MyPageList/>
+          <StudyDesc/>
           </div>
 
         </div>
