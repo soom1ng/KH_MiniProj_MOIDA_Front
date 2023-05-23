@@ -78,7 +78,7 @@ const StoryWrite = () => {
     // 등록 input값
     const { userId } = useContext(LoginContext);
     console.log("userID = " + userId);
-    const [inputStudyId, setInputStudyId] = useState("");
+    const { studyId } = useParams();
     const [inputTitle, setInputTitle] = useState("1");
     const [inputContents, setInputContents] = useState("");
     const [inputImgUrl, setInputImgUrl] = useState("");
@@ -90,19 +90,19 @@ const StoryWrite = () => {
 
     // 게시물 등록
     const onClickRegStory = async () => {
-        const storyReg1 = await AxiosAPI.storyReg(userId, inputStudyId, inputTitle, inputImgUrl, inputContents);
+        const storyReg1 = await AxiosAPI.storyReg(userId, studyId, inputTitle, inputImgUrl, inputContents);
         console.log("userId = " + userId);
-        console.log("inputStudyId = " + inputStudyId);
+        console.log("studyId = " + studyId);
         console.log("inputTitle = " + inputTitle);
         console.log("inputImgUrl = " +inputImgUrl);
         console.log("inputContent = " + inputContents);
         console.log(storyReg1.data.result);
         if (storyReg1.data) {
             navigate(`/story}`);
-        }// } else {
+        }
+        // } else {
         //     setModalOpen(true);
         //     setModelText("게시물 등록 실패.");
-
 
     }
     return (
@@ -124,7 +124,7 @@ const StoryWrite = () => {
                     <Input type="post_title" placeholder="제목을 입력해주세요." required /> */}
                     {/*title 필요에디터*/}
                     <Editor></Editor>
-                    <Editor isTitle={1} inputStudyId={inputStudyId} inputTitle={inputTitle} inputContents={inputContents} setInputTitle={setInputTitle} setInputStudyId={setInputStudyId} setInputContents={setInputContents}/>
+                    <Editor isTitle={1} inputTitle={inputTitle} inputContents={inputContents} setInputTitle={setInputTitle} setInputContents={setInputContents}/>
 
                     {/* <Input type="post_desc" placeholder="내용을 입력해주세요." required /> */}
 

@@ -55,7 +55,6 @@ const LoungeWrite = () => {
     // 등록 input값
     const { userId } = useContext(LoginContext);
     console.log("userID = " + userId);
-    const { postId } = useParams();
     const [inputTitle, setInputTitle] = useState("1");
     const [inputContents, setInputContents] = useState("");
     const [inputImgUrl, setInputImgUrl] = useState("");
@@ -67,15 +66,15 @@ const LoungeWrite = () => {
 
     // 게시물 등록
     const onClickRegPost = async() => {
-        const postReg1 = await AxiosAPI.postReg(userId, inputTitle, inputContents, boardName, inputImgUrl);
+        const postReg1 = await AxiosAPI.postReg(userId,  inputTitle, inputContents, boardName, inputImgUrl);
         console.log("userId = " + userId);
-        console.log("postId = " + postId);
         console.log("inputTitle = " + inputTitle);
         console.log("inputContent = " + inputContents);
         console.log(postReg1.data.result);
         if (postReg1.data) {
-            navigate(`/lounge/${boardName}/${postId}`);
-        }// } else {
+            navigate(`/lounge/${boardName}`);
+        }
+        // } else {
         //     setModalOpen(true);
         //     setModelText("게시물 등록 실패.");
 
