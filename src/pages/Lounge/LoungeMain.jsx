@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import AxiosAPI from "../../api/AxiosAPI";
 import Header from "../Header";
 import HeaderLounge from "../HeaderLounge";
@@ -8,6 +8,7 @@ import { Board } from "../Common/Board";
 import styled from "styled-components";
 import Paging from "../Common/Paging";
 import { formatRegTime } from "../Common/formatRegTime";
+import {LoginContext} from "../../context/AuthContext";
 
 
 const Container = styled.div`
@@ -72,7 +73,7 @@ const Container = styled.div`
     background-color: rgb(241, 241, 241);
     width: 100%;
     height: auto;
-    padding: 10px 45px 10px 45px;
+    padding: 30px 45px 10px 45px;
   }
 `;
 // url : 이름 객체
@@ -87,10 +88,10 @@ const LoungeMain = () => {
   const [lastId, setLastId] = useState('');
   const [page, setPage] = useState(1); // 현재 페이지
   const listPerPage = 10; // 페이지 당 보여줄 리스트 개수
-
+  const {userId, isLogin} = useContext(LoginContext);
   const offset = listPerPage * (page - 1); // 리스트를 슬라이스 하기 위한 변수
   const maxPage = Math.ceil(postList.length / listPerPage); // 현재 리스트의 최대 페이지
-
+  const navigate = useNavigate();
   const writeLink = `/lounge/${boardName}/write`;
 
 
@@ -98,7 +99,6 @@ const LoungeMain = () => {
   // 문제! useEffect가 실행될 당시의 lastId 상태값을 가져오기 때문에 api호출에 lastId값을 직접 사용할 수 없다
   // 또한 내부에서 useState의 상태를 변경 후 함수에 적용할 수 없나
   useEffect(() => {
-
     const initialize = async (lastId) => {
       const rsp = await AxiosAPI.postListGet(boardName, '');
       console.log("lastId = " + lastId);
@@ -107,6 +107,11 @@ const LoungeMain = () => {
       setPage(1);
       console.log("initialize 실행")
       console.log(rsp.data);
+      if (userId) { // userId가 있을때만 실행 (로그인상태)
+        const rsp2 = await AxiosAPI.getRecommendList(userId);
+        window.localStorage.setItem("recommendList", JSON.stringify(rsp2.data));
+        console.log(rsp2.data);
+      }
     }
     initialize();
   }, [boardName])
@@ -128,56 +133,67 @@ const LoungeMain = () => {
     getPostList();
   }, [page]);
 
+  const onClickWriteCheck = () => {
+    if (isLogin) {
+      console.log("로그인 상태입니다")
+      navigate(writeLink);
+    }
+    else {
+      console.log("로그인이 필요합니다");
+      navigate('/signin');
+    }
+  }
 
   return (
-    <Container>
-      <Header />
-      <HeaderLounge boardName={boardName} />
-      <div className='board-top'>
-        <div className='board-title'>
-          <h1>{BOARD[boardName]} 게시판</h1>
-          <NavLink to={writeLink}><Button font={1.5}>글쓰기</Button></NavLink>
-        </div>
-        <div className='board-list'>
-          <div>
-            <h2>공지</h2>
-            <li>이제</li>
-            <li>누가</li>
-            <li>공지해주냐</li>
+      <Container>
+        <Header />
+        <HeaderLounge boardName={boardName} />
+        <div className='board-top'>
+          <div className='board-title'>
+            <h1>{BOARD[boardName]} 게시판</h1>
+            <Button font={1.5} onClick={onClickWriteCheck}>글쓰기</Button>
           </div>
-          {boardName === "free" &&
+          <div className='board-list'>
             <div>
-              <h2>Hot</h2>
-              <li>너무</li>
-              <li>뜨거워</li>
+              <h2>공지</h2>
+              <li>이제</li>
+              <li>누가</li>
+              <li>공지해주냐</li>
             </div>
-          }
+            {boardName === "free" &&
+                <div>
+                  <h2>Hot</h2>
+                  <li>너무</li>
+                  <li>뜨거워</li>
+                </div>
+            }
+          </div>
         </div>
-      </div>
 
-      <div className='board-bottom'>
-        {postList.slice(offset, offset + 10) && postList.slice(offset, offset + 10).map(post => (
+        <div className='board-bottom'>
+          {postList.slice(offset, offset + 10) && postList.slice(offset, offset + 10).map(post => (
 
-          <Board
-            size={'l'}
-            postId={post.postId}
-            type='lounge'
-            nickname={post.nickname}
-            title={post.title}
-            content={post.contents}
-            date={formatRegTime(post.regTime)}
-            boardName={boardName}
-            isNim={1}
-            recommend={post.recommend}
-            img_url={post.imgUrl}
-          ></Board>
+              <Board
+                  size={'l'}
+                  postId={post.postId}
+                  type='lounge'
+                  nickname={post.nickname}
+                  title={post.title}
+                  content={post.contents}
+                  views={post.views}
+                  date={formatRegTime(post.regTime)}
+                  boardName={boardName}
+                  isNim={1}
+                  recommend={post.recommend}
+                  img_url={post.imgUrl}
+              ></Board>
 
-        ))}
-        {maxPage > 0 && <Paging maxPage={maxPage} page={page} setPage={setPage}></Paging>}
-      </div>
+          ))}
+          {maxPage > 0 && <Paging maxPage={maxPage} page={page} setPage={setPage}></Paging>}
+        </div>
 
 
-    </Container>
+      </Container>
   )
 }
 

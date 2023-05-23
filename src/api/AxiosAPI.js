@@ -1,14 +1,14 @@
 import axios from 'axios';
-const MOIDA_DOMAIN = "http://localhost:8080";
+const MOIDA_DOMAIN = "http://localhost:8090";
 
 
 // 근데 이거 postListGET이렇게 하면 POST 는 postPost 라고해야하나???? board 로 바꿀까??
 const AxiosApi = {
 
   //스터디 리스트
-  studyListGet : async() => {
+  studyListGet: async () => {
     return await axios.get(MOIDA_DOMAIN + "/study");
-  },  
+  },
 
   //나의 스터디 리스트
   studyMyListGet : async(userId) => {
@@ -16,13 +16,13 @@ const AxiosApi = {
   },
 
   // 스터디 헤더 정보
-  studyViewGet: async(studyId) => {
-      return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Main/${studyId}`);
+  studyViewGet: async (studyId) => {
+    return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Main/${studyId}`);
   },
 
   // 스터디 멤버 정보
-  studyMemGet : async(studyId) => {
-      return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Member/${studyId}`);
+  studyMemGet: async (studyId) => {
+    return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Member/${studyId}`);
   },
 
   // 스터디 멤버 확인
@@ -38,20 +38,20 @@ const AxiosApi = {
 
 
   // 스터디 일정 정보
-  studyScGet : async(studyId) => {
-      return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Schedule/${studyId}`);
+  studyScGet: async (studyId) => {
+    return await axios.get(MOIDA_DOMAIN + `/study/studyRoom/Schedule/${studyId}`);
   },
 
   // 스터디 일정 참여 정보
-  studyUserScGet : async(userId) => {
+  studyUserScGet: async (userId) => {
     return await axios.get(MOIDA_DOMAIN + `/study/mySc/${userId}`);
-},
+  },
 
   // 스터디 가입
-  studyInsert : async(studyId, userId) => {
+  studyInsert: async (studyId, userId) => {
     const studyInsert = {
-      studyId : studyId,
-      userId : userId
+      studyId: studyId,
+      userId: userId
     }
     return await axios.post(MOIDA_DOMAIN + `/study/studyRoom/Main/studyInsert`, studyInsert);
   },
@@ -72,32 +72,32 @@ const AxiosApi = {
       studyName: studyName,
       studyCategory: category,
       studyUserLimit: studyUserLimit,
-      studyChatUrl : studyChatUrl,
-      studyIntro : studyIntro, 
-      studyContent : studyContent,
-      studyDeadline : studyDeadline,
-      studyProfile : randomColor,
-      tagName : tagString
+      studyChatUrl: studyChatUrl,
+      studyIntro: studyIntro,
+      studyContent: studyContent,
+      studyDeadline: studyDeadline,
+      studyProfile: randomColor,
+      tagName: tagString
     };
     return await axios.post(MOIDA_DOMAIN + `/study/create`, study);
   },
 
   // 스터디 일정 생성
-  createStudySchedule : async (userId, studyId, studyScDate, studyScContent, studyScUserLimit) => {
+  createStudySchedule: async (userId, studyId, studyScDate, studyScContent, studyScUserLimit) => {
     const schedule = {
-      userId : userId,
-      studyId : studyId,
-      studyScDate : studyScDate,
-      studyScContent : studyScContent,
-      studyScUserLimit : studyScUserLimit
+      userId: userId,
+      studyId: studyId,
+      studyScDate: studyScDate,
+      studyScContent: studyScContent,
+      studyScUserLimit: studyScUserLimit
     };
     return await axios.post(MOIDA_DOMAIN + `/study/studyRoom/Schedule/${studyId}`, schedule)
   },
   //일정 참여하기
   scheduleMemReg: async (studyScId, userId) => {
     const schedulMem = {
-      studyScId : studyScId,
-      userId : userId
+      studyScId: studyScId,
+      userId: userId
     };
     return await axios.post(MOIDA_DOMAIN + `/study/studyRoom/Schedule/MemberInser`, schedulMem);
   },
@@ -119,11 +119,11 @@ const AxiosApi = {
   //일정 삭제
   scheduleScDel: async (studyScId) => {
     const schedulDelete = {
-      studyScId : studyScId,
+      studyScId: studyScId,
     };
     return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/ScheduleDelete`, { data : schedulDelete});
   },
-  
+
   //스터디 권한 넘기기
   studyMgrNext: async (studyId, memId) => {
     const newData = { memId: memId.toString() };
@@ -133,10 +133,10 @@ const AxiosApi = {
   //스터디 강퇴
   studyMemDel: async (studyId, memId) => {
     const studyMemDelete = {
-      studyId : studyId,
-      userId : memId
+      studyId: studyId,
+      userId: memId
     };
-    return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/Member/MemberDelete`, { data : studyMemDelete});
+    return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/Member/MemberDelete`, { data: studyMemDelete });
   },
 
 
@@ -191,7 +191,7 @@ const AxiosApi = {
       throw error;
     }
   },
-  
+
 
   updateEmail: async (userId, email) => {
     const requestData = {
@@ -241,55 +241,67 @@ const AxiosApi = {
       userId: userId,
       img: url
     };
-  
+
     try {
-        const response = await axios.post(`${MOIDA_DOMAIN}/img`, requestData);
-        return response.data;
-      } catch (error) {
+      const response = await axios.post(`${MOIDA_DOMAIN}/img`, requestData);
+      return response.data;
+    } catch (error) {
       console.log("이미지 업로드 에러:", error.message);
       throw error;
     }
   },
 
-    // 자기소개 업로드
-    uploadIntro: async (userId, intro) => {
+  // 자기소개 업로드
+  uploadIntro: async (userId, intro) => {
+    const requestData = {
+      userId: userId,
+      intro: intro
+    };
+
+    try {
+      const response = await axios.post(`${MOIDA_DOMAIN}/intro`, requestData);
+      return response.data;
+    } catch (error) {
+      console.log(userId);
+      console.log(intro);
+      console.log("자기소개 업로드 에러:", error.message);
+      throw error;
+    }
+  },
+
+  //아이디, 비밀 번호 찾기
+
+    findId: async (idEmail, idPhone) => {
       const requestData = {
-        userId: userId,
-        intro: intro
+        type : "findId",
+        email: idEmail,
+        phone: idPhone
       };
-    
-      try {
-          const response = await axios.post(`${MOIDA_DOMAIN}/intro`, requestData);
-          return response.data;
-        } catch (error) {
-        console.log(userId);
-        console.log(intro);
-        console.log("자기소개 업로드 에러:", error.message);
-        throw error;
-      }
+      return await axios.post(MOIDA_DOMAIN + "/findId", requestData);
     },
 
-    //아이디, 비밀 번호 찾기
-
-    findPw: async (username, email) => {
-      const signIn = {
-        userName: username,
-        email: email
+    findPw: async (username, pwEmail, pwPhone) => {
+      const requestData = {
+        type : "findPw",
+        username: username,
+        email: pwEmail,
+        phone: pwPhone
       };
-      return await axios.post(MOIDA_DOMAIN + "/find", signIn);
+      return await axios.post(MOIDA_DOMAIN + "/findPw", requestData);
     },
   
 
   // 회원탈퇴
   deleteMember: async (userId, password) => {
     const delData = {
-      userId: userId, 
+      userId: userId,
       pw: password
     };
-  
+
     return await axios.post(MOIDA_DOMAIN + "/del", delData);
   },
-  
+
+
 
 
 
@@ -315,6 +327,37 @@ const AxiosApi = {
     return await axios.post(MOIDA_DOMAIN + `/lounge/post/insert`, post);
   },
 
+  // 조회수 증가
+  viewIncrease: async (postId) => {
+    console.log("조회수 증가 api호출");
+    return await axios.post(MOIDA_DOMAIN+`/lounge/post/view?postId=${postId}`);
+  },
+
+  // 추천 리스트 불러오기
+  getRecommendList: async (userId) => {
+    return await axios.get(MOIDA_DOMAIN + `/lounge/post/recommendList?userId=${userId}`);
+  },
+
+  // 추천하기
+  postRecommend: async (postId, userId) => {
+    console.log("추천발생")
+    const data = {
+      postId: postId,
+      userId: userId
+    };
+    return await axios.post(MOIDA_DOMAIN + '/lounge/post/recommend', data);
+  },
+
+  // 추천취소
+  postUndoRecommend: async (postId, userId) => {
+    console.log("추천취소 발생")
+    const data = {
+      postId: postId,
+      userId: userId
+    };
+    return await axios.post(MOIDA_DOMAIN + '/lounge/post/undoRecommend', data);
+  },
+
   // 댓글 등록 POST
   postCommentReg: async (userId, postId, parentId, contents) => {
     const comment = {
@@ -326,14 +369,89 @@ const AxiosApi = {
     return await axios.post(MOIDA_DOMAIN + `/lounge/comment/insert`, comment);
   },
 
-  // 댓글 수정 post
+  // 댓글 수정 POST
   postCommentModify: async (commentId, contents) => {
     const comment = {
       commentId: commentId,
       contents: contents
     };
     return await axios.post(MOIDA_DOMAIN + `/lounge/comment/update`, comment);
-  }
+  },
+
+  // 댓글 삭제
+  postCommentDelete: async (commentId) => {
+    return await axios.post(MOIDA_DOMAIN + `/lounge/comment/delete?commentId=${commentId}`);
+  },
+
+
+  // 스토리 리스트 GET
+  storyListGet: async () => {
+    return await axios.get(MOIDA_DOMAIN + `/story`);
+  },
+
+  // 스토리 페이지 GET
+  storyViewGet: async (storyId) => {
+    return await axios.get(MOIDA_DOMAIN + `/story/${storyId}`);
+  },
+
+  // 스토리 등록 POST
+  storyReg: async (userId, studyId, title, imgUrl, contents) => {
+    const story = {
+      userId: userId,
+      studyId: studyId,
+      title: title,
+      imgUrl: imgUrl,
+      contents: contents,
+    };
+    return await axios.story(MOIDA_DOMAIN + `/story/post/insert`, story);
+  },
+
+  // 스토리 수정 POST
+  storyModify: async (title, contents, storyId) => {
+    const story = {
+      title: title,
+      contents: contents,
+      storyId: storyId,
+    };
+    return await axios.story(MOIDA_DOMAIN + `/story/post/update`, story);
+  },
+
+  // 스토리 삭제 POST
+  storyDelete: async (storyId) => {
+    const story = {
+      storyId: storyId,
+    };
+    return await axios.story(MOIDA_DOMAIN + `/story/post/delete`, story);
+  },
+
+  // 스토리 댓글 등록 POST
+  storyCommentReg: async (userId, storyId, parentId, contents) => {
+    const comment = {
+      userId: userId,
+      storyId: storyId,
+      parentId: parentId,
+      contents: contents
+    };
+    return await axios.story(MOIDA_DOMAIN + `/story/comment/insert`, comment);
+  },
+
+  // 스토리 댓글 수정 POST
+  storyCommentModify: async (commentId, contents) => {
+    const comment = {
+      commentId: commentId,
+      contents: contents
+    };
+    return await axios.story(MOIDA_DOMAIN + `/story/comment/update`, comment);
+  },
+
+    // 스토리 댓글 삭제 POST
+    storyCommentDelete: async (commentId) => {
+      const comment = {
+        commentId: commentId,
+      };
+      return await axios.story(MOIDA_DOMAIN + `/story/comment/delete`, comment);
+    },
+
 
 }
 

@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Header from "../Header";
 import styled from "styled-components";
 import { BigTitle, InputButton } from "../../styles/StyledComponent";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Editor } from "../Common/Editor";
 
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
+import { LoginContext } from "../../context/AuthContext";
+import AxiosAPI from "../../api/AxiosAPI";
+import { MyStudyList } from "../Common/MyStudyList";
+// import Modal from "../utils/Modal";
 
 
 
@@ -43,8 +41,11 @@ form {
 }
 
 .list_box {
-    background-color: #f1f1f1;
-    height: 240px;
+    background-color: #f3f3f3;
+    height: 280px;
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
 }
 `;
 
@@ -59,17 +60,54 @@ const Title = styled.div` /* 1200 140 */
     font-family: 'Noto Sans KR', sans-serif;
     `;
 
+// 스토리 등록 POST
+//   storyReg: async (userId, studyId, title, imgUrl, contents) => {
+//     const story = {
+//       userId: userId,
+//       studyId: studyId,
+//       title: title,
+//       imgUrl: imgUrl,
+//       contents: contents,
+//     };
+//     return await axios.story(MOIDA_DOMAIN + `/story/post/insert`, story);
+//   },
 
 const StoryWrite = () => {
     const navigate = useNavigate();
 
-    const onclickPost = () => {
-        navigate('/Story/Post');
-    };
+    // 등록 input값
+    const { userId } = useContext(LoginContext);
+    console.log("userID = " + userId);
+    const { studyId } = useParams();
+    const [inputTitle, setInputTitle] = useState("1");
+    const [inputContents, setInputContents] = useState("");
+    const [inputImgUrl, setInputImgUrl] = useState("");
 
+    // 팝업
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalText, setModelText] = useState("");
+
+
+    // 게시물 등록
+    const onClickRegStory = async () => {
+        const storyReg1 = await AxiosAPI.storyReg(userId, studyId, inputTitle, inputImgUrl, inputContents);
+        console.log("userId = " + userId);
+        console.log("studyId = " + studyId);
+        console.log("inputTitle = " + inputTitle);
+        console.log("inputImgUrl = " +inputImgUrl);
+        console.log("inputContent = " + inputContents);
+        console.log(storyReg1.data.result);
+        if (storyReg1.data) {
+            navigate(`/story}`);
+        }
+        // } else {
+        //     setModalOpen(true);
+        //     setModelText("게시물 등록 실패.");
+
+    }
     return (
         <>
-            <Header></Header>
+            <Header/>
 
             <StoryWriteContainer>
                 <BigTitle><Title>스토리 🔥</Title></BigTitle>
@@ -77,6 +115,7 @@ const StoryWrite = () => {
                 <div className="StudyList">
                     <h2 className="title">스터디 선택</h2>
                     <div className="list_box">
+                        <MyStudyList/>
                     </div>
                 </div>
 
@@ -85,9 +124,11 @@ const StoryWrite = () => {
                     <Input type="post_title" placeholder="제목을 입력해주세요." required /> */}
                     {/*title 필요에디터*/}
                     <Editor></Editor>
+                    <Editor isTitle={1} inputTitle={inputTitle} inputContents={inputContents} setInputTitle={setInputTitle} setInputContents={setInputContents}/>
+
                     {/* <Input type="post_desc" placeholder="내용을 입력해주세요." required /> */}
 
-                    <InputButton type="submit" onClick={onclickPost}>올리기</InputButton>
+                    <InputButton type="submit" onClick={() => onClickRegStory()}>올리기</InputButton>
                 </form>
 
             </StoryWriteContainer>

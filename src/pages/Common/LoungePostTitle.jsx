@@ -1,7 +1,10 @@
 import ThumbsUp from "../../Images/thumbsup.png";
-import React from "react";
+import React, {useContext, useState} from "react";
 import styled, { css } from "styled-components";
 import { formatRegTime } from "./formatRegTime";
+import AxiosApi from "../../api/AxiosAPI";
+import {LoginContext} from "../../context/AuthContext";
+import AxiosAPI from "../../api/AxiosAPI";
 
 // postTitle에서 분할구조로 더 깔끔하게 표현하기 위해 만듬
 // story에서도 쓸 수 있게 추후 이 파일로 수정할 예정
@@ -79,8 +82,14 @@ const StyledPostTitle = styled.div`
       align-items: center;
     }
 
-    .thumbsup {
+    .active {
       width: var(--thumbsup);
+      filter: invert(30%) sepia(40%) saturate(6276%) hue-rotate(240deg) brightness(105%) contrast(103%);
+      cursor: pointer;
+    }
+    .non-active {
+      width: var(--thumbsup);
+      cursor: pointer;
     }
 
     h3 {
@@ -94,9 +103,30 @@ const StyledPostTitle = styled.div`
   }
 `;
 
-export const LoungePostTitle = ({ size, post }) => {
-    const { userImgUrl, nickname, title, recommend, regTime } = post;
+export const LoungePostTitle = ({ size, post, update, setUpdate }) => {
     const sizeStyle = SIZES[size];
+    const { postId, userImgUrl, nickname, title, recommend, regTime } = post;
+    const { userId } = useContext(LoginContext);
+    const [recommendList, setRecommendList] = useState(JSON.parse(window.localStorage.getItem("recommendList")));
+
+
+    console.log("LPuserId = " + userId);
+    console.log("LPpostId = " + postId);
+    console.log("LPrecommendList = " + recommendList);
+
+    const onClickRecommend = async () => {
+        const recommend = await AxiosAPI.postRecommend(postId, userId)
+        setRecommendList([...recommendList, postId]);
+        setUpdate(update*-1);
+    }
+    const onClickUndoRecommend = async () => {
+        const undoRecommend = await AxiosAPI.postUndoRecommend(postId, userId)
+        setRecommendList( recommendList.filter((value) => value !== postId));
+        setUpdate(update*-1);
+    }
+
+
+
 
     return (
         <StyledPostTitle sizeStyle={sizeStyle}>
@@ -110,7 +140,10 @@ export const LoungePostTitle = ({ size, post }) => {
 
             <div className="post-title-side">
                 <div className="recommend">
-                    <img className="thumbsup" src={ThumbsUp} alt="#" /><h3>{recommend}</h3>
+                    {recommendList && recommendList.includes(postId) ?
+                        <img className="active" onClick={onClickUndoRecommend} src={ThumbsUp} alt="#" /> :
+                        <img className="non-active" onClick={onClickRecommend} src={ThumbsUp} alt="#" />}
+                        <h3>{recommend}</h3>
                 </div>
                 <div className="date">{formatRegTime(regTime)}</div>
             </div>

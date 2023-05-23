@@ -67,14 +67,19 @@ const CommentWriter = ({
                            reply, setReply,
                            update, setUpdate}) => {
     const [comment, setComment] = useState(content); // 댓글 입력을 위한 comment
-    const { userId } = useContext(LoginContext);
-
+    const { userId, isLogin } = useContext(LoginContext);
+    const navigate = useNavigate();
 
     // 댓글 수정 시 이미 등록한 댓글을 나타내기 위함
 
     const handleCommentChange = (event) => {
         setComment(event.target.value);
     };
+    const onFocusLoginCheck = () => {
+        if (!isLogin) {
+            navigate("/signin");
+        }
+    }
 
     const onClickRegComment = async (event) => {
         event.preventDefault();
@@ -133,6 +138,7 @@ const CommentWriter = ({
             placeholder="댓글을 남겨보세요"
             rows={4} // Adjust the number of rows as needed
             cols={50} // Adjust the number of columns as needed
+            onFocus={onFocusLoginCheck}
         />
                 <div className='comment-buttons'>
                     {isModify ? (

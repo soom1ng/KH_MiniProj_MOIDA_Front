@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
+import AxiosApi from "../../api/AxiosAPI";
 
 const Container = styled.div`
   display: flex;
@@ -85,36 +86,57 @@ const FindButton = styled.button`
 
 
 function FindMember() {
-  const [id, setId] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [username, setUsername] = useState('');
+  const [pwEmail, setPwEmail] = useState('');
+  const [idEmail, setIdEmail] = useState('');
+  const [idPhone, setIdPhone] = useState('');
+  const [pwPhone, setPwPhone] = useState('');
   const [isIdFound, setIsIdFound] = useState(false);
   const [isPwdFound, setIsPwdFound] = useState(false);
-  const [foundInfo, setFoundInfo] = useState({});
+  const [foundInfo, setFoundInfo] = useState('');
 
   const handleIdChange = (e) => {
-    setId(e.target.value);
+    setUsername(e.target.value);
   }
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handlePwEmailChange = (e) => {
+    setPwEmail(e.target.value);
   }
 
-  const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
+  const handleIdEmailChange = (e) => {
+    setIdEmail(e.target.value);
   }
 
-  //아이디 찾기 버튼
-  const handleIdFindClick = () => {
+  const handleIdPhoneChange = (e) => {
+    setIdPhone(e.target.value);
+  }
+
+  const handlePwPhoneChange = (e) => {
+    setPwPhone(e.target.value);
+  }
+
+  const handleIdFindClick = async () => {
     setIsIdFound(true);
-    setFoundInfo({ email } + "로 메일이 전송되었습니다.");
+    try {
+      await AxiosApi.findId(idEmail, idPhone);
+      console.log('메일 전송 성공');
+      setFoundInfo("메일이 전송되었습니다.");
+    } catch (error) {
+      console.log('닉네임 업데이트 오류:', error.message);
+    }
   }
-
-  //비번 찾기 버튼
-  const handlePwFindClick = () => {
+  
+  const handlePwFindClick = async () => {
     setIsPwdFound(true);
-    setFoundInfo({ email } + "로 메일이 전송되었습니다.");
+    try {
+      await AxiosApi.findPw(username, pwEmail, pwPhone);
+      console.log('메일 전송 성공');
+      setFoundInfo("메일이 전송되었습니다.");
+    } catch (error) {
+      console.log('메일 전송 오류:', error.message);
+    }
   }
+  
 
   return (
     <Container>
@@ -123,9 +145,9 @@ function FindMember() {
           <div className="title">아이디 찾기</div>
           <TextBox>
             <TextOn>이메일:
-              <Input type="email" value={email} onChange={handleEmailChange} /></TextOn>
+              <Input type="email" value={idEmail} onChange={handleIdEmailChange} /></TextOn>
             <TextOn>핸드폰 번호:
-              <Input type="tel" value={phone} onChange={handlePhoneChange} /></TextOn>
+              <Input type="tel" value={idPhone} onChange={handleIdPhoneChange} /></TextOn>
           </TextBox>
           <div className="buttonBox"><FindButton onClick={handleIdFindClick}>찾기</FindButton></div>
         </div>
@@ -140,11 +162,11 @@ function FindMember() {
           <div className="title">비밀번호 찾기</div>
           <TextBox>
             <TextOn>아이디:
-              <Input type="text" value={id} onChange={handleIdChange} /></TextOn>
+              <Input type="text" value={username} onChange={handleIdChange} /></TextOn>
             <TextOn>이메일:
-              <Input type="email" value={email} onChange={handleEmailChange} /></TextOn>
+              <Input type="email" value={pwEmail} onChange={handlePwEmailChange} /></TextOn>
             <TextOn>핸드폰 번호:
-              <Input type="tel" value={phone} onChange={handlePhoneChange} /></TextOn>
+              <Input type="tel" value={pwPhone} onChange={handlePwPhoneChange} /></TextOn>
           </TextBox>
           <div className="buttonBox"><FindButton onClick={handlePwFindClick}>찾기</FindButton></div>
         </div>
