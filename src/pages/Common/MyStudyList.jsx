@@ -131,7 +131,7 @@ export const MyPageList = () => {
         <>
           <StyledSlider {...MyPageset}>
             {/* <MyStudyBlock /> */}
-            {myStudyCreateList
+            {myStudyCreateList.length > 1 &&myStudyCreateList
               // .filter((study) => study.userId == userId)
               .map((study) => (
                 <MyStudyBlock
