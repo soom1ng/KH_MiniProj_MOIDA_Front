@@ -174,6 +174,23 @@ const AxiosApi = {
     }
   },
 
+  // 아이디 중복 확인
+  checkUsername: async (username) => {
+    const check = {
+      nickname: username
+    };
+    return await axios.post(MOIDA_DOMAIN + "/checkUsername", check);
+  },
+
+  // 닉네임 중복 확인
+  checkNickname: async (nickname) => {
+    const check = {
+      nickname: nickname
+    };
+    return await axios.post(MOIDA_DOMAIN + "/checkNickname", check);
+  },
+  
+
   // 로그인
   signIn: async (username, password) => {
     const signIn = {
@@ -340,6 +357,21 @@ const AxiosApi = {
     return await axios.post(MOIDA_DOMAIN + `/lounge/post/insert`, post);
   },
 
+  // 게시물 수정
+  postModify: async (postId, title, contents, imgUrl) => {
+    const postMod = {
+      postId: postId,
+      title: title,
+      contents: contents,
+      imgUrl: imgUrl
+    };
+    return await axios.post(MOIDA_DOMAIN + "/lounge/post/update", postMod);
+  },
+  // 게시물 삭제
+  postDelete: async (postId) => {
+    return await axios.post(MOIDA_DOMAIN + `/lounge/post/delete?postId=${postId}`);
+  },
+
   // 조회수 증가
   viewIncrease: async (postId) => {
     console.log("조회수 증가 api호출");
@@ -368,7 +400,7 @@ const AxiosApi = {
       postId: postId,
       userId: userId
     };
-    return await axios.post(MOIDA_DOMAIN + '/lounge/post/undoRecommend', data);
+    return await axios.post(MOIDA_DOMAIN + `/lounge/post/undoRecommend?postId=${postId}`);
   },
 
   // 댓글 등록 POST

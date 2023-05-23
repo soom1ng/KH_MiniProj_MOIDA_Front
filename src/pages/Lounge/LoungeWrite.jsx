@@ -10,6 +10,7 @@ import { BOARD } from "./LoungeMain";
 import AxiosAPI from "../../api/AxiosAPI";
 import Modal from "../utils/Modal";
 import { LoginContext}  from "../../context/AuthContext";
+import Button from "../Common/Button";
 
 
 const Container = styled.div`
@@ -47,16 +48,17 @@ const EditorContainer = styled.div`
 `;
 
 
-const LoungeWrite = () => {
+const LoungeWrite = ({postId = null, modify = false, title="", contents =""}) => {
     const navigate = useNavigate();
     const {boardName} = useParams();
     console.log("boardName = " + boardName);
+    console.log("modify = " + modify);
 
     // 등록 input값
     const { userId } = useContext(LoginContext);
     console.log("userID = " + userId);
-    const [inputTitle, setInputTitle] = useState("1");
-    const [inputContents, setInputContents] = useState("");
+    const [inputTitle, setInputTitle] = useState(title);
+    const [inputContents, setInputContents] = useState(contents);
     const [inputImgUrl, setInputImgUrl] = useState("");
 
     // 팝업
@@ -77,8 +79,13 @@ const LoungeWrite = () => {
         // } else {
         //     setModalOpen(true);
         //     setModelText("게시물 등록 실패.");
+    }
 
-
+    const onClickModPost = async() => {
+        const postMod = await AxiosAPI.postModify(postId, inputTitle, inputContents, inputImgUrl);
+        if (postMod.data) {
+            navigate(`/lounge/${boardName}`);
+        }
     }
 
 
@@ -94,8 +101,11 @@ const LoungeWrite = () => {
                     </div>
                     <Editor isTitle={1} inputTitle={inputTitle} inputContents={inputContents} setInputTitle={setInputTitle} setInputContents={setInputContents}/>
 
+                    {modify ?
+                        <Button onClick={onClickModPost} type="submit">수정완료</Button> :
+                        <Button onClick={onClickRegPost} type="submit">올리기</Button>
+                    }
 
-                    <button onClick={() => onClickRegPost()} type="submit">올리기</button>
                     <Modal open={modalOpen} >{modalText}</Modal>
                 </div>
 

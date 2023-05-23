@@ -36,6 +36,8 @@ const InputLabel = styled.div`
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: bold;
   font-size: 19px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   margin-right: 10px;
 `;
 

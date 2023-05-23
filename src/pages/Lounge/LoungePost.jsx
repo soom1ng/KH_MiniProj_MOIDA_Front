@@ -8,6 +8,7 @@ import AxiosAPI from "../../api/AxiosAPI";
 import { LoungePostTitle } from "../Common/LoungePostTitle";
 import AxiosApi from "../../api/AxiosAPI";
 import {LoginContext} from "../../context/AuthContext";
+import LoungeWrite from "./LoungeWrite";
 
 
 const Container = styled.div`
@@ -35,6 +36,7 @@ const LoungePost = () => {
     const [comments, setComments] = useState([]);
     const [page, setPage] = useState(1);
     const [update, setUpdate] = useState(1); // 페이지 업데이트용
+    const [modify, setModify] = useState(false);
 
 
     useEffect(() => {
@@ -66,7 +68,7 @@ const LoungePost = () => {
 
 
     return (
-
+        <> {!modify ?
         <Container>
             <Header />
             {post && <HeaderLounge boardName={post.boardName} />}
@@ -74,6 +76,8 @@ const LoungePost = () => {
             {post && <LoungePostTitle
                 size='l'
                 post={post}
+                modify={modify}
+                setModify={setModify}
                 update={update}
                 setUpdate={setUpdate}
             />}
@@ -93,7 +97,7 @@ const LoungePost = () => {
                 />}
 
 
-        </Container>
+        </Container> : <LoungeWrite modify={true} postId={postId} title={post.title} contents={post.contents} /> }</>
     )
 };
 

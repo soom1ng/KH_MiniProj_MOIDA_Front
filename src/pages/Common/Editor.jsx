@@ -30,7 +30,7 @@ const Title = ({ inputTitle, setInputTitle }) => {
 
         <StyledTitle>
             <InputLabel>제목</InputLabel>
-            <Input onChange={(e) => setInputTitle(e.target.value)} type="post_title" placeholder="제목을 입력해주세요." required />
+            <Input onChange={(e) => setInputTitle(e.target.value)} value={inputTitle} type="post_title" placeholder="제목을 입력해주세요." required />
         </StyledTitle>
     )
 };
@@ -45,7 +45,7 @@ export const Editor = ({ isTitle, inputTitle, setInputTitle, inputContents, setI
             <InputLabel>내용</InputLabel>
             <CKEditor
                 editor={ClassicEditor}
-                data="<p>내용을 입력하세요.</p>"
+                data={inputContents}
                 onReady={editor => {
                     // You can store the "editor" and use when it is needed.
                     console.log('Editor is ready to use!', editor);
