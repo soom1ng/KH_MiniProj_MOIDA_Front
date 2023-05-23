@@ -17,7 +17,6 @@ const StudyRoomMember = () => {
             const rsp = await AxiosApi.studyMemGet(studyId); // 전체 조회
             if(rsp.status === 200) setstudyMemInfo(rsp.data);
             console.log(rsp.data);
-          
         };
         studyMemInfo();
       }, [studyId])
@@ -32,9 +31,11 @@ const StudyRoomMember = () => {
                         <MyInformation
                         key={mem.userId}
                         memId={mem.userId}
+                        myImg={mem.userImg}
                         mgrId={mem.studyMgrId}
                         mgrName={mem.userName}
-                        myInfo={mem.userIntro} />
+                        myInfo={mem.userIntro}
+                         />
                         ))
                         }
                     </BoardContainerWrapper>
