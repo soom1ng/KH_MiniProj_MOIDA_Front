@@ -7,6 +7,7 @@ import { useContext, useState } from 'react';
 import AxiosApi from "../../api/AxiosAPI";
 import { useParams } from "react-router-dom";
 import { LoginContext } from "../../context/AuthContext";
+import { StudyProfile } from "./StudyProfile";
 
 const Container = styled.div`
 
@@ -134,7 +135,7 @@ export const MyInformation = ({ myInfo, mgrName, mgrId, myImg, memId}) => {
   return (
     <Container>
       <ProfileBox>
-        <Profile size={'l'} isStroom={'1'} memName={mgrName} />
+        <StudyProfile size={'l'} userName={mgrName} setImg={myImg} isImg={true} />
 
         {userId == mgrId && (
           <div className="moreDiv" onClick={() => {

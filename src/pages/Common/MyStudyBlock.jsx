@@ -32,10 +32,15 @@ const StyledMyStudyBlock = styled.div`
 export const MyStudyBlock = ({ isCreate, studyId, studyProfile, studyTitle, studyIntro, studyTag, studyUserLimit, studyUserCount }) => {
     const navigate = useNavigate();
     const {userId} = useContext(LoginContext);
-    console.log(userId);
+    console.log(`userId 입니다 : ${userId}`);
     const onClickCreateStudy = () => {
-        
-        navigate('/study/create');
+        if(userId != ''){
+            navigate('/study/create');
+        }else{
+            alert("로그인이 필요합니다 !😀")
+            navigate('/signin');
+        }
+       
     }
    
 

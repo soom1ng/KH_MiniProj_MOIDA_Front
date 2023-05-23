@@ -6,7 +6,7 @@ import { BoardBox, BoardContainerWrapper, StudyRoom } from "../../../styles/Styl
 import styled from "styled-components";
 import { Button } from "../../../styles/StyledComponent";
 import { Board } from "../../Common/Board";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 const Title = styled.div`
@@ -23,10 +23,11 @@ const Title = styled.div`
 
 const StudyRoomBoard = () => {
     const navigate = useNavigate();
+    const {studyId} = useParams();
 
     const onclickWrite = () => {
 
-        navigate('/StudyRoom/BoardWrite');
+        navigate(`/study/studyRoom/Board/BoardWrite/${studyId}`);
     }
 
     return (

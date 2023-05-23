@@ -1,78 +1,100 @@
-import React from "react";
-import Header from "../../Header";
-import HeaderStudy from "../../HeaderStudy";
-import styled from "styled-components";
-import { InputButton } from "../../../styles/StyledComponent";
-import { useNavigate } from "react-router-dom";
-import { Editor } from "../../Common/Editor";
+// import React, { useContext } from "react";
+// import Header from "../../Header";
+// import HeaderStudy from "../../HeaderStudy";
+// import styled from "styled-components";
+// import { InputButton } from "../../../styles/StyledComponent";
+// import { useNavigate, useParams } from "react-router-dom";
+// import { Editor } from "../../Common/Editor";
+// import AxiosApi from "../../../api/AxiosAPI";
+// import { LoginContext } from "../../../context/AuthContext";
 
-// ----------------------------------에디터 사용--------------------------------------- //
+// // ----------------------------------에디터 사용--------------------------------------- //
 
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
-// ---------------------------------상우님 수정예정------------------------------------- //
+// // ---------------------------------상우님 수정예정------------------------------------- //
+// // ---------------------------------상우님 수정예정------------------------------------- //
+// // ---------------------------------상우님 수정예정------------------------------------- //
+// // ---------------------------------상우님 수정예정------------------------------------- //
+// // ---------------------------------상우님 수정예정------------------------------------- //
+// // ---------------------------------상우님 수정예정------------------------------------- //
 
-const StudyBoardWriteContainer = styled.div`
+// const StudyBoardWriteContainer = styled.div`
 
-display: flex;
-flex-direction: column;
-max-width: 900px;
-margin: 0 auto;
-text-align: left;
-justify-content: space-between;
-
-
-
-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 900px;
-    padding : 20px 50px 20px 100px;
-}
-`;
-
-const Title = styled.div` /* 1200 140 */
-    display: flex;
-    font-size: 36px;
-    padding: 180px 0 50px 0 ;
-    height: 140px;
-    align-items: center;
-    margin-left: 90px;
-    font-weight: bold;
-    font-family: 'Noto Sans KR', sans-serif;
-    `;
+// display: flex;
+// flex-direction: column;
+// max-width: 900px;
+// margin: 0 auto;
+// text-align: left;
+// justify-content: space-between;
 
 
-const StudyBoardWrite = () => {
-    const navigate = useNavigate();
 
-    const onclickPost = () => {
-        navigate('/StudyRoom/Board');
-    };
+// form {
+//     display: flex;
+//     flex-direction: column;
+//     max-width: 900px;
+//     padding : 20px 50px 20px 100px;
+// }
+// `;
+
+// const Title = styled.div` /* 1200 140 */
+//     display: flex;
+//     font-size: 36px;
+//     padding: 180px 0 50px 0 ;
+//     height: 140px;
+//     align-items: center;
+//     margin-left: 90px;
+//     font-weight: bold;
+//     font-family: 'Noto Sans KR', sans-serif;
+//     `;
 
 
-    return (
-        <>
-            <Header></Header>
-            <HeaderStudy></HeaderStudy>
+// const StudyBoardWrite = () => {
+//     const navigate = useNavigate();
+//     const {userId} = useContext(LoginContext);
+//     const {studyId} = useParams(); 
 
-            <StudyBoardWriteContainer>
 
-                <Title><h1>스터디 보드 📋</h1></Title>
+//     const onclickPost = () => {
+//         navigate('/StudyRoom/Board');
+//     };
 
-                <form>
-                    {/*타이틀 필요 에디터*/}
-                    <Editor isTitle={1}></Editor>
+//     const onCreateBoard = async () => {
+//         try {
+//           const createBoard = await AxiosApi.createBoardStudy(userId, studyId, boardTitle, boardContent);
+//           console.log(createBoard.data.result);
+    
+//           if (createBoard.data.result === "OK") {
+//             navigate(`/study/studyRoom/Board/${studyId}`);
+//           } else {
+//             console.log("입력 실패");
+//             navigate(`/`);
+//           }
+//         } catch (error) {
+//           console.log("에러:", error);
+//         }
+//       };
+  
 
-                    <InputButton type="submit" onClick={onclickPost}>올리기</InputButton>
-                </form>
 
-            </StudyBoardWriteContainer>
-        </>
-    );
-};
+//     return (
+//         <>
+//             <Header></Header>
+//             <HeaderStudy></HeaderStudy>
 
-export default StudyBoardWrite;
+//             <StudyBoardWriteContainer>
+
+//                 <Title><h1>스터디 보드 📋</h1></Title>
+
+//                 <form>
+//                     {/*타이틀 필요 에디터*/}
+//                     <Editor isTitle={1} inputTitle={} setInputContents={} inputContents={} setInputContents={}></Editor>
+
+//                     <InputButton type="submit" onClick={onclickPost}>올리기</InputButton>
+//                 </form>
+
+//             </StudyBoardWriteContainer>
+//         </>
+//     );
+// };
+
+// export default StudyBoardWrite;
