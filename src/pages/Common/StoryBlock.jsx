@@ -43,14 +43,16 @@ const StoryTitle = styled.div`
 
 `;
 
-export const StoryBlock = ({ story_id, img_url, study_name, title }) => {
+export const StoryBlock = ({ storyId, img_url, study_name, title }) => {
   const navigate = useNavigate();
 
 
   return (
+    
     <StyledStory onClick={() => {
-      navigate('/Story/Post');
+      navigate(`/story/${storyId}`);
     }}>
+
       <div className="story-body">
         <img src={img_url} />
 
