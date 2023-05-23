@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import { LoginContext } from "../../context/AuthContext";
 import AxiosApi from "../../api/AxiosAPI";
+import Modal from "../utils/Modal";
+import { InputLabelBig, Button } from "../../styles/StyledComponent";
 
 const Container = styled.div`
   display: flex;
@@ -63,7 +65,7 @@ const CheckboxLabel = styled.label`
   margin-left: 10px;
 `;
 
-const Button = styled.button`
+const Button1 = styled.button`
   width: 100px;
   font-size: 17px;
   font-family: 'Noto Sans KR', sans-serif;
@@ -92,6 +94,18 @@ const MemberDelete = () => {
   const {username, userId, logout} = useContext(LoginContext);
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달
+  const [alertMessage, setAlertMessage] = useState(''); 
+
+  // 모달 열기
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // 모달 닫기
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
 
   const handleCheckboxChange = () => {
@@ -106,14 +120,16 @@ const MemberDelete = () => {
         try {
             await AxiosApi.deleteMember(userId, password);
             console.log('회원탈퇴가 완료되었습니다.');
-            alert('회원탈퇴가 완료되었습니다.');
+            setAlertMessage('회원탈퇴가 완료되었습니다.');
+            openModal();
             logout();
             navigate('/');
         } catch (error) {
           console.log('에러:', error.message);
         }
     } else {
-      alert('약관에 동의해야 회원탈퇴가 가능합니다.');
+      setAlertMessage('약관에 동의해야 회원탈퇴가 가능합니다.');
+      openModal();
     }
   };
 
@@ -141,8 +157,13 @@ const MemberDelete = () => {
 
         <InputLabel>비밀번호를 입력하시면 {username}님의 탈퇴가 진행됩니다.</InputLabel>
         <Input type="password" placeholder="비밀번호를 입력해주세요." value={password} onChange={handlePasswordChange} />
-        <Button onClick={handleFormSubmit}>회원탈퇴</Button>
+        <Button1 onClick={handleFormSubmit}>회원탈퇴</Button1>
       </Form>
+      {/* 알림 모달 */}
+      <Modal open={isModalOpen} close={closeModal} width="300px" height="200px">
+        <InputLabelBig width = "auto">{alertMessage}</InputLabelBig>
+        <Button onClick={closeModal}>확인</Button>
+      </Modal> 
     </Container>
   );
 };

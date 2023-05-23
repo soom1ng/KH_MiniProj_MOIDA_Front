@@ -141,7 +141,7 @@ const InputLabel = styled.p`
 
 const InputLabelBig = styled.p`
   text-align: left;
-  width: 150px;
+  ${props => props.width || '150px'};
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: bold;
   font-size: 19px;
