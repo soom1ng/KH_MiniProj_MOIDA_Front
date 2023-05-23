@@ -42,7 +42,7 @@ const MyPageTitle = styled.p`
   font-size: 24px;
   font-weight: bold;
   font-family: 'Noto Sans KR', sans-serif;
-  margin-bottom: 16px;
+  margin-bottom: 30px;
 `;
 
 const Search = styled.div`
