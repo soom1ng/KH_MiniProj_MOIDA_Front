@@ -3,6 +3,11 @@ import { useNavigate, Link } from "react-router-dom";
 import styled from 'styled-components';
 import { InputLabel, InputLabelBig, Input, InputButton } from "../../styles/StyledComponent";
 import AxiosApi from "../../api/AxiosAPI";
+import useEmailValidation from "../Common/User/Vaildation_email";
+import usePasswordValidation from "../Common/User/Vaildation_pw";
+import useUsernameValidation from "../Common/User/Vaildation_username";
+import useNicknameValidation from '../Common/User/Vaildation_nick';
+
 
 const SignContainer = styled.div`
   width: 800px;
@@ -60,17 +65,20 @@ const InputCheckBox = styled.input`
   border-radius: 4px;
 `;
 
-// 회원가입 창
-const SignUp = () => {
+const P = styled.p`
+  color: rgb(107, 78, 254);;
+`;
 
-  const [isAgreed, setIsAgreed] = useState(false); // 개인 정보 제공 동의
+// 회원가입 창
+
+const SignUp = () => {
+  const [isAgreed, setIsAgreed] = useState(false);
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [pw, setPw] = useState('');
-  const [pwConfirm, setPwConfirm] = useState('');
-  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [nickname, setNickname] = useState('');
+  const { email, emailMessage, isEmailValid, validateEmail } = useEmailValidation();
+  const { pw, pwConfirm,  isPwValid, isPwMatch, errorMessage, validatePassword, validatePasswordConfirm } = usePasswordValidation();
+  const { username, usernameMessage, isUsernameValid, validateUsername } = useUsernameValidation();
+  const { nickname, validateNickname, isNicknameValid, message } = useNicknameValidation();
 
 
   const handleCheckBoxChange = (e) => {
@@ -80,11 +88,6 @@ const SignUp = () => {
   // 회원가입 버튼 클릭
   const handleSignUp = async (e) => {
     e.preventDefault();
-
-    if (pw !== pwConfirm) {
-      console.log("비밀번호가 일치하지 않습니다.");
-      return false;
-    }
 
     if (isAgreed) {
       console.log('회원가입 버튼이 클릭되었습니다. 개인 정보 제공에 동의하였습니다.');
@@ -96,7 +99,7 @@ const SignUp = () => {
       const signUpSuccess = await AxiosApi.signUp(username, pw, pwConfirm, email, phone, nickname);
 
       if (signUpSuccess) {
-        console.log('회원가입이 완료되었습니다.');
+        alert('회원가입이 완료되었습니다.');
         navigate('/SignIn');
       } else {
         console.log('회원가입에 실패했습니다.');
@@ -106,7 +109,31 @@ const SignUp = () => {
     }
   };
 
-  
+  const handleUsernameChange = (e) => {
+    const input = e.target.value;
+    validateUsername(input);
+  };
+
+  const handleEmailChange = (e) => {
+    const input = e.target.value;
+    validateEmail(input);
+  };
+
+  const handlePasswordChange = (e) => {
+    const input = e.target.value;
+    validatePassword(input);
+  };
+
+  const handlePasswordConfirmChange = (e) => {
+    const input = e.target.value;
+    validatePasswordConfirm(input);
+  };
+
+  const handleNicknameChange = (e) => {
+    const input = e.target.value;
+    validateNickname(input);
+  };
+
 
   return (
     <SignContainer>
@@ -115,23 +142,28 @@ const SignUp = () => {
         <Body>
           <Body1>
             <InputLabel>아이디</InputLabel>
-            <Input type="id" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="아이디를 입력해주세요." required />
+            <Input type="id" value={username} onChange={handleUsernameChange} placeholder="아이디를 입력해주세요." required />
+            {!isUsernameValid && <P>{usernameMessage}</P>}
 
             <InputLabel>비밀번호</InputLabel>
-            <Input type="password" value={pw} onChange={(e) => setPw(e.target.value)} placeholder="비밀번호를 입력해주세요." required />
+            <Input type="password" value={pw} onChange={handlePasswordChange} placeholder="비밀번호를 입력해주세요." required />
+            {!isPwValid && <P>{errorMessage}</P>}
 
             <InputLabelBig>비밀번호 확인</InputLabelBig>
-            <Input type="password" value={pwConfirm} onChange={(e) => setPwConfirm(e.target.value)}  placeholder="비밀번호를 다시 입력해주세요." required />
+            <Input type="password" value={pwConfirm} onChange={handlePasswordConfirmChange}  placeholder="비밀번호를 다시 입력해주세요." required />
+            {!isPwMatch && <P>입력하신 비밀번호가 동일하지 않습니다.</P>}
           </Body1>
           <Body2>
             <InputLabel>닉네임</InputLabel>
-            <Input type="text" value={nickname}  onChange={(e) => setNickname(e.target.value)} placeholder="닉네임을 입력해주세요." required />
+            <Input type="text" value={nickname}  onChange={handleNicknameChange} placeholder="닉네임을 입력해주세요." required />
+            {isNicknameValid && <P>{message}</P>}
 
             <InputLabel>전화번호</InputLabel>
             <Input type="text" value={phone}  onChange={(e) => setPhone(e.target.value)} placeholder="전화번호를 입력해주세요." required />
 
             <InputLabel>이메일</InputLabel>
-            <Input type="email" value={email}  onChange={(e) => setEmail(e.target.value)} placeholder="이메일을 입력해주세요." required />
+            <Input type="email" value={email} onChange={handleEmailChange} placeholder="이메일을 입력해주세요." required />
+            {!isEmailValid && <P>{emailMessage}</P>}
           </Body2>
         </Body>
 

@@ -172,6 +172,23 @@ const AxiosApi = {
     }
   },
 
+  // 아이디 중복 확인
+  checkUsername: async (username) => {
+    const check = {
+      nickname: username
+    };
+    return await axios.post(MOIDA_DOMAIN + "/checkUsername", check);
+  },
+
+  // 닉네임 중복 확인
+  checkNickname: async (nickname) => {
+    const check = {
+      nickname: nickname
+    };
+    return await axios.post(MOIDA_DOMAIN + "/checkNickname", check);
+  },
+  
+
   // 로그인
   signIn: async (username, password) => {
     const signIn = {

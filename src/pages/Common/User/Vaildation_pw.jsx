@@ -1,36 +1,40 @@
-//회원가입, 로그인, 비밀번호/아이디 찾기, 회원 탈퇴, 마이페이지 수정에 쓰일 유효성 검사
 import { useState } from 'react';
 
-const usePasswordValidation = (defaultPassword = '') => {
-    const [password, setPassword] = useState(defaultPassword);
-    const [isValid, setIsValid] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-  
-    const handleChange = (event) => {
-      setPassword(event.target.value);
-    };
-  
-    const validatePassword = (input) => {
-      // 8-20자 사이의 길이 체크
-      if (input.length < 8 || input.length > 20) {
-        setIsValid(false);
-        setErrorMessage('비밀번호는 8-20자 이내로 입력해주세요.');
-        return;
-      }
-  
-      // 영어, 숫자, 특수문자 조합 체크
-      const pattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
-      if (!pattern.test(input)) {
-        setIsValid(false);
-        setErrorMessage('영어, 숫자, 특수문자를 모두 조합하여 입력해주세요.');
-        return;
-      }
+const usePasswordValidation = () => {
+  const [pw, setPw] = useState('');
+  const [pwConfirm, setPwConfirm] = useState('');
+  const [isPwLValid, setIsPwLValid] = useState(false);
+  const [isPwValid, setIsPwValid] = useState(false);
+  const [isPwMatch, setIsPwMatch] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
-      setIsValid(true);
-      setErrorMessage('');
-    };
-  
-    return [password, handleChange, validatePassword, isValid, errorMessage];
+  const validatePassword = (input) => {
+    setPw(input);
+    setIsPwLValid(input.length >= 8 && input.length <= 20);
+    setIsPwValid(
+      input.length >= 8 &&
+      input.length <= 20 &&
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(input)
+    );
+    setErrorMessage(
+      input.length >= 8 && input.length <= 20
+        ? '올바른 비밀번호 형식입니다.'
+        : '8자리 이상, 20자리 이하의 비밀번호를 특수문자, 영어, 숫자를 조합해 만들어주세요.'
+    );
+    setIsPwMatch(input === pwConfirm);
   };
-  
-  export default usePasswordValidation;
+
+  const validatePasswordConfirm = (input) => {
+    setPwConfirm(input);
+    setIsPwMatch(input === pw);
+  };
+
+  return { pw, pwConfirm, isPwLValid, isPwValid, isPwMatch, errorMessage, validatePassword, validatePasswordConfirm };
+};
+
+export default usePasswordValidation;
+
+
+
+
+

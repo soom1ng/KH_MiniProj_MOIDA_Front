@@ -50,30 +50,54 @@ const MyInfo = styled.div`
   margin-left: 10px;
 `;
 
-export const Profile = ({ size, isStroom }) => {
+
+export const Profile = ({ size, isStroom, userName }) => {
   const sizeStyle = SIZES[size];
-  const { userId, userName } = useContext(LoginContext);
-  const [img, setImg] = useState(null);
+  const { userId } = useContext(LoginContext);
+  const [img, setImg] = useState('');
   const [nickname, setNickname] = useState('');
 
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchMyProfile = async () => {
       try {
         const response = await AxiosApi.myProfile(userId);
         const userInfo = response.data;
         const nickname = userInfo.nickname;
         const img = userInfo.img;
-        setImg(img);
         setNickname(nickname);
-        console.log(response.data);
+        setImg(img);
+        console.log(response.data); // 응답 데이터는 response.data에서 사용 가능
       } catch (error) {
+        // 오류 처리
         console.error(error);
       }
     };
-
-    fetchProfile();
+    fetchMyProfile();
   }, [userId]);
 
+  useEffect(() => {
+    // img 상태가 변경되었을 때 실행되는 변환 작업
+    convertImage(img);
+  }, [img]);
+
+  const convertImage = (image) => {
+    if (image) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const convertedImage = reader.result;
+        console.log(convertedImage);
+        // 변환된 이미지를 필요한 형식으로 사용
+      };
+
+      if (image instanceof File) {
+        reader.readAsDataURL(image);
+      } else if (typeof image === 'string') {
+        reader.readAsDataURL(new Blob([image], { type: 'image/jpeg' }));
+      }
+    }
+  };
+
+  
   return (
     <ProfileContainer sizeStyle={sizeStyle}>
       <MyImage src={img} alt="이미지 미리보기" />
