@@ -1,10 +1,11 @@
 import ThumbsUp from "../../Images/thumbsup.png";
 import React, {useContext, useState} from "react";
-import styled, { css } from "styled-components";
-import { formatRegTime } from "./formatRegTime";
+import styled, {css} from "styled-components";
+import {formatRegTime} from "./formatRegTime";
 import AxiosApi from "../../api/AxiosAPI";
 import {LoginContext} from "../../context/AuthContext";
 import AxiosAPI from "../../api/AxiosAPI";
+import {useNavigate} from "react-router-dom";
 
 // postTitle에서 분할구조로 더 깔끔하게 표현하기 위해 만듬
 // story에서도 쓸 수 있게 추후 이 파일로 수정할 예정
@@ -19,7 +20,7 @@ const SIZES = {
     `,
     l: css`
       --width: 1200px;
-      --height : 190px;
+      --height: 190px;
       --body-width: 80%;
       --body-padding: 35px 90px 35px 90px;
       --thumbsup: 45px;
@@ -65,7 +66,6 @@ const StyledPostTitle = styled.div`
         padding-left: 15px;
         font-size: 1.7rem;
       }
-
     }
   }
 
@@ -87,6 +87,7 @@ const StyledPostTitle = styled.div`
       filter: invert(30%) sepia(40%) saturate(6276%) hue-rotate(240deg) brightness(105%) contrast(103%);
       cursor: pointer;
     }
+
     .non-active {
       width: var(--thumbsup);
       cursor: pointer;
@@ -103,46 +104,90 @@ const StyledPostTitle = styled.div`
   }
 `;
 
-export const LoungePostTitle = ({ size, post, update, setUpdate }) => {
+const OwnerBar = styled.div`
+  width: 1200px;
+  display: flex;
+  float: right;
+
+  .modify {
+    position: absolute;
+    right: 0;
+    margin-left: 40px;
+    cursor: pointer;
+    width: 40px;
+    font-size: 2rem;
+  }
+
+  .delete {
+    cursor: pointer;
+    width: 40px;
+    position: absolute;
+    right: 70px;
+    font-size: 2rem;
+  }
+`;
+
+
+export const LoungePostTitle = ({size, post, modify, setModify, update, setUpdate}) => {
     const sizeStyle = SIZES[size];
-    const { postId, userImgUrl, nickname, title, recommend, regTime } = post;
-    const { userId } = useContext(LoginContext);
+    const {postId, userImgUrl, nickname, title, recommend, regTime} = post;
+    const boardName = post.boardName;
+    const owner = post.userId;
+    const {userId} = useContext(LoginContext);
     const [recommendList, setRecommendList] = useState(JSON.parse(window.localStorage.getItem("recommendList")));
+    const navigate = useNavigate();
 
     const onClickRecommend = async () => {
         const recommend = await AxiosAPI.postRecommend(postId, userId)
         setRecommendList([...recommendList, postId]);
-        setUpdate(update*-1);
+        setUpdate(update * -1);
     }
     const onClickUndoRecommend = async () => {
-        const undoRecommend = await AxiosAPI.postUndoRecommend(postId, userId)
-        setRecommendList( recommendList.filter((value) => value !== postId));
-        setUpdate(update*-1);
+        const undoRecommend = await AxiosAPI.postUndoRecommend(postId, userId);
+        setRecommendList(recommendList.filter((value) => value !== postId));
+        setUpdate(update * -1);
     }
 
+    const onClickUpdatePost = async () => {
+        setModify(true);
+    }
 
+    const onClickDeletePost = async () => {
+        console.log(postId);
+        const deletePost = await AxiosAPI.postDelete(postId);
+        navigate(`/lounge/${boardName}`);
+
+    }
 
 
     return (
-        <StyledPostTitle sizeStyle={sizeStyle}>
-            <div className="post-title-body">
-                <div className="title">{title}</div>
-                <div className="info">
-                    <img src={userImgUrl} alt="#" />
-                    <div className="nickname">{nickname}</div>
-                </div>
-            </div>
+        <>
+            <StyledPostTitle sizeStyle={sizeStyle}>
+                <div className="post-title-body">
+                    <div className="title">{title}</div>
+                    <div className="info">
+                        <img src={userImgUrl} alt="#"/>
+                        <div className="nickname">{nickname}</div>
 
-            <div className="post-title-side">
-                <div className="recommend">
-                    {recommendList && recommendList.includes(postId) ?
-                        <img className="active" onClick={onClickUndoRecommend} src={ThumbsUp} alt="#" /> :
-                        <img className="non-active" onClick={onClickRecommend} src={ThumbsUp} alt="#" />}
-                        <h3>{recommend}</h3>
+                    </div>
                 </div>
-                <div className="date">{formatRegTime(regTime)}</div>
-            </div>
-        </StyledPostTitle>
+
+                <div className="post-title-side">
+                    <div className="recommend">
+                        {recommendList && recommendList.includes(postId) ?
+                            <img className="active" onClick={onClickUndoRecommend} src={ThumbsUp} alt="#"/> :
+                            <img className="non-active" onClick={onClickRecommend} src={ThumbsUp} alt="#"/>}
+                        <h3>{recommend}</h3>
+                    </div>
+                    <div className="date">{formatRegTime(regTime)}</div>
+                </div>
+            </StyledPostTitle>
+            {owner == userId &&
+                <OwnerBar>
+                    <div className="modify" onClick={onClickUpdatePost}>수정</div>
+                    <div className="delete" onClick={onClickDeletePost}>삭제</div>
+                </OwnerBar>}
+        </>
 
     )
 }
