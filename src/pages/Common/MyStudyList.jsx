@@ -128,7 +128,8 @@ console.log(myPageList.length);
     {myPageList.length > 1 ? (
       <>
         <StyledSlider {...MyPageset}>
-          {myPageList
+        <MyStudyBlock isCreate={true} isEmpty={true} />
+          {/* {myPageList
             .filter((study) => study.userId && study.MgrId === userId)
             .map((study) => (
               <MyStudyBlock 
@@ -142,13 +143,13 @@ console.log(myPageList.length);
                 studyUserCount={study.studyUserCount}
                 studyUserLimit={study.studyUserLimit}
               />
-            ))}
+            ))} */}
         </StyledSlider>
       </>
       ) : (
         <>
         <div style={{display:'flex'}}>
-          <MyStudyBlock isCreate={true} />
+          <MyStudyBlock isCreate={true} isEmpty={true} />
           {myPageList !== [] && myPageList
             .filter((study) => study.userId && study.MgrId === userId)
             .map((study) => (
