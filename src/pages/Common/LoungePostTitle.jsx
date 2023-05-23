@@ -140,7 +140,7 @@ export const LoungePostTitle = ({ size, post, update, setUpdate }) => {
 
             <div className="post-title-side">
                 <div className="recommend">
-                    {recommendList.includes(postId) ?
+                    {recommendList && recommendList.includes(postId) ?
                         <img className="active" onClick={onClickUndoRecommend} src={ThumbsUp} alt="#" /> :
                         <img className="non-active" onClick={onClickRecommend} src={ThumbsUp} alt="#" />}
                         <h3>{recommend}</h3>

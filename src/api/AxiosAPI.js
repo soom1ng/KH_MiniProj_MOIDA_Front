@@ -361,6 +361,10 @@ const AxiosApi = {
     return await axios.post(MOIDA_DOMAIN + `/lounge/comment/update`, comment);
   },
 
+  // 댓글 삭제
+  postCommentDelete: async (commentId) => {
+    return await axios.post(MOIDA_DOMAIN + `/lounge/comment/delete?commentId=${commentId}`);
+  },
 
 
   // 스토리 리스트 GET
