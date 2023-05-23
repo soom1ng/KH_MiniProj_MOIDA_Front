@@ -67,7 +67,7 @@ export const StudyList = () => {
             </div>
             <div className="new_study">
                 {studyInfo && studyInfo
-                .filter((study) => date <= new Date(study.studyDeadline))
+                // .filter((study) => date <= new Date(study.studyDeadline))
                 .slice(0, disPlayCount).map(study => (
                     study && (
                     <Study 

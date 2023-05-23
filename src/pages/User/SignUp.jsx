@@ -88,24 +88,28 @@ const SignUp = () => {
   // 회원가입 버튼 클릭
   const handleSignUp = async (e) => {
     e.preventDefault();
-
+  
     if (isAgreed) {
       console.log('회원가입 버튼이 클릭되었습니다. 개인 정보 제공에 동의하였습니다.');
-    } else {
-      console.log('개인 정보 제공에 동의해야 회원가입이 가능합니다.');
-    }
-
-    try {
-      const signUpSuccess = await AxiosApi.signUp(username, pw, pwConfirm, email, phone, nickname);
-
-      if (signUpSuccess) {
-        alert('회원가입이 완료되었습니다.');
-        navigate('/SignIn');
+      
+      if (isEmailValid && isUsernameValid && isPwMatch && !isPwValid) {
+        try {
+          const signUpSuccess = await AxiosApi.signUp(username, pw, pwConfirm, email, phone, nickname);
+          
+          if (signUpSuccess) {
+            alert('회원가입이 완료되었습니다.');
+            navigate('/SignIn');
+          } else {
+            alert('회원가입에 실패했습니다.');
+          }
+        } catch (error) {
+          console.log('회원가입 에러:', error.message);
+        }
       } else {
-        console.log('회원가입에 실패했습니다.');
+        alert('입력하신 정보가 유효하지 않아 회원가입을 진행할 수 없습니다.');
       }
-    } catch (error) {
-      console.log('회원가입 에러:', error.message);
+    } else {
+      alert('개인 정보 제공에 동의해야 회원가입이 가능합니다.');
     }
   };
 
@@ -156,7 +160,7 @@ const SignUp = () => {
           <Body2>
             <InputLabel>닉네임</InputLabel>
             <Input type="text" value={nickname}  onChange={handleNicknameChange} placeholder="닉네임을 입력해주세요." required />
-            {isNicknameValid && <P>{message}</P>}
+            {!isNicknameValid && <P>{message}</P>}
 
             <InputLabel>전화번호</InputLabel>
             <Input type="text" value={phone}  onChange={(e) => setPhone(e.target.value)} placeholder="전화번호를 입력해주세요." required />

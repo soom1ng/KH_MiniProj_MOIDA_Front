@@ -1,5 +1,5 @@
 import axios from 'axios';
-const MOIDA_DOMAIN = "http://localhost:8080";
+const MOIDA_DOMAIN = "http://localhost:8090";
 
 
 // 근데 이거 postListGET이렇게 하면 POST 는 postPost 라고해야하나???? board 로 바꿀까??

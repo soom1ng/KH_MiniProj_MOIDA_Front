@@ -106,6 +106,7 @@ const MemberDelete = () => {
         try {
             await AxiosApi.deleteMember(userId, password);
             console.log('회원탈퇴가 완료되었습니다.');
+            alert('회원탈퇴가 완료되었습니다.');
             logout();
             navigate('/');
         } catch (error) {
