@@ -7,7 +7,6 @@ import { MyPageList } from "../Common/MyStudyList";
 import { MyPageTitle } from "../../styles/StyledComponent";
 import AxiosApi from "../../api/AxiosAPI";
 import { LoginContext } from "../../context/AuthContext";
-import { StudyDesc } from "../Common/StudyDesc";
 
 const Container = styled.div`
   margin-top: 80px;
@@ -83,7 +82,7 @@ const MyPage = () => {
           
           <div className="list_box">
           <MyPageTitle>나의 스터디 📚</MyPageTitle>
-          <StudyDesc/>
+          <MyPageList />
           </div>
 
         </div>

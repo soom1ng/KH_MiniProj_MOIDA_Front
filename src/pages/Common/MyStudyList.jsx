@@ -31,157 +31,158 @@ import { LoginContext } from "../../context/AuthContext";
 
 
 
-export const MyStudyList = ( ) => {
-  const[myStudyInfo, setMyStudyInfo] = useState([]);
-  const {userId} = useContext(LoginContext);
+export const MyStudyList = () => {
+  const [myStudyInfo, setMyStudyInfo] = useState([]);
+  const { userId } = useContext(LoginContext);
+
   useEffect(() => {
-    const myStudyInfo = async() => {
-        try {
-            const rsp = await AxiosApi.studyMyListGet(userId); // 전체 조회
-            if (rsp.status === 200) {
-              setMyStudyInfo(rsp.data);
-              console.log(myStudyInfo);
-            }
-          } catch (error) {
-            console.error('나의 스터디 정보를 가져오는 중 에러가 발생했습니다:', error);
-          }
-        };
-      
-        myStudyInfo();
-      }, [userId]);
+    const myStudyInfo = async () => {
+      try {
+        const rsp = await AxiosApi.studyMyListGet(userId); // 전체 조회
+        if (rsp.status === 200) {
+          setMyStudyInfo(rsp.data);
+          console.log(myStudyInfo);
+        }
+      } catch (error) {
+        console.error('나의 스터디 정보를 가져오는 중 에러가 발생했습니다:', error);
+      }
+    };
+
+    myStudyInfo();
+  }, [userId]);
 
   return (
     <>
-  {myStudyInfo.length > 1 ? (
-    <>
-      <StyledSlider {...MyListset}>
-       <MyStudyBlock isCreate={true} />
-       {myStudyInfo !== [] && myStudyInfo
-          .map((study) => (
-            <MyStudyBlock 
-              isCreate={false}
-              key={study.studyId}
-              studyId={study.studyId}
-              studyProfile={study.studyProfile}
-              studyTitle={study.studyName}
-              studyIntro={study.studyIntro}
-              studyTag={study.tagName}
-              studyUserCount={study.studyUserCount}
-              studyUserLimit={study.studyUserLimit}
-            />
-          ))}
-      </StyledSlider>
+      {myStudyInfo.length > 1 ? (
+        <>
+          <StyledSlider {...MyListset}>
+            <MyStudyBlock isCreate={true} />
+            {myStudyInfo !== [] && myStudyInfo
+              .map((study) => (
+                <MyStudyBlock
+                  isCreate={false}
+                  key={study.studyId}
+                  studyId={study.studyId}
+                  studyProfile={study.studyProfile}
+                  studyTitle={study.studyName}
+                  studyIntro={study.studyIntro}
+                  studyTag={study.tagName}
+                  studyUserCount={study.studyUserCount}
+                  studyUserLimit={study.studyUserLimit}
+                />
+              ))}
+          </StyledSlider>
+        </>
+      ) : (
+        <>
+          <div style={{ display: "flex" }}>
+            {myStudyInfo === [] ? (
+              myStudyInfo.map((study) => (
+                <MyStudyBlock
+                  isCreate={false}
+                  key={study.studyId}
+                  studyId={study.studyId}
+                  studyProfile={study.studyProfile}
+                  studyTitle={study.studyName}
+                  studyIntro={study.studyIntro}
+                  studyTag={study.tagName}
+                  studyUserCount={study.studyUserCount}
+                  studyUserLimit={study.studyUserLimit}
+                />
+              ))
+            ) : (
+              <MyStudyBlock isCreate={true} />
+            )}
+          </div>
+        </>
+      )}
+
     </>
-    ) : (
-      <>
-      <div style={{ display: "flex" }}>
-        {myStudyInfo === [] ? (
-          myStudyInfo.map((study) => (
-            <MyStudyBlock
-              isCreate={false}
-              key={study.studyId}
-              studyId={study.studyId}
-              studyProfile={study.studyProfile}
-              studyTitle={study.studyName}
-              studyIntro={study.studyIntro}
-              studyTag={study.tagName}
-              studyUserCount={study.studyUserCount}
-              studyUserLimit={study.studyUserLimit}
-            />
-          ))
-        ) : (
-          <MyStudyBlock isCreate={true} />
-        )}
-      </div>
-    </>
-  )}
-  
-  
-  
-  
-  
-  
-  
-  </>
-      
+
 
   );
 };
 
-export const MyPageList = ( ) => {
-  const[myPageList, setMyPageList] = useState([]);
-  const {userId} = useContext(LoginContext);
+export const MyPageList = () => {
+  const [myPageList, setMyPageList] = useState([]);
+  const { userId } = useContext(LoginContext);
 
   useEffect(() => {
-    const PageList = async() => {
-        const rsp = await AxiosApi.studyListGet(); // 전체 조회
-        if(rsp.status === 200) setMyPageList(rsp.data);
-        console.log(rsp.data);
+    const pageList = async () => {
+      try {
+        const rsp = await AxiosApi.studyListGet(userId); // 전체 조회
+        if (rsp.status === 200) {
+          setMyPageList(rsp.data);
+          console.log(pageList);
+        }
+      } catch (error) {
+        console.error('나의 스터디 정보를 가져오는 중 에러가 발생했습니다:', error);
+      }
     };
-    PageList();
-}, []);
 
-console.log(myPageList.length);
+    pageList();
+  }, [userId]);
+
+  console.log(myPageList.length);
 
   return (
     <>
-    {myPageList.length > 1 ? (
-      <>
-        <StyledSlider {...MyPageset}>
-        <MyStudyBlock isCreate={true} isEmpty={true} />
-          {/* {myPageList
-            .filter((study) => study.userId && study.MgrId === userId)
-            .map((study) => (
-              <MyStudyBlock 
-                isCreate={false}
-                key={study.studyId}
-                studyId={study.studyId}
-                studyProfile={study.studyProfile}
-                studyTitle={study.studyName}
-                studyIntro={study.studyIntro}
-                studyTag={study.tagName}
-                studyUserCount={study.studyUserCount}
-                studyUserLimit={study.studyUserLimit}
-              />
-            ))} */}
-        </StyledSlider>
-      </>
-      ) : (
+      {myPageList.length > 1 ? (
         <>
-        <div style={{display:'flex'}}>
-          <MyStudyBlock isCreate={true} isEmpty={true} />
-          {myPageList !== [] && myPageList
-            .filter((study) => study.userId && study.MgrId === userId)
-            .map((study) => (
-              <MyStudyBlock 
-                isCreate={false}
-                key={study.studyId}
-                studyId={study.studyId}
-                studyProfile={study.studyProfile}
-                studyTitle={study.studyName}
-                studyIntro={study.studyIntro}
-                studyTag={study.tagName}
-                studyUserCount={study.studyUserCount}
-                studyUserLimit={study.studyUserLimit}
-              />
-            ))}
-          </div>
-        
+          <StyledSlider {...MyPageset}>
+            {/* <MyStudyBlock /> */}
+            {myPageList
+              // .filter((study) => study.userId && study.MgrId === userId)
+              .map((study) => (
+                <MyStudyBlock
+                  isCreate={false}
+                  isEmpty={false}
+                  isDelete={1}
+                  key={study.studyId}
+                  studyId={study.studyId}
+                  studyProfile={study.studyProfile}
+                  studyTitle={study.studyName}
+                  studyIntro={study.studyIntro}
+                  studyTag={study.tagName}
+                  studyUserCount={study.studyUserCount}
+                  studyUserLimit={study.studyUserLimit}
+                />
+              ))}
+          </StyledSlider>
+        </>
+      ) : (
+          <>
+            <MyStudyBlock isCreate={true} isEmpty={true} />
+            {/* {myPageList !== [] && myPageList
+              .filter((study) => study.userId && study.MgrId === userId)
+              .map((study) => (
+                <MyStudyBlock
+                  isCreate={false}
+                  key={study.studyId}
+                  studyId={study.studyId}
+                  studyProfile={study.studyProfile}
+                  studyTitle={study.studyName}
+                  studyIntro={study.studyIntro}
+                  studyTag={study.tagName}
+                  studyUserCount={study.studyUserCount}
+                  studyUserLimit={study.studyUserLimit}
+                />
+              ))} */}
           </>
       )}
-      
-      </>
-      
 
-      // <StyledSlider { ...MyPageset }>
+    </>
 
-      //   <MyStudyBlock />
-      //   <MyStudyBlock />
-      //   <MyStudyBlock />
-      //   <MyStudyBlock />
-      //   <MyStudyBlock />
 
-      // </StyledSlider>
+    // <StyledSlider { ...MyPageset }>
+
+    //   <MyStudyBlock />
+    //   <MyStudyBlock />
+    //   <MyStudyBlock />
+    //   <MyStudyBlock />
+    //   <MyStudyBlock />
+
+    // </StyledSlider>
 
   );
 };
