@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import AxiosAPI from "../../api/AxiosAPI";
 import Paging from "../Common/Paging";
 import styled from 'styled-components';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../Header";
 import searchIcon from "../../Images/search.png";
 import { Category } from "../Common/Category";
@@ -42,6 +42,13 @@ const StoryContainer = styled.div`
     width: 1100px;
     height: auto;
   justify-content : center;
+  }
+  .storyList {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 0;
+    width: 1100px;
   }
 `;
 
@@ -118,16 +125,19 @@ const StoryMain = () => {
   // const [lastId, setLastId] = useState('');
   const [page, setPage] = useState(1); // 현재 페이지
   const listPerPage = 12; // 페이지 당 보여줄 리스트 개수
+  const [lastId, setLastId] = useState('');
   const { userId, isLogin } = useContext(LoginContext);
   const offset = listPerPage * (page - 1); // 리스트를 슬라이스 하기 위한 변수
   const maxPage = Math.ceil(storyList.length / listPerPage); // 현재 리스트의 최대 페이지
+  const writeLink = `/story/write`;
 
 
 
   const navigate = useNavigate();
 
+  // const storyId = useParams();
 
-  const writeLink = `/story/write`;
+
 
   // const onClickWrite = () => {
   //   navigate('/Story/Write');
@@ -138,32 +148,27 @@ const StoryMain = () => {
   }
 
   useEffect(() => {
-    const initialize = async () => {
+    const initialize = async (lastId) => {
       const rsp = await AxiosAPI.storyListGet('');
-      // console.log("lastId = " + lastId);
+      console.log("lastId = " + lastId);
       setStoryList(rsp.data);
-      // setLastId(rsp.data[rsp.data.length - 1].storyId); // 마지막 행의 아이디값
+      setLastId(rsp.data[rsp.data.length - 1].storyId); // 마지막 행의 아이디값
       setPage(1);
       console.log("initialize 실행")
       console.log(rsp.data);
-      if (userId) { // userId가 있을때만 실행 (로그인상태)
-        const rsp2 = await AxiosAPI.getRecommendList(userId);
-        window.localStorage.setItem("recommendList", JSON.stringify(rsp2.data));
-        console.log(rsp2.data);
-      }
     }
     initialize();
-  })
+  }, [])
 
   // page가 변할때 실행
   useEffect(() => {
     const getStoryList = async () => {
-      if (page === maxPage && page > 1) { // 게시판이 바뀔떄 page가 1로 초기화 될 때에는 실행되지 않도록 합니다.
-        const rsp = await AxiosAPI.storyListGet();
+      if (page === maxPage && page > 1) { // page가 1로 초기화 될 때에는 실행되지 않도록 합니다.
+        const rsp = await AxiosAPI.storyListGet(lastId);
         setStoryList((prevStoryList) => [...prevStoryList, ...rsp.data]); // list를 이어붙여 받아야합니다.
-        // setLastId(rsp.data[rsp.data.length - 1].postId); // 마지막 행의 아이디값
+        setLastId(rsp.data[rsp.data.length - 1].storyId); // 마지막 행의 아이디값
         console.log('getStroyList실행');
-        // console.log('lastId = ' + lastId);
+        console.log('lastId = ' + lastId);
       }
       window.scrollTo(0, 420);
       console.log("page = " + page)
@@ -183,6 +188,9 @@ const StoryMain = () => {
       navigate('/signin');
     }
   }
+
+
+  // const storyPost = `/story/${storyId}`;
 
   return (
     <>
@@ -206,16 +214,21 @@ const StoryMain = () => {
         </div>
 
         <div className="storyBlock">
-          {storyList.slice(offset, offset + 10) && storyList.slice(offset, offset + 10).map(story => (
+          <div className="storyList">
+            {storyList.slice(offset, offset + 12) && storyList.slice(offset, offset + 12).map(story => (
 
-            <StoryBlock
-              storyid={story.storyid}
-              img_url={story.imgUrl}
-              study_name={story.studyName}
-              title={story.title}
-            ></StoryBlock>
-          ))}
+              <StoryBlock
+                // onClick={ storyPost }
+                storyId={story.storyId}
+                img_url={story.imgUrl}
+                study_name={story.studyName}
+                title={story.title}
+                // lastId={story.lastId}
+              ></StoryBlock>
+            ))}
+          </div>
           {maxPage > 0 && <Paging maxPage={maxPage} page={page} setPage={setPage}></Paging>}
+
         </div>
       </StoryContainer>
     </>
