@@ -106,23 +106,26 @@ export const MyInformation = ({ myInfo, mgrName, mgrId, myImg, memId}) => {
   const {studyId} = useParams();
   const {userId} = useContext(LoginContext);
 
+
   const onclickManage = async () => {
-    if(userId === memId){
+    if(userId == memId){
       alert(`본인에겐 권한을 넘겨줄 수 없어요 😥`)
     }else{
       await AxiosApi.studyMgrNext(studyId, memId);
       alert(`스터디 권한을 ${mgrName}님에게 넘겼어요 !🤗`)
+      window.location.reload();
     }
     
   };
 
   const onclickBan = async () => {
-    if(userId === memId) {
+    if(userId == memId) {
       await AxiosApi.studyMemDel(studyId, memId);
       alert(`본인은 강퇴할 수 없어요 😥`)
     }else{
      
       alert(`${mgrName}님을 강퇴했어요 !🤫`)
+      window.location.reload();
     }
 
   };
@@ -131,9 +134,9 @@ export const MyInformation = ({ myInfo, mgrName, mgrId, myImg, memId}) => {
   return (
     <Container>
       <ProfileBox>
-        <Profile size={'l'} isStroom={'1'} userName={mgrName} />
+        <Profile size={'l'} isStroom={'1'} memName={mgrName} />
 
-        {userId === mgrId && (
+        {userId == mgrId && (
           <div className="moreDiv" onClick={() => {
             setView(!view)
           }}>

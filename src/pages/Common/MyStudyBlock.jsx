@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { StudyDesc } from "./StudyDesc";
 import plusImg from "../../Images/plus.png";
+import { useContext } from "react";
+import { LoginContext } from "../../context/AuthContext";
 
 const StyledMyStudyBlock = styled.div`
 
@@ -29,7 +31,10 @@ const StyledMyStudyBlock = styled.div`
 
 export const MyStudyBlock = ({ isCreate, studyId, studyProfile, studyTitle, studyIntro, studyTag, studyUserLimit, studyUserCount }) => {
     const navigate = useNavigate();
+    const {userId} = useContext(LoginContext);
+    console.log(userId);
     const onClickCreateStudy = () => {
+        
         navigate('/study/create');
     }
    

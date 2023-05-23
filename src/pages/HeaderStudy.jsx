@@ -9,6 +9,7 @@ import AxiosApi from '../api/AxiosAPI';
 import { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { LoginContext } from '../context/AuthContext';
+import { Key } from 'react-bootstrap-icons';
 
 // Study 왼쪽 Nav
 const StudyHeader = styled.div`
@@ -168,6 +169,7 @@ const HeaderStudy = () => {
   const {studyId} = useParams();
   const {userId} = useContext(LoginContext);
   const [isOk, setisOk] = useState(false);
+  const [memUserId, setmemUserId] = useState([]);
   const studyName = window.localStorage.getItem("studyName"); 
   const studyTag = window.localStorage.getItem("studyTag"); 
   const studyIntro = window.localStorage.getItem("studyIntro"); 
@@ -185,20 +187,26 @@ const HeaderStudy = () => {
   const onStudyDelete = async() => {
     await AxiosApi.studyDelete(studyId, userId);
     window.location.reload();
+
   }
+  console.log(userId);
 
   useEffect(() => {
-    const studyMemInfo = async () => {
-      const rsp = await AxiosApi.studyMemGet(studyId);
+    console.log("스터디 오류");
+    
+    const studyMemOk = async () => {
+      const rsp = await AxiosApi.studyMemOk(studyId, userId);
       if (rsp.status === 200) {
-        console.log(rsp.data);
-        const isUserMember = rsp.data.some((mem) => mem.userId === userId);
-        setisOk(isUserMember);
+        if (rsp.data) setisOk(true);
+      } else {
+        console.log("스터디 오류");
       }
+      console.log(isOk);
     };
-    studyMemInfo();
+    
+    studyMemOk(); // studyMemOk 함수 호출
+    
   }, [studyId, userId]);
-
 
   return (
     <>
@@ -227,7 +235,7 @@ const HeaderStudy = () => {
         {isOk === false ? (
         <div className='indexBox'>    
             <Content>
-              <div className="button" onClick={() => onStudyInsert()}>
+              <div className="button">
                 <InputButton onClick={onStudyInsert}>스터디 가입</InputButton>
               </div>
             </Content>   

@@ -40,6 +40,7 @@ const StyledStudyList = styled.div`
 export const StudyList = () => {
     const navigate = useNavigate();
     const[studyInfo, setStudyInfo] = useState([]);
+    const date = new Date();
 
     const onClickStudyList = () => {
         navigate('/study/list');
@@ -51,9 +52,11 @@ export const StudyList = () => {
             const rsp = await AxiosApi.studyListGet(); // 전체 조회
             if(rsp.status === 200) setStudyInfo(rsp.data);
             console.log(rsp.data);
+            
         };
         studyInfo();
     }, []);
+    console.log(studyInfo.length);
 
     return (
         <StyledStudyList>
@@ -63,7 +66,9 @@ export const StudyList = () => {
                 <img className="menuImg" src={menuImg} alt="아이콘" onClick={onClickStudyList} />
             </div>
             <div className="new_study">
-                {studyInfo && studyInfo.slice(0, disPlayCount).map(study => (
+                {studyInfo && studyInfo
+                .filter((study) => date <= new Date(study.studyDeadline))
+                .slice(0, disPlayCount).map(study => (
                     study && (
                     <Study 
                     key={study.studyId}

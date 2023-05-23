@@ -78,7 +78,7 @@ export const Profile = ({ size, isStroom }) => {
     <ProfileContainer sizeStyle={sizeStyle}>
       <MyImage src={img} alt="이미지 미리보기" />
       {isStroom ? <MyInfo>{userName}</MyInfo> : <MyInfo>{nickname}</MyInfo>}
-      <InfoText>님</InfoText>
+      <InfoText>{}님</InfoText>
     </ProfileContainer>
   );
 };

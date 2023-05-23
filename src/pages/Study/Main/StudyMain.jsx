@@ -138,14 +138,14 @@ const StudyMain = () => {
     useEffect(() => {
         const studyMyScSelect = async () => {
             const rsp = await AxiosApi.studyUserScGet(userId); 
-            if(rsp.status === 200) setStudyMyScInfo(rsp.data);
-            console.log(rsp.data);
+            setStudyMyScInfo(rsp.data);
+            
         };
         studyMyScSelect();
       }, [userId])
 
       const tileContent = ({ date }) => {
-        const formattedDate = date.toISOString().split('T')[0];
+        const formattedDate = moment(date).format('YYYY-MM-DD');
         const matchingDataCount = studyMyScInfo.filter(sc => moment(sc.studyScDate).format('YYYY-MM-DD') === formattedDate).length;
       
         if (matchingDataCount > 0) {

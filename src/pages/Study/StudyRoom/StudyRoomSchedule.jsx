@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../../Header";
 import HeaderStudy from "../../HeaderStudy";
 import Calendar from "react-calendar";
@@ -15,6 +15,7 @@ import AxiosApi from "../../../api/AxiosAPI";
 import CreateSc from "./CreateSc";
 import moment from "moment/moment";
 import trash from "../../../Images/trash-can.png";
+import { LoginContext } from "../../../context/AuthContext";
   
 const StyledSchedulBox = styled.div`
     background-color: white;
@@ -119,8 +120,9 @@ const SchedulBox = ({ study_sc_id, sc_user_id, study_sc_date, study_sc_content, 
     const navigate = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
     const [member, setMember] = useState(false);
+
     const [memberCnt, setmemberCnt] = useState(study_member_count);
-    const userId = 1;
+    const {userId} = useContext(LoginContext);
     const closeModal = () => {
         setModalOpen(false);
     };
@@ -130,9 +132,22 @@ const SchedulBox = ({ study_sc_id, sc_user_id, study_sc_date, study_sc_content, 
         }else return "참가하기"
     }
 
+    useEffect(() => {
+        const studyScOk = async() => {
+            const rsp = await AxiosApi.studyScOk(study_sc_id, userId); // 전체 조회
+            if(rsp.status === 200){
+                if(rsp.data === true )setIsButtonDisabled(true);
+            }
+            console.log(rsp.data);
+            
+        };
+        studyScOk();
+    }, [userId, study_sc_id]);
+
+
     const onClickScDelete = async () => {
         console.log(study_sc_id)
-        const mgrNext = await AxiosApi.scheduleMemDel(study_sc_id);
+        const mgrNext = await AxiosApi.scheduleScDel(study_sc_id);
         alert("일정을 삭제 했어요 !😀")
         window.location.reload();
     }
@@ -175,7 +190,7 @@ const SchedulBox = ({ study_sc_id, sc_user_id, study_sc_date, study_sc_content, 
                         <h1 className="date">{study_sc_date}</h1>
                         <div className="profile" style={{ background: `${study_color}` }}></div>
                         <p className="studyName">{study_name}</p>
-                        {sc_user_id === userId && <img src={trash} width="15px" onClick={() =>onClickScDelete()} />}
+                        {sc_user_id == userId && <img src={trash} width="15px" onClick={() =>onClickScDelete()} />}
                     </div>
                     <div className="item2">
                         <h2 className="scName">{study_sc_content}</h2>
@@ -210,7 +225,6 @@ const StudyRoomSchedule = () => {
     const [value, setValue] = useState(new Date());
     const studyName = window.localStorage.getItem("studyName"); 
     const studyProfile = window.localStorage.getItem("studyProfile");
-
 
 
     const tileContent = ({ date }) => {
@@ -250,7 +264,7 @@ const StudyRoomSchedule = () => {
             console.error('스터디 일정 정보를 가져오는 중 에러가 발생했습니다:', error);
           }
         };
-      
+
         studyScInfo();
       }, [studyId]);
 

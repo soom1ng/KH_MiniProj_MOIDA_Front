@@ -34,25 +34,29 @@ import { LoginContext } from "../../context/AuthContext";
 export const MyStudyList = ( ) => {
   const[myStudyInfo, setMyStudyInfo] = useState([]);
   const {userId} = useContext(LoginContext);
-
   useEffect(() => {
-    const studyInfo = async() => {
-        const rsp = await AxiosApi.studyListGet(); // 전체 조회
-        if(rsp.status === 200) setMyStudyInfo(rsp.data);
-        console.log(rsp.data);
-    };
-    studyInfo();
-}, []);
-console.log(myStudyInfo.length);
+    const myStudyInfo = async() => {
+        try {
+            const rsp = await AxiosApi.studyMyListGet(userId); // 전체 조회
+            if (rsp.status === 200) {
+              setMyStudyInfo(rsp.data);
+              console.log(myStudyInfo);
+            }
+          } catch (error) {
+            console.error('나의 스터디 정보를 가져오는 중 에러가 발생했습니다:', error);
+          }
+        };
+      
+        myStudyInfo();
+      }, [userId]);
 
   return (
     <>
-  {myStudyInfo.length > 2 ? (
+  {myStudyInfo.length > 1 ? (
     <>
       <StyledSlider {...MyListset}>
-      <MyStudyBlock isCreate={true} />
-        {myStudyInfo
-          .filter((study) => study.userId && study.userId === userId)
+       <MyStudyBlock isCreate={true} />
+       {myStudyInfo !== [] && myStudyInfo
           .map((study) => (
             <MyStudyBlock 
               isCreate={false}
@@ -70,12 +74,10 @@ console.log(myStudyInfo.length);
     </>
     ) : (
       <>
-      <div style={{display:'flex'}}>
-        <MyStudyBlock isCreate={true} />
-        {myStudyInfo !== [] && myStudyInfo
-          .filter((study) => study.userId && study.userId === userId)
-          .map((study) => (
-            <MyStudyBlock 
+      <div style={{ display: "flex" }}>
+        {myStudyInfo === [] ? (
+          myStudyInfo.map((study) => (
+            <MyStudyBlock
               isCreate={false}
               key={study.studyId}
               studyId={study.studyId}
@@ -86,11 +88,20 @@ console.log(myStudyInfo.length);
               studyUserCount={study.studyUserCount}
               studyUserLimit={study.studyUserLimit}
             />
-          ))}
-        </div>
-      
-        </>
-    )}
+          ))
+        ) : (
+          <MyStudyBlock isCreate={true} />
+        )}
+      </div>
+    </>
+  )}
+  
+  
+  
+  
+  
+  
+  
   </>
       
 
