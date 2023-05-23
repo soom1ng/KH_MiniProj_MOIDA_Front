@@ -139,7 +139,7 @@ const InnerContainer = ({ studyLink, studyUserCount, studyUserLimit, userName, u
     )
 };
 
-export const StudyInfo = ({ size, studyProfile, studyName, studyTag, studyIntro, isBasic, studyLink, studyUserCount, studyUserLimit, userName }) => {
+export const StudyInfo = ({ size, studyProfile, studyName, studyTag, studyIntro, isBasic, studyLink, studyUserCount, studyUserLimit, userName, userImg }) => {
     const sizeStyle = SIZES[size];
     console.log(studyLink);
    return (
@@ -159,7 +159,7 @@ export const StudyInfo = ({ size, studyProfile, studyName, studyTag, studyIntro,
 
                 <Body2>
                     {/* 값이 있으면 무조건 TRUE */}
-                    {isBasic ? <InnerContainer studyLink={studyLink} studyUserCount={studyUserCount} studyUserLimit={studyUserLimit} userName={userName}>
+                    {isBasic ? <InnerContainer studyLink={studyLink} studyUserCount={studyUserCount} studyUserLimit={studyUserLimit} userName={userName} userimg={userImg}>
                     </InnerContainer> : <></>}
 
                 </Body2>
