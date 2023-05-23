@@ -130,7 +130,7 @@ const StoryMain = () => {
   const offset = listPerPage * (page - 1); // 리스트를 슬라이스 하기 위한 변수
   const maxPage = Math.ceil(storyList.length / listPerPage); // 현재 리스트의 최대 페이지
   const writeLink = `/story/write`;
-  
+
 
 
   const navigate = useNavigate();
@@ -163,7 +163,7 @@ const StoryMain = () => {
   // page가 변할때 실행
   useEffect(() => {
     const getStoryList = async () => {
-      if (page === maxPage && page > 1) { // 게시판이 바뀔떄 page가 1로 초기화 될 때에는 실행되지 않도록 합니다.
+      if (page === maxPage && page > 1) { // page가 1로 초기화 될 때에는 실행되지 않도록 합니다.
         const rsp = await AxiosAPI.storyListGet(lastId);
         setStoryList((prevStoryList) => [...prevStoryList, ...rsp.data]); // list를 이어붙여 받아야합니다.
         setLastId(rsp.data[rsp.data.length - 1].storyId); // 마지막 행의 아이디값
@@ -215,20 +215,20 @@ const StoryMain = () => {
 
         <div className="storyBlock">
           <div className="storyList">
-          {storyList.slice(offset, offset + 12) && storyList.slice(offset, offset + 12).map(story => (
+            {storyList.slice(offset, offset + 12) && storyList.slice(offset, offset + 12).map(story => (
 
-            <StoryBlock
-              // onClick={ storyPost }
-              storyId={story.storyId}
-              img_url={story.imgUrl}
-              study_name={story.studyName}
-              title={story.title}
-  
-            ></StoryBlock>
-          ))}
+              <StoryBlock
+                // onClick={ storyPost }
+                storyId={story.storyId}
+                img_url={story.imgUrl}
+                study_name={story.studyName}
+                title={story.title}
+                // lastId={story.lastId}
+              ></StoryBlock>
+            ))}
           </div>
           {maxPage > 0 && <Paging maxPage={maxPage} page={page} setPage={setPage}></Paging>}
-        
+
         </div>
       </StoryContainer>
     </>
