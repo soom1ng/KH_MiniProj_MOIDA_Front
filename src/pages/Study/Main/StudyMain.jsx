@@ -152,7 +152,7 @@ const StudyMain = () => {
           return (
             <div className="tileContentContainer">
               {Array.from({ length: matchingDataCount }, (_, index) => (
-                <div key={index} className="dot" />
+                <div key={index} className="dot" style={{ backgroundColor: {} }}  />
               ))}
             </div>
           );
@@ -179,7 +179,6 @@ const StudyMain = () => {
                         <div className="calendar_box">
                         <Calendar onChange={onChange}
                             value={value}
-                            tileContent={tileContent}
                         />
                         
                         </div>

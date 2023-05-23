@@ -225,9 +225,9 @@ const HeaderStudy = () => {
         <NavLink to={`/study/studyRoom/Schedule/${studyId}`} style={({ isActive }) => {
           return isActive ? navSelect : navDefault
         }}>일정</NavLink>
-        {/* <NavLink to={`/study/studyRoom/Board/${studyId}`} style={({ isActive }) => {
+        <NavLink to={`/study/studyRoom/Board/${studyId}`} style={({ isActive }) => {
           return isActive ? navSelect : navDefault
-        }}>보드</NavLink> */}
+        }}>보드</NavLink>
         <NavLink to={`/study/studyRoom/Member/${studyId}`} style={({ isActive }) => {
           return isActive ? navSelect : navDefault
         }}>멤버</NavLink>

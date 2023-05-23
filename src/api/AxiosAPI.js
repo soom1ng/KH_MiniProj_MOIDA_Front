@@ -64,7 +64,7 @@ const AxiosApi = {
       studyId: studyId,
       userId: userId
     };
-    return await axios.delete(MOIDA_DOMAIN + `/study/studyRoom/Main/studyOut`, { data: studyDelete });
+    return await axios.post(MOIDA_DOMAIN + `/study/studyRoom/Main/studyOut`, studyDelete);
   },
 
   // 스터디 생성

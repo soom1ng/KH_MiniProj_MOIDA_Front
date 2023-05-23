@@ -135,7 +135,7 @@ export const MyInformation = ({ myInfo, mgrName, mgrId, myImg, memId}) => {
   return (
     <Container>
       <ProfileBox>
-        <StudyProfile size={'l'} userName={mgrName} setImg={myImg} isImg={true} />
+        <StudyProfile size={'l'} userName={mgrName} Img={myImg} isImg={true} />
 
         {userId == mgrId && (
           <div className="moreDiv" onClick={() => {
