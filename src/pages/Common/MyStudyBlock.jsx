@@ -6,6 +6,7 @@ import deleteBoard from "../../Images/trash-can.png";
 import { AlignCenter } from "react-bootstrap-icons";
 import { useContext } from "react";
 import { LoginContext } from "../../context/AuthContext";
+import AxiosApi from "../../api/AxiosAPI";
 
 
 
@@ -65,9 +66,12 @@ export const MyStudyBlock = ({ isDelete, isCreate, isEmpty, studyId, studyProfil
     }
 
 
-    const onclickDelete = () => {
+    const onclickDelete = async() => {
         
-
+        await AxiosApi.studyDrop(studyId, userId);
+        window.location.reload();
+        alert("스터디가 삭제되었어요 !😭");
+    
     }
    
 

@@ -51,6 +51,7 @@ export const MyStudyList = () => {
     myStudyInfo();
   }, [userId]);
 
+
   return (
     <>
       {myStudyInfo.length > 1 ? (
@@ -104,35 +105,34 @@ export const MyStudyList = () => {
 };
 
 export const MyPageList = () => {
-  const [myPageList, setMyPageList] = useState([]);
+  const [myStudyCreateList, setmyCreateStudyList] = useState([]);
   const { userId } = useContext(LoginContext);
 
   useEffect(() => {
     const pageList = async () => {
       try {
-        const rsp = await AxiosApi.studyListGet(userId); // 전체 조회
+        const rsp = await AxiosApi.myStudyListGet(userId); // 전체 조회
         if (rsp.status === 200) {
-          setMyPageList(rsp.data);
-          console.log(pageList);
+          setmyCreateStudyList(rsp.data);
+          console.log("스터리리스트!!!!!");
+          console.log(rsp.data);
         }
       } catch (error) {
-        console.error('나의 스터디 정보를 가져오는 중 에러가 발생했습니다:', error);
+        console.error('내가 작성한 스터디 정보를 가져오는 중 에러가 발생했습니다:', error);
       }
     };
 
     pageList();
   }, [userId]);
 
-  console.log(myPageList.length);
-
   return (
     <>
-      {myPageList.length > 1 ? (
+      {myStudyCreateList.length > 0 ? (
         <>
           <StyledSlider {...MyPageset}>
             {/* <MyStudyBlock /> */}
-            {myPageList
-              // .filter((study) => study.userId && study.MgrId === userId)
+            {myStudyCreateList
+              // .filter((study) => study.userId == userId)
               .map((study) => (
                 <MyStudyBlock
                   isCreate={false}
@@ -153,21 +153,7 @@ export const MyPageList = () => {
       ) : (
           <>
             <MyStudyBlock isCreate={true} isEmpty={true} />
-            {/* {myPageList !== [] && myPageList
-              .filter((study) => study.userId && study.MgrId === userId)
-              .map((study) => (
-                <MyStudyBlock
-                  isCreate={false}
-                  key={study.studyId}
-                  studyId={study.studyId}
-                  studyProfile={study.studyProfile}
-                  studyTitle={study.studyName}
-                  studyIntro={study.studyIntro}
-                  studyTag={study.tagName}
-                  studyUserCount={study.studyUserCount}
-                  studyUserLimit={study.studyUserLimit}
-                />
-              ))} */}
+           
           </>
       )}
 

@@ -152,7 +152,7 @@ const StudyMain = () => {
           return (
             <div className="tileContentContainer">
               {Array.from({ length: matchingDataCount }, (_, index) => (
-                <div key={index} className="dot" style={{ backgroundColor: {} }}  />
+               <div key={index} className="dot"/>
               ))}
             </div>
           );
@@ -179,7 +179,28 @@ const StudyMain = () => {
                         <div className="calendar_box">
                         <Calendar onChange={onChange}
                             value={value}
+                            tileContent={tileContent}
                         />
+                        <style>
+                                    {`
+                                    .tileContentContainer {
+                                        display: flex;
+                                        justify-content: center;
+                                        flex-wrap: wrap;
+                                        
+                                    }
+                                    
+                                    .dot {
+                                        width: 7px;
+                                        height: 7px;
+                                        background-color: #6b4efe;
+                                        border-radius: 50%;
+                                        margin-right: 4px; 
+                                        margin-top:8px;
+
+                                    }
+                                    `}
+                                    </style>
                         
                         </div>
                         <div className="schedule_box">
@@ -191,25 +212,7 @@ const StudyMain = () => {
                                     <div className="profile" style={{ background: `${sc.studyProfile}` }}></div>
                                     <p className="scName">{sc.studyName}</p>
                                 </div>
-                                <style>
-                                    {`
-                                    .tileContentContainer {
-                                        display: flex;
-                                        justify-content: center;
-                                        flex-wrap: wrap;
-                                        
-                                    }
-                                    
-                                    .dot {
-                                        width: 10px;
-                                        height: 10px;
-                                        background-color: ${sc.studyProfile};
-                                        border-radius: 50%;
-                                        margin-right: 4px; 
-
-                                    }
-                                    `}
-                                    </style>
+                                
                                 <div className="item2">
                                     <h2 className="scName">{sc.studyScContent}</h2>
                                 </div>
