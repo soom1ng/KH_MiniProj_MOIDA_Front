@@ -23,10 +23,6 @@ const StudyContainer = styled.div`
     margin-left : 50px
 }
 
-  .title {
-    margin-top: 120px;
-}
-
 .menuBlock {
   display: flex;
   width: 1200px;
