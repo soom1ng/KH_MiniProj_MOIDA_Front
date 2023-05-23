@@ -109,11 +109,6 @@ export const LoungePostTitle = ({ size, post, update, setUpdate }) => {
     const { userId } = useContext(LoginContext);
     const [recommendList, setRecommendList] = useState(JSON.parse(window.localStorage.getItem("recommendList")));
 
-
-    console.log("LPuserId = " + userId);
-    console.log("LPpostId = " + postId);
-    console.log("LPrecommendList = " + recommendList);
-
     const onClickRecommend = async () => {
         const recommend = await AxiosAPI.postRecommend(postId, userId)
         setRecommendList([...recommendList, postId]);

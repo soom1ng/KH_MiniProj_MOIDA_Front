@@ -150,10 +150,10 @@ export const Board = ({postId, type, nickname, title, content, views, img_url, d
   const sizeStyle = SIZES[size];
   const navigate = useNavigate();
   content = tagDelete(content, 3);
-
-  const recommendList = JSON.parse(window.localStorage.getItem("recommendList"));
-  console.log("recommendList = " + recommendList);
-  console.log("includes = " + recommendList.includes(99));
+  let recommendList;
+  if (window.localStorage.getItem("recommendList")) {
+    recommendList = JSON.parse(window.localStorage.getItem("recommendList"));
+  }
 
 
   const OnClick = () => {
