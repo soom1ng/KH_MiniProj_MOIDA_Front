@@ -7,7 +7,7 @@ import { MyPageList } from "../Common/MyStudyList";
 import { MyPageTitle } from "../../styles/StyledComponent";
 
 const Container = styled.div`
-  margin-top: 90px;
+  margin-top: 80px;
   margin-left: 200px;
 
   .myPageContainer {
@@ -19,11 +19,11 @@ const Container = styled.div`
     background-color: #F3F3F3;
   }
 
-  .studyContainer {
+  /* .studyContainer {
     display: flex;
     width: 800px;
     margin-bottom: 50px;
-  }
+  } */
 
   /* .studyItemContainer{
     background-color: white;
@@ -48,10 +48,11 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 800px;
-    padding-top: 20px;
+    padding-top: 0px;
+    margin-bottom: 50px;
     background-color: #f3f3f3;
-    height: 500px;
-}
+    height: 300px;
+  }
 `;
 
 

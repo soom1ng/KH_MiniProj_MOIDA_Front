@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { InputButton } from '../styles/StyledComponent';
 // import userImg from "../Images/user.png";
 import { StudyInfo } from './Common/StudyInfo';
@@ -170,6 +170,7 @@ const HeaderStudy = () => {
   const {userId} = useContext(LoginContext);
   const [isOk, setisOk] = useState(false);
   const [memUserId, setmemUserId] = useState([]);
+  const navigate = useNavigate();
   const studyName = window.localStorage.getItem("studyName"); 
   const studyTag = window.localStorage.getItem("studyTag"); 
   const studyIntro = window.localStorage.getItem("studyIntro"); 
@@ -178,10 +179,17 @@ const HeaderStudy = () => {
   const studyUserLimit = window.localStorage.getItem("studyUserLimit"); 
   const userName = window.localStorage.getItem("userName"); 
   const studyProfile = window.localStorage.getItem("studyProfile");
+  const userImg = window.localStorage.getItem("")
 
   const onStudyInsert = async () => {
-    await AxiosApi.studyInsert(studyId, userId);
-    window.location.reload();
+    if(userId != '') {
+      await AxiosApi.studyInsert(studyId, userId);
+      window.location.reload();
+    }else{
+      alert("로그인이 필요합니다 !😀")
+      navigate('/signin');
+    }
+    
   }
 
   const onStudyDelete = async() => {
@@ -217,9 +225,9 @@ const HeaderStudy = () => {
         <NavLink to={`/study/studyRoom/Schedule/${studyId}`} style={({ isActive }) => {
           return isActive ? navSelect : navDefault
         }}>일정</NavLink>
-        <NavLink to={`/study/studyRoom/Board/${studyId}`} style={({ isActive }) => {
+        {/* <NavLink to={`/study/studyRoom/Board/${studyId}`} style={({ isActive }) => {
           return isActive ? navSelect : navDefault
-        }}>보드</NavLink>
+        }}>보드</NavLink> */}
         <NavLink to={`/study/studyRoom/Member/${studyId}`} style={({ isActive }) => {
           return isActive ? navSelect : navDefault
         }}>멤버</NavLink>

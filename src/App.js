@@ -49,7 +49,7 @@ function App() {
                     <Route path='/study/studyRoom/Schedule/:studyId' element={<StudyRoomSchedule/>}/>
                     <Route path='/study/studyRoom/Board/:studyId' element={<StudyRoomBoard/>}/>
                     <Route path='/study/studyRoom/Member/:studyId' element={<StudyRoomMember/>}/>
-                    <Route path='/study/studyRoom/BoardWrite/:studyId' element={<StudyBoardWrite/>}/>
+                    <Route path='/study/studyRoom/Board/BoardWrite/:studyId' element={<StudyBoardWrite/>}/>
 
                     <Route path='/Story' element={<StoryMain/>}/>
                     <Route path='/Story/Post' element={<StoryPost/>}/>
