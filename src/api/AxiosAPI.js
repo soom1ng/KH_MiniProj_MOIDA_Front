@@ -417,7 +417,7 @@ const AxiosApi = {
       postId: postId,
       userId: userId
     };
-    return await axios.post(MOIDA_DOMAIN + `/lounge/post/undoRecommend?postId=${postId}`);
+    return await axios.post(MOIDA_DOMAIN + "/lounge/post/undoRecommend", data);
   },
 
   // 댓글 등록 POST
@@ -445,6 +445,8 @@ const AxiosApi = {
     return await axios.post(MOIDA_DOMAIN + `/lounge/comment/delete?commentId=${commentId}`);
   },
 
+
+
   // 스토리 리스트 GET
   storyListGet: async (lastId) => {
     return await axios.get(MOIDA_DOMAIN + `/story?lastId=${lastId}`);
@@ -464,7 +466,7 @@ const AxiosApi = {
       imgUrl: imgUrl,
       contents: contents,
     };
-    return await axios.story(MOIDA_DOMAIN + `/story/post/insert`, story);
+    return await axios.post(MOIDA_DOMAIN + `/story/post/insert`, story);
   },
 
   // 스토리 수정 POST
@@ -474,7 +476,7 @@ const AxiosApi = {
       contents: contents,
       storyId: storyId,
     };
-    return await axios.story(MOIDA_DOMAIN + `/story/post/update`, story);
+    return await axios.post(MOIDA_DOMAIN + `/story/post/update`, story);
   },
 
   // 스토리 삭제 POST
@@ -482,7 +484,7 @@ const AxiosApi = {
     const story = {
       storyId: storyId,
     };
-    return await axios.story(MOIDA_DOMAIN + `/story/post/delete`, story);
+    return await axios.post(MOIDA_DOMAIN + `/story/post/delete`, story);
   },
 
   // 스토리 댓글 등록 POST
@@ -493,7 +495,7 @@ const AxiosApi = {
       parentId: parentId,
       contents: contents
     };
-    return await axios.story(MOIDA_DOMAIN + `/story/comment/insert`, comment);
+    return await axios.post(MOIDA_DOMAIN + `/story/comment/insert`, comment);
   },
 
   // 스토리 댓글 수정 POST
@@ -502,7 +504,7 @@ const AxiosApi = {
       commentId: commentId,
       contents: contents
     };
-    return await axios.story(MOIDA_DOMAIN + `/story/comment/update`, comment);
+    return await axios.post(MOIDA_DOMAIN + `/story/comment/update`, comment);
   },
 
     // 스토리 댓글 삭제 POST
@@ -510,7 +512,7 @@ const AxiosApi = {
       const comment = {
         commentId: commentId,
       };
-      return await axios.story(MOIDA_DOMAIN + `/story/comment/delete`, comment);
+      return await axios.post(MOIDA_DOMAIN + `/story/comment/delete`, comment);
     },
 
 
