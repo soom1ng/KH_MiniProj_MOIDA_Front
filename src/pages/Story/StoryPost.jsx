@@ -85,17 +85,19 @@ const StoryPost = () => {
                 <div className="StudyInfo">
                 {story && <StudyInfo
                         size='s'
-                        study_Id
-                        study_profile={story.study_profile}
-                        study_name={story.study_name}
+                        // study_Id
+                        study_profile={story.studyProfile}
+                        study_name={story.studyName}
                         // study_tag={story.study_tag}
-                        study_intro={story.study_intro}
+                        study_intro={story.studyIntro}
                     />}
                 </div>
             </div>
 
             {/* 게시글 내용 */}
             <div className="content">
+                { story && <p dangerouslySetInnerHTML={{ __html: story.content.toString() }}></p>}
+
                 {/* {story && <p dangerouslySetInnerHTML={{ __html: story.contents.toString() }}></p>} */}
             </div>
 
