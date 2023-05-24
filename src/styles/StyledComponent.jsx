@@ -61,6 +61,14 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
+  ${({ hover }) =>
+    hover &&
+    css`
+      &:hover {
+        background-color: #543ad4;
+      }
+    `}
 `;
 
 
@@ -75,6 +83,14 @@ const InputButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
+  ${({ hover }) =>
+    hover &&
+    css`
+      &:hover {
+        background-color: #543ad4;
+      }
+    `}
 `;
 
 const BlockBox = styled.div`
@@ -141,7 +157,7 @@ const InputLabel = styled.p`
 
 const InputLabelBig = styled.p`
   text-align: left;
-  width: 150px;
+  ${props => props.width || '150px'};
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: bold;
   font-size: 19px;

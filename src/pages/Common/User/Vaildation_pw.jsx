@@ -19,7 +19,7 @@ const usePasswordValidation = () => {
     setErrorMessage(
       input.length >= 8 && input.length <= 20
         ? '올바른 비밀번호 형식입니다.'
-        : '8자리 이상, 20자리 이하의 비밀번호를 특수문자, 영어, 숫자를 조합해 만들어주세요.'
+        : '8자리 이상, 20자리 이하의 비밀번호를 특수문자, 영어, 숫자를 2가지 이상 조합해 만들어주세요.'
     );
     setIsPwMatch(input === pwConfirm);
   };

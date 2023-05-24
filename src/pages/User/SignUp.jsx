@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import styled from 'styled-components';
-import { InputLabel, InputLabelBig, Input, InputButton } from "../../styles/StyledComponent";
+import { InputLabel, InputLabelBig, Input, InputButton, Button } from "../../styles/StyledComponent";
 import AxiosApi from "../../api/AxiosAPI";
 import useEmailValidation from "../Common/User/Vaildation_email";
 import usePasswordValidation from "../Common/User/Vaildation_pw";
 import useUsernameValidation from "../Common/User/Vaildation_username";
 import useNicknameValidation from '../Common/User/Vaildation_nick';
+import Modal from "../utils/Modal";
 
 
 const SignContainer = styled.div`
@@ -74,12 +75,25 @@ const P = styled.p`
 const SignUp = () => {
   const [isAgreed, setIsAgreed] = useState(false);
   const navigate = useNavigate();
+  const shouldHover = true;
   const [phone, setPhone] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달
+  const [alertMessage, setAlertMessage] = useState(''); 
   const { email, emailMessage, isEmailValid, validateEmail } = useEmailValidation();
   const { pw, pwConfirm,  isPwValid, isPwMatch, errorMessage, validatePassword, validatePasswordConfirm } = usePasswordValidation();
   const { username, usernameMessage, isUsernameValid, validateUsername } = useUsernameValidation();
   const { nickname, validateNickname, isNicknameValid, message } = useNicknameValidation();
 
+
+  // 모달 열기
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // 모달 닫기
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleCheckBoxChange = (e) => {
     setIsAgreed(e.target.checked);
@@ -88,26 +102,36 @@ const SignUp = () => {
   // 회원가입 버튼 클릭
   const handleSignUp = async (e) => {
     e.preventDefault();
-
+  
     if (isAgreed) {
       console.log('회원가입 버튼이 클릭되었습니다. 개인 정보 제공에 동의하였습니다.');
-    } else {
-      console.log('개인 정보 제공에 동의해야 회원가입이 가능합니다.');
-    }
-
-    try {
-      const signUpSuccess = await AxiosApi.signUp(username, pw, pwConfirm, email, phone, nickname);
-
-      if (signUpSuccess) {
-        alert('회원가입이 완료되었습니다.');
-        navigate('/SignIn');
+      
+      if (isEmailValid && isUsernameValid && isPwMatch && !isPwValid) {
+        try {
+          const signUpSuccess = await AxiosApi.signUp(username, pw, pwConfirm, email, phone, nickname);
+          
+          if (signUpSuccess) {
+            setAlertMessage('회원가입이 완료되었습니다.'); // 알림 메시지 설정
+            openModal(); // 모달 열기
+            navigate('/SignIn');
+          } else {
+            setAlertMessage('회원가입에 실패했습니다.'); // 알림 메시지 설정
+            openModal(); // 모달 열기
+          }
+        } catch (error) {
+          console.log('회원가입 에러:', error.message);
+        }
       } else {
-        console.log('회원가입에 실패했습니다.');
+        setAlertMessage('입력하신 정보가 유효하지 않아 회원가입을 진행할 수 없습니다.');
+        openModal(); // 모달 열기
       }
-    } catch (error) {
-      console.log('회원가입 에러:', error.message);
+    } else {
+      setAlertMessage('개인 정보 제공에 동의해야 회원가입이 가능합니다.');
+      openModal(); // 모달 열기
     }
   };
+
+  
 
   const handleUsernameChange = (e) => {
     const input = e.target.value;
@@ -156,7 +180,7 @@ const SignUp = () => {
           <Body2>
             <InputLabel>닉네임</InputLabel>
             <Input type="text" value={nickname}  onChange={handleNicknameChange} placeholder="닉네임을 입력해주세요." required />
-            {isNicknameValid && <P>{message}</P>}
+            {!isNicknameValid && <P>{message}</P>}
 
             <InputLabel>전화번호</InputLabel>
             <Input type="text" value={phone}  onChange={(e) => setPhone(e.target.value)} placeholder="전화번호를 입력해주세요." required />
@@ -175,6 +199,11 @@ const SignUp = () => {
         <div className='buttonBox'><InputButton type="submit" onClick={handleSignUp}>회원가입</InputButton></div>
 
       </Form>
+      {/* 알림 모달 */}
+      <Modal open={isModalOpen} close={closeModal} width="300px" height="200px">
+        <InputLabelBig width = "auto">{alertMessage}</InputLabelBig>
+        <Button onClick={closeModal} hover={shouldHover}>확인</Button>
+      </Modal> 
 
     </SignContainer>
   );

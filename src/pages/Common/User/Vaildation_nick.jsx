@@ -14,10 +14,10 @@ const useNicknameValidation = (defaultNickname = '') => {
   };
 
   const validateNickname = async (input) => {
-    // 닉네임 길이 제한 15자
-    if (input.length > 15) {
+    // 닉네임 길이 제한 2글자 이상 15글자 이하
+    if (input.length < 2 || input.length > 15) {
       setIsNicknameValid(false);
-      setNickname(input.substring(1, 15));
+      setNickname(input.substring(0, 15)); // 최대 길이 제한을 15글자로 설정
       return;
     }
 
@@ -48,7 +48,7 @@ const useNicknameValidation = (defaultNickname = '') => {
     }
   };
 
-  const message = isDuplicate ? '이 닉네임은 이미 존재하는 닉네임입니다.' : '사용 가능한 닉네임입니다.';
+  const message = isDuplicate ? '이 닉네임은 이미 존재하는 닉네임입니다.' : '사용 불가능한 닉네임입니다.';
 
   return { nickname, handleChange, validateNickname, isNicknameValid, message, setIsDuplicate, checkDuplicateNickname };
 };

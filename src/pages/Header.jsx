@@ -3,12 +3,14 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../Images/LOGO.png';
 import searchIcon from '../Images/search.png';
 import { Button } from '../styles/StyledComponent';
-import { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import LogOut from '../Images/logout.png'
 import MyPerson from '../Images/user.png'
 import CustomNavLink from "./Common/CustomNavLink";
 import { LoginContext } from "../context/AuthContext";
 import { Profile } from './Common/Profile';
+import AxiosApi from "../api/AxiosAPI";
+
 
 
 const Container = styled.div`
@@ -163,18 +165,38 @@ const IsLogin = () => {
   // isLogin 상태만 가지고 로그인버튼 표시할지 마이페이지 표시할지 정하면 되지 않을까?
   const [view, setView] = useState(false);
   const navigate = useNavigate();
-  const { logout } = useContext(LoginContext);
+  const { logout, userId } = useContext(LoginContext);
+  const [nickname, setNickname] = useState('');
+  const [img, setImg] = useState(null);
 
   const handleLogout = () => {
     logout(); // 로그아웃
     navigate('/signin');
   };
 
+  useEffect(() => {
+    const fetchMyProfile = async () => {
+      try {
+        const response = await AxiosApi.myProfile(userId);
+        const userInfo = response.data;
+        const nickname = userInfo.nickname;
+        const img = userInfo.img;
+        setNickname(nickname);
+        setImg(img);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchMyProfile();
+  }, []);
+
   return (
     <>
       <MypageProfile onClick={() => {
         setView(!view)
-      }}> < Profile size={'s'} />
+      }}> <Profile size={"s"} img={img} nickname={nickname} />
         {view && (
           <MyDiv>
             <DropDown><Link style={linkStyle} to="/mypage"><MyImg src={MyPerson} />마이페이지</Link></DropDown>

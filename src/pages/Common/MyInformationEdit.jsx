@@ -4,6 +4,7 @@ import {LoginContext} from "../../context/AuthContext";
 import AxiosApi from "../../api/AxiosAPI";
 import { storage } from "../../api/firebase";
 import { MyPageTitle } from "../../styles/StyledComponent";
+import { Profile } from "./Profile";
 
 // ---------------------------------다혜 수정예정------------------------------------- //
 
@@ -330,8 +331,8 @@ const MyInformationEdit = () => {
         console.log('이미지 URL 업데이트 오류:', error.message);
       }
     }
-  window.location.reload();
-    
+
+    window.location.reload();
   };
 
   
@@ -358,86 +359,74 @@ const MyInformationEdit = () => {
   };
 
 
-  
-  
- 
-
   return (
-          <MyInfoEditBox>
-          <MyPageTitle>내 정보</MyPageTitle>
-        <div className="infoContainer">
-          <ProfileBox>
-          {isEditing ? (
-          <>{<MyImage src={previewURL || img} alt="이미지 미리보기" />}</>
-          ) : (
-          <>{img && <MyImage src={img} alt="이미지 미리보기" />}</>
-          )}
-        <div className="editButtonBox">
-          <div className="nickNameBox">
-        {isEditing ? (
-          <>
-            <ChangeNickname type="text" value={nickname} onChange={handleNicknameChange} />
-          </>
-        ) : (
-          <>
-            <MyInfo>{nickname}</MyInfo>
-          </>
-        )}
-          <InfoText>님</InfoText>
-        </div>
+    <>
+      <MyInfoEditBox>
+        <MyPageTitle>내 정보</MyPageTitle>
+        {!isEditing && (
+          <div className="infoContainer">
+            <ProfileBox>
+            <Profile size={"s"} isStroom={false} img={img} nickname={nickname} />
+                <MyInfoButton onClick={handleEditmyInfo}>수정</MyInfoButton>
+            </ProfileBox>
+            <div className="infoBox">
+              <div>
+              <ButtonBox><InfoTextPhone>번호 </InfoTextPhone>
+                <MyInfo>{phone}</MyInfo></ButtonBox>
+                <ButtonBox><InfoText>이메일</InfoText>
+                <MyInfo>{email}</MyInfo></ButtonBox>
+              </div>
 
-          {isEditing ? (
-            <>
-            </>
-          ) : (
-              <MyInfoButton onClick={handleEditmyInfo}>수정</MyInfoButton>
-          )}</div>
-
-          </ProfileBox>
-          <div className="infoBox">
-          <ButtonBox>
-          {isNotAttach && <MiniButton onClick={handleReset}>기본 이미지</MiniButton>}
-          {isNotAttach && <input type="file" onChange={handleMyImgChange} /> }
-          </ButtonBox></div>
-          
-          <div className="infoBox">
-          {isEditing ? (
-          <>         
-          <ButtonBox><InfoText>비밀번호</InfoText>
-          <ChangeInput type="password" value={password} onChange={handlePasswordChange}/>
-          </ButtonBox>
-          <ButtonBox><InfoText>새로운 비밀번호</InfoText>
-          <ChangeInput type="password" value={newPassword} onChange={handleNewPasswordChange} />
-          </ButtonBox>
-          </>
-          ) : (
-            <></>
-          )}
-          <ButtonBox><InfoTextPhone>번호 </InfoTextPhone>
-          {isEditing ? (
-          <ChangeInput type="text" value={phone} onChange={handlePhoneChange} />
-          ) : (
-            <MyInfo>{phone}</MyInfo>
-          )}</ButtonBox>
-          <ButtonBox><InfoText>이메일</InfoText>
-          {isEditing ? (
-          <ChangeInput type="email" value={email} onChange={handleEmailChange} />
-          ) : (
-            <MyInfo>{email}</MyInfo>
-          )}</ButtonBox>
-          
-          <InfoText>자기소개 </InfoText>
-          {isEditing ? (
-            <MyInfoTextChangeBox>
-            <MyInfoTextarea value={intro} onChange={handleMyInfoChange}/>
-            <div className="saveButtonBox"><MyInfoButton onClick={handleSaveMyInfo}>저장</MyInfoButton></div>
-            </MyInfoTextChangeBox>
-          ) : (
-              <Introduce>{intro}</Introduce>
-          )}
+            <InfoText>자기소개</InfoText>
+            <Introduce>{intro}</Introduce>
+            </div>
           </div>
-        </div>
-        </MyInfoEditBox>
+        )}
+
+        {/* 수정 후 */}
+        {isEditing && (
+
+              <div className="infoContainer">
+                <ProfileBox>
+                <MyImage src={previewURL || img} alt="이미지 미리보기" />
+                <div className="editButtonBox">
+                  <div className="nickNameBox">
+                    <ChangeNickname type="text" value={nickname} onChange={handleNicknameChange} />
+                    <InfoText>님</InfoText>
+                  </div>
+                  </div>
+                  </ProfileBox>
+                  <div className="infoBox">
+                  <ButtonBox>
+                  {isNotAttach && <MiniButton onClick={handleReset}>기본 이미지</MiniButton>}
+                  {isNotAttach && <input type="file" onChange={handleMyImgChange} /> }
+                  </ButtonBox></div>
+              <div className="infoBox">
+                  <ButtonBox>
+                    <InfoText>비밀번호</InfoText>
+                    <ChangeInput type="password" value={password} onChange={handlePasswordChange} />
+                  </ButtonBox>
+                  <ButtonBox>
+                    <InfoText>새로운 비밀번호</InfoText>
+                    <ChangeInput type="password" value={newPassword} onChange={handleNewPasswordChange} />
+                  </ButtonBox>
+                  <ButtonBox><InfoTextPhone>번호 </InfoTextPhone>
+                  <ChangeInput type="text" value={phone} onChange={handlePhoneChange} />
+                  </ButtonBox>
+                  <ButtonBox><InfoText>이메일</InfoText>
+                  <ChangeInput type="email" value={email} onChange={handleEmailChange} />
+                </ButtonBox>
+              <InfoText>자기소개</InfoText>
+                <MyInfoTextChangeBox>
+                  <MyInfoTextarea value={intro} onChange={handleMyInfoChange} />
+                  <div className="saveButtonBox">
+                    <MyInfoButton onClick={handleSaveMyInfo}>저장</MyInfoButton></div>
+                    </MyInfoTextChangeBox>
+                    
+                    </div>
+                  </div>
+            )}</MyInfoEditBox>
+    </>
   );
 };
 

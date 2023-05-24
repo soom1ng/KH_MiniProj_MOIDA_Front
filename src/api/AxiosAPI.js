@@ -445,8 +445,6 @@ const AxiosApi = {
     return await axios.post(MOIDA_DOMAIN + `/lounge/comment/delete?commentId=${commentId}`);
   },
 
-
-
   // 스토리 리스트 GET
   storyListGet: async (lastId) => {
     return await axios.get(MOIDA_DOMAIN + `/story?lastId=${lastId}`);
@@ -454,7 +452,7 @@ const AxiosApi = {
 
   // 스토리 페이지 GET
   storyViewGet: async (storyId) => {
-    return await axios.get(MOIDA_DOMAIN + `/story/?story${storyId}`);
+    return await axios.get(MOIDA_DOMAIN + `/story/${storyId}`);
   },
 
   // 스토리 등록 POST
