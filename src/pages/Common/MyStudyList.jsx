@@ -58,7 +58,7 @@ export const MyStudyList = () => {
         <>
           <StyledSlider {...MyListset}>
             <MyStudyBlock isCreate={true} />
-            {myStudyInfo !== [] && myStudyInfo
+            {myStudyInfo !== [] && myStudyInfo 
               .map((study) => (
                 <MyStudyBlock
                   isCreate={false}
