@@ -59,7 +59,7 @@ export const MyStudyList = () => {
         <>
           <StyledSlider {...MyListset}>
             <MyStudyBlock isCreate={true} />
-            {myStudyInfo !== [] && myStudyInfo
+            {myStudyInfo !== [] && myStudyInfo 
               .map((study) => (
                 <MyStudyBlock
                   isCreate={false}
@@ -129,7 +129,7 @@ export const MyPageList = () => {
 
   return (
     <>
-      {myStudyCreateList.length > 0 ? (
+      {myStudyCreateList.length > 1 ? (
         <>
           <StyledSlider {...MyPageset}>
             {/* <MyStudyBlock /> */}

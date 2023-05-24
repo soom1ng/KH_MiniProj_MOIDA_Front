@@ -56,7 +56,7 @@ export const StudyList = () => {
         };
         studyInfo();
     }, []);
-    console.log(studyInfo.length);
+
 
     return (
         <StyledStudyList>

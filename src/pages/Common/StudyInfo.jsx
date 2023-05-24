@@ -6,6 +6,7 @@ import { StudyDesc } from "./StudyDesc";
 import { Link } from "react-bootstrap-icons";
 import { useParams } from "react-router-dom/dist";
 import { StudyList } from "./StudyList";
+import { StudyProfile } from "./StudyProfile";
 
     // <StudyInfo
     // study_profile={"#fffff"}
@@ -119,7 +120,7 @@ const InnerContainer = ({ studyLink, studyUserCount, studyUserLimit, userName })
     return (
         <StyledInnerContainer>
             <div className='descContainer'>
-                <Profile size={'s'} userName={userName} isStroom={"1"} />
+                <StudyProfile size={'s'} userName={userName} isStroom={"1"} />
                 <div className="chatLink">
                     <h2 className='item2'>채팅방</h2>
                     <h2>{studyLink} </h2>
