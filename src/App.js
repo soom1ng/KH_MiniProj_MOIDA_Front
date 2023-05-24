@@ -52,7 +52,7 @@ function App() {
                     <Route path='/study/studyRoom/Board/BoardWrite/:studyId' element={<StudyBoardWrite/>}/>
 
                     <Route path='/Story' element={<StoryMain/>}/>
-                    <Route path='/Story/Post' element={<StoryPost/>}/>
+                    <Route path='/Story/:storyId' element={<StoryPost/>}/>
                     <Route path='/Story/Write' element={<StoryWrite/>}/>
 
 

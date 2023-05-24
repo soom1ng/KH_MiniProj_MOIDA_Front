@@ -216,7 +216,7 @@ export const ChooseStudyList = () => {
                 // onClick={onClickStudy}
                   isCreate={false}
                   isEmpty={false}
-                  isDelete={1}
+                  // isDelete={1}
                   key={study.studyId}
                   studyId={study.studyId}
                   studyProfile={study.studyProfile}
