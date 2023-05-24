@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { MyStudyBlock } from "./MyStudyBlock";
 import AxiosApi from "../../api/AxiosAPI";
 import { LoginContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 // 슬라이드 슬릭에 화살표 추가 -> 위치 조정이 복잡해서 구현X
@@ -107,6 +108,8 @@ export const MyPageList = () => {
   const [myStudyCreateList, setmyCreateStudyList] = useState([]);
   const { userId } = useContext(LoginContext);
 
+ 
+
   useEffect(() => {
     const pageList = async () => {
       try {
@@ -130,7 +133,7 @@ export const MyPageList = () => {
         <>
           <StyledSlider {...MyPageset}>
             {/* <MyStudyBlock /> */}
-            {myStudyCreateList.length > 1 &&myStudyCreateList
+            {myStudyCreateList
               // .filter((study) => study.userId == userId)
               .map((study) => (
                 <MyStudyBlock
@@ -174,8 +177,11 @@ export const MyPageList = () => {
 
 // 스토리 작성 스토리 리스드
 export const ChooseStudyList = () => {
+
   const [chooseList, setChooseList] = useState([]);
   const { userId } = useContext(LoginContext);
+
+
 
   useEffect(() => {
     const chooseList = async () => {
@@ -199,12 +205,15 @@ export const ChooseStudyList = () => {
     <>
       {chooseList.length > 1 ? (
         <>
-          <StyledSlider {...MyPageset}>
+          <StyledSlider {...MyListset}>
             {/* <MyStudyBlock /> */}
+            <MyStudyBlock isCreate={true} isEmpty={false} />
             {chooseList
               // .filter((study) => study.userId && study.MgrId === userId)
               .map((study) => (
+                
                 <MyStudyBlock
+                // onClick={onClickStudy}
                   isCreate={false}
                   isEmpty={false}
                   isDelete={1}
