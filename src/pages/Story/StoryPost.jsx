@@ -96,7 +96,7 @@ const StoryPost = () => {
 
             {/* 게시글 내용 */}
             <div className="content">
-                { story && <p dangerouslySetInnerHTML={{ __html: story.content.toString() }}></p>}
+                { story && <p dangerouslySetInnerHTML={{ __html: story.contents.toString()}} style={{ fontSize: "18px", width: "900px" }}></p>}
 
                 {/* {story && <p dangerouslySetInnerHTML={{ __html: story.contents.toString() }}></p>} */}
             </div>
