@@ -157,7 +157,6 @@ const StoryMain = () => {
       setLastId(rsp.data[rsp.data.length - 1].storyId); // 마지막 행의 아이디값
       setPage(1);
       console.log("initialize 실행")
-      console.log(rsp.data);
     }
     initialize();
   }, [])
