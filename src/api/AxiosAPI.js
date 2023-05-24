@@ -14,6 +14,7 @@ const AxiosApi = {
   studyMyListGet : async(userId) => {
     return await axios.get(MOIDA_DOMAIN + `/study/myStudyList/${userId}`);
   },
+  
    //내가 만든 스터디 리스트
    studyMyCreateListGet : async(userId) => {
     return await axios.get(MOIDA_DOMAIN + `/mypage/myCreateStudy/${userId}`);

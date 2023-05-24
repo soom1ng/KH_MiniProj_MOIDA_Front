@@ -136,8 +136,6 @@ const StoryMain = () => {
 
   const navigate = useNavigate();
 
-  const storyId = useParams();
-  const storyPost = `/story/${storyId}`;
 
 
 
@@ -195,6 +193,8 @@ const StoryMain = () => {
       console.log("로그인이 필요합니다");
       navigate('/signin');
     }
+
+    console.log(storyList.length);
   }
 
 
@@ -226,7 +226,7 @@ const StoryMain = () => {
                   .filter((study) => category === '전체' || study.studyCategory === category)
                   .map(story => (
               <StoryBlock
-                onClick={ storyPost }
+                // onClick={ storyPost }
                 storyId={story.storyId}
                 img_url={story.imgUrl}
                 study_name={story.studyName}
@@ -235,9 +235,12 @@ const StoryMain = () => {
               ></StoryBlock>
             ))}
           </div>
+
           {maxPage > 0 && <Paging maxPage={maxPage} page={page} setPage={setPage}></Paging>}
 
         </div>
+
+        
       </StoryContainer>
     </>
   );
