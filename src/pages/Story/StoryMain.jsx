@@ -129,13 +129,17 @@ const StoryMain = () => {
   const { userId, isLogin } = useContext(LoginContext);
   const offset = listPerPage * (page - 1); // 리스트를 슬라이스 하기 위한 변수
   const maxPage = Math.ceil(storyList.length / listPerPage); // 현재 리스트의 최대 페이지
+  const [category, setCategory] = useState('전체');
   const writeLink = `/story/write`;
-
+ 
 
 
   const navigate = useNavigate();
 
-  // const storyId = useParams();
+  const storyId = useParams();
+  const storyPost = `/story/${storyId}`;
+
+
 
 
 
@@ -177,6 +181,10 @@ const StoryMain = () => {
     getStoryList();
   }, [page]);
 
+    //카테고리값 가져오기
+    const onChangeCategory = (selectedItem) => {
+      setCategory(selectedItem);
+    };
 
   const onClickWriteCheck = () => {
     if (isLogin) {
@@ -190,8 +198,6 @@ const StoryMain = () => {
   }
 
 
-  // const storyPost = `/story/${storyId}`;
-
   return (
     <>
       <Header />
@@ -204,7 +210,7 @@ const StoryMain = () => {
 
         <div className="menuBlock">
 
-          <Category display={'flex'} array='r'></Category>
+          <Category propFunction={onChangeCategory} display={'flex'} array='r'></Category>
 
           <SearchContainer>
             <SearchBar type="text" placeholder="검색 할 내용을 입력하세요!" />
@@ -215,10 +221,12 @@ const StoryMain = () => {
 
         <div className="storyBlock">
           <div className="storyList">
-            {storyList.slice(offset, offset + 12) && storyList.slice(offset, offset + 12).map(story => (
-
+          {/* {storyList.length > 1 && storyList */}
+            {storyList.slice(offset, offset + 12) && storyList.slice(offset, offset + 12)
+                  .filter((study) => category === '전체' || study.studyCategory === category)
+                  .map(story => (
               <StoryBlock
-                // onClick={ storyPost }
+                onClick={ storyPost }
                 storyId={story.storyId}
                 img_url={story.imgUrl}
                 study_name={story.studyName}

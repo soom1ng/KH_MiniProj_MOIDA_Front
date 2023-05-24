@@ -7,7 +7,7 @@ import { Editor } from "../Common/Editor";
 
 import { LoginContext } from "../../context/AuthContext";
 import AxiosAPI from "../../api/AxiosAPI";
-import { MyStudyList } from "../Common/MyStudyList";
+import { ChooseStudyList, MyStudyList } from "../Common/MyStudyList";
 // import Modal from "../utils/Modal";
 
 
@@ -119,7 +119,7 @@ const StoryWrite = () => {
                 <div className="StudyList">
                     <h2 className="title">스터디 선택</h2>
                     <div className="list_box">
-                        <MyStudyList/>
+                        <ChooseStudyList/>
                     </div>
                 </div>
 

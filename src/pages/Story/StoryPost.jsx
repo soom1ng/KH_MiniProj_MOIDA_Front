@@ -30,33 +30,37 @@ const Container = styled.div`
 
 //url주소: /story/4654546546{storyId} 
 const StoryPost = () => {
+
     const { storyId } = useParams();
 
     console.log("storyId = " + storyId);
+
     const [story, setStory] = useState(null);
-    const [comments, setComments] = useState([]);
-    const [page, setPage] = useState(1);
+    // const [comments, setComments] = useState([]);
+    // const [page, setPage] = useState(1);
     const [update, setUpdate] = useState(1); // 페이지 업데이트용
+    // const [modify, setModify] = useState(false); // 수정
+
 
     useEffect(() => {
-        const viewIncrease = async () => {
-            try {
-                const rsp = await AxiosAPI.viewIncrease(storyId);
-                console.log(rsp.data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-        viewIncrease();
+        // const viewIncrease = async () => {
+        //     try {
+        //         const rsp = await AxiosAPI.viewIncrease(storyId);
+        //         console.log(rsp.data);
+        //     } catch (error) {
+        //         console.error(error);
+        //     }
+        // }
+        // viewIncrease();
     }, [storyId]);
 
 
     useEffect(() => {
         const viewStory = async () => {
             try {
-                const rsp = await AxiosAPI.storyViewGet();
+                const rsp = await AxiosAPI.storyViewGet(storyId);
                 setStory(rsp.data);
-                setComments(rsp.data.comments);
+                // setComments(rsp.data.comments);
                 console.log(rsp.data);
             } catch (error) {
                 console.error(error);
@@ -68,23 +72,23 @@ const StoryPost = () => {
 
     return (
         <Container>
-            <Header></Header>
+            <Header/>
 
             <div className="titleBox">
                 {story && <PostTitle
                     size="s"
-                    title="요즘 개발하는게 너무 재미따히히"
-                    nickname="닉네임"
-                    recommend={-500}
-                    date={"2023/04/11"}
+                    title={story.title}
+                    nickname={story.nickname}
+                    // recommend={-500}
+                    date={story.regtime}
                 />}
                 <div className="StudyInfo">
                 {story && <StudyInfo
                         size='s'
-                        study_profile={"#fffff"}
-                        study_name={"백준방범대"}
-                        study_tag={"#코딩 #자바"}
-                        study_intro={"함께 코딩테스트를 준비하는 스터디입니다!"}
+                        study_profile={story.study_profile}
+                        study_name={story.study_name}
+                        // study_tag={"#코딩 #자바"}
+                        study_intro={story.study_intro}
                     />}
                 </div>
             </div>
@@ -100,16 +104,16 @@ const StoryPost = () => {
                 <CommentsList></CommentsList>
             </div> */}
 
-            {story &&
+            {/* {story &&
                 <CommentsList
                     storyId={storyId}
-                    commentsList={comments}
-                    setComments={setComments}
+                    // commentsList={comments}
+                    // setComments={setComments}
                     page={page}
                     setPage={setPage}
                     update={update}
                     setUpdate={setUpdate}
-                />}
+                />} */}
 
         </Container>
     );
