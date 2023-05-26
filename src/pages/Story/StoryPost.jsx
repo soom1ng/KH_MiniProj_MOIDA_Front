@@ -36,8 +36,8 @@ const StoryPost = () => {
     console.log("storyId = " + storyId);
 
     const [story, setStory] = useState(null);
-    // const [comments, setComments] = useState([]);
-    // const [page, setPage] = useState(1);
+    const [comments, setComments] = useState([]);
+    const [page, setPage] = useState(1);
     const [update, setUpdate] = useState(1); // 페이지 업데이트용
     // const [modify, setModify] = useState(false); // 수정
 
@@ -55,18 +55,19 @@ const StoryPost = () => {
     }, [storyId]);
 
 
+
     useEffect(() => {
-        const viewStory = async () => {
+        const viewPost = async () => {
             try {
                 const rsp = await AxiosAPI.storyViewGet(storyId);
                 setStory(rsp.data);
-                // setComments(rsp.data.comments);
+                setComments(rsp.data.comments);
                 console.log(rsp.data);
             } catch (error) {
                 console.error(error);
             }
         }
-        viewStory();
+        viewPost();
     }, [storyId, update]);
 
 
@@ -103,20 +104,20 @@ const StoryPost = () => {
 
             {/* 댓글 */}
 
-            {/* <div className="comment">
+            <div className="comment">
                 <CommentsList></CommentsList>
-            </div> */}
+            </div>
 
-            {/* {story &&
+            {story &&
                 <CommentsList
                     storyId={storyId}
-                    // commentsList={comments}
-                    // setComments={setComments}
+                    commentsList={comments}
+                    setComments={setComments}
                     page={page}
                     setPage={setPage}
                     update={update}
                     setUpdate={setUpdate}
-                />} */}
+                />}
 
         </Container>
     );
