@@ -477,7 +477,7 @@ const AxiosApi = {
       contents: contents,
       storyId: storyId,
     };
-    return await axios.post(MOIDA_DOMAIN + `/story/post/update`, story);
+    return await axios.story(MOIDA_DOMAIN + `/story/story/update`, story);
   },
 
   // 스토리 삭제 POST
@@ -485,8 +485,28 @@ const AxiosApi = {
     const story = {
       storyId: storyId,
     };
-    return await axios.post(MOIDA_DOMAIN + `/story/post/delete`, story);
+    return await axios.story(MOIDA_DOMAIN + `/story/delete`, story);
   },
+
+    // 추천하기
+    storyRecommend: async (storyId, userId) => {
+      console.log("추천발생")
+      const data = {
+        storyId: storyId,
+        userId: userId
+      };
+      return await axios.story(MOIDA_DOMAIN + '/story/recommend', data);
+    },
+  
+    // 추천취소
+    storyUndoRecommend: async (storyId, userId) => {
+      console.log("추천취소 발생")
+      const data = {
+        storyId: storyId,
+        userId: userId
+      };
+      return await axios.story(MOIDA_DOMAIN + "/story/undoRecommend", data);
+    },
 
   // 스토리 댓글 등록 POST
   storyCommentReg: async (userId, storyId, parentId, contents) => {
@@ -496,7 +516,7 @@ const AxiosApi = {
       parentId: parentId,
       contents: contents
     };
-    return await axios.post(MOIDA_DOMAIN + `/story/comment/insert`, comment);
+    return await axios.story(MOIDA_DOMAIN + `/story/comment/insert`, comment);
   },
 
   // 스토리 댓글 수정 POST
@@ -505,7 +525,7 @@ const AxiosApi = {
       commentId: commentId,
       contents: contents
     };
-    return await axios.post(MOIDA_DOMAIN + `/story/comment/update`, comment);
+    return await axios.story(MOIDA_DOMAIN + `/story/comment/update`, comment);
   },
 
     // 스토리 댓글 삭제 POST
@@ -513,7 +533,7 @@ const AxiosApi = {
       const comment = {
         commentId: commentId,
       };
-      return await axios.post(MOIDA_DOMAIN + `/story/comment/delete`, comment);
+      return await axios.story(MOIDA_DOMAIN + `/story/comment/delete`, comment);
     },
 
 

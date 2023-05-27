@@ -6,7 +6,6 @@ import HeaderLounge from "../HeaderLounge";
 import { useParams } from "react-router-dom";
 import AxiosAPI from "../../api/AxiosAPI";
 import { LoungePostTitle } from "../Common/LoungePostTitle";
-import AxiosApi from "../../api/AxiosAPI";
 import {LoginContext} from "../../context/AuthContext";
 import LoungeWrite from "./LoungeWrite";
 

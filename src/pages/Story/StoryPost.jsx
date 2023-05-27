@@ -5,8 +5,9 @@ import styled from "styled-components";
 import { PostTitle } from "../Common/PostTitle";
 import { StudyInfo } from "../Common/StudyInfo";
 import CommentsList from "../Common/CommentsList";
-
 import AxiosAPI from "../../api/AxiosAPI";
+import {LoginContext} from "../../context/AuthContext";
+import StoryWrite from "./StoryWrite"
 // import { LoginContext } from "../../context/AuthContext";
 
 
