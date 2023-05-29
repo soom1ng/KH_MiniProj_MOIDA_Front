@@ -25,6 +25,8 @@ const Container = styled.div`
   
   .StudyInfo {
     border-left:  1.5px solid black ;
+    align-items: center;
+    justify-content: center;
   };
 `;
 
@@ -87,11 +89,12 @@ const StoryPost = () => {
                 <div className="StudyInfo">
                 {story && <StudyInfo
                         size='s'
-                        // study_Id
-                        study_profile={story.studyProfile}
-                        study_name={story.studyName}
+                        isStory = {1}
+                        studyId={story.studyId}
+                        studyProfile={story.studyProfile}
+                        studyName={story.studyName}
                         // study_tag={story.study_tag}
-                        study_intro={story.studyIntro}
+                        studyIntro={story.studyIntro}
                     />}
                 </div>
             </div>
@@ -105,11 +108,11 @@ const StoryPost = () => {
 
             {/* 댓글 */}
 
-            <div className="comment">
+            {/* <div className="comment">
                 <CommentsList></CommentsList>
-            </div>
+            </div> */}
 
-            {story &&
+            {/* {story &&
                 <CommentsList
                     storyId={storyId}
                     commentsList={comments}
@@ -118,7 +121,7 @@ const StoryPost = () => {
                     setPage={setPage}
                     update={update}
                     setUpdate={setUpdate}
-                />}
+                />} */}
 
         </Container>
     );
