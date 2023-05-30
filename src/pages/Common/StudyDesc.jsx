@@ -25,7 +25,8 @@ const StyledStudyDesc = styled.div`
   ${(p) => p.sizeStyle}
   display: flex;
   flex-direction: column;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
+  margin-top: 10px;
   margin-left: var(--margin-left);
 
     .box {
@@ -41,7 +42,7 @@ const StyledStudyDesc = styled.div`
         font-size: 2.8em;
         font-weight: bold;
         cursor: pointer;
-        margin-right: 25px;
+        width: 240px;
     }
     
     .StudyProfile {
@@ -51,16 +52,20 @@ const StyledStudyDesc = styled.div`
         /* background-color: #E2fff9; */
         display: flex;
         margin: 10px;
-        margin-left: 0px;
+        margin-left: 20px;
     }
 
     .itemText{
+        margin-left: 60px;
         font-size:1.6em;
         padding-right: var(--padding-right);
         width: var(--descWidth);
+        height: auto;
     }
 
+
     .TagContainer{
+        margin-left: 60px;
         display: flex;
         align-items: center;
         justify-content: var(--justify-content);
@@ -71,14 +76,18 @@ const StyledStudyDesc = styled.div`
         font-size: 1.5em;
         font-weight: bold;
     }
+
     .title{
         font-size: 27px;
         margin: 0;
     }
 
+    .member {
+        justify-content: right;
+    }
 `;
 
-export const StudyDesc = ({ size, studyId, study_profile, study_name, study_tag, study_intro, isMember, isTagTitle, study_user_count, study_user_limit }) => {
+export const StudyDesc = ({ size, studyId, study_profile, study_name, study_tag, study_intro, isMember, study_user_count, study_user_limit }) => {
     const sizeStyle = SIZES[size];
     const navigate = useNavigate();
     const onClick = () => {
@@ -94,7 +103,7 @@ export const StudyDesc = ({ size, studyId, study_profile, study_name, study_tag,
                     <h2 className="title">{study_name}</h2>
                 </div>
 
-                <h2>{isMember ? <CountMem
+                <h2 className="member">{isMember ? <CountMem
                     size={"s"}
                     study_user_count={study_user_count}
                     study_user_limit={study_user_limit}></CountMem> : <></>}</h2>
@@ -102,8 +111,7 @@ export const StudyDesc = ({ size, studyId, study_profile, study_name, study_tag,
             </div>
             <p className="itemText">{study_intro}</p>
             <div className='TagContainer'>
-                {isTagTitle ?
-                    <div className="item1" >태그</div> : <></>}
+                    {/* <div className="item1" >태그</div> */}
                 <div className="item1">{study_tag}</div>
             </div>
         </StyledStudyDesc>

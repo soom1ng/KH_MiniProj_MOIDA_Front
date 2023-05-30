@@ -7,8 +7,9 @@ import { StudyInfo } from "../Common/StudyInfo";
 import CommentsList from "../Common/CommentsList";
 import AxiosAPI from "../../api/AxiosAPI";
 import {LoginContext} from "../../context/AuthContext";
-import StoryWrite from "./StoryWrite"
-// import { LoginContext } from "../../context/AuthContext";
+// import StoryWrite from "./StoryWrite"
+// import { LoungePostTitle } from "../Common/LoungePostTitle";
+
 
 
 
@@ -27,7 +28,15 @@ const Container = styled.div`
     border-left:  1.5px solid black ;
     align-items: center;
     justify-content: center;
-  };
+  }
+  
+  .content {
+    font-size: 1.6rem;
+    min-height: 750px;
+    border-bottom: 1px solid gray;
+    padding: 80px 250px 80px 250px;
+  }
+
 `;
 
 
@@ -89,11 +98,10 @@ const StoryPost = () => {
                 <div className="StudyInfo">
                 {story && <StudyInfo
                         size='s'
-                        isStory = {1}
                         studyId={story.studyId}
                         studyProfile={story.studyProfile}
                         studyName={story.studyName}
-                        // study_tag={story.study_tag}
+                        studyTag={story.studyTag}
                         studyIntro={story.studyIntro}
                     />}
                 </div>

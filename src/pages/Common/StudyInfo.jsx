@@ -139,14 +139,14 @@ const InnerContainer = ({ studyLink, studyUserCount, studyUserLimit, userName })
     )
 };
 
-export const StudyInfo = ({ size, isStory, studyProfile, studyName, studyTag, studyIntro, isBasic, studyLink, studyUserCount, studyUserLimit, userName }) => {
+export const StudyInfo = ({ size, studyProfile, studyName, studyTag, studyIntro, isBasic, studyLink, studyUserCount, studyUserLimit, userName }) => {
     const sizeStyle = SIZES[size];
     console.log(studyLink);
    return (
         <StyledStudyInfo sizeStyle={sizeStyle}>
             <Body>
                 <Body1>
-                    { isStory ? 
+                    
                     <StudyDesc
                         size={"s"}
                         study_profile={studyProfile}
@@ -154,16 +154,7 @@ export const StudyInfo = ({ size, isStory, studyProfile, studyName, studyTag, st
                         study_tag={studyTag}
                         study_intro={studyIntro}
                         fontSize={"3.2rem"}
-                    ></StudyDesc> : 
-                    <StudyDesc
-                        size={"s"}
-                        study_profile={studyProfile}
-                        study_name={studyName}
-                        study_tag={studyTag}
-                        study_intro={studyIntro}
-                        isTagTitle={1}
-                        fontSize={"3.2rem"}
-                    ></StudyDesc> }
+                    ></StudyDesc>
                 </Body1>
 
                 <Body2>

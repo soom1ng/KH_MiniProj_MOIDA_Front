@@ -1,6 +1,8 @@
 import { HandThumbsUp } from "react-bootstrap-icons";
 import React from "react";
 import styled, { css } from "styled-components";
+import {formatRegTime} from "./formatRegTime";
+
 
 // 사용법
 // import PostTitle from .. import 하고
@@ -78,7 +80,7 @@ const StyledPostTitle = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
     .recommend {
       display: flex;
       padding: 10px;
@@ -97,11 +99,13 @@ const StyledPostTitle = styled.div`
     }
     
     .date {
-      font-size: 1.7rem;
-    } 
+      padding-left: 10px;
+      font-size: 1.6rem;
+    
+    }
   }
 `;
-export const PostTitle = ({ size, img_url, nickname, title, date, recommend }) => {
+export const PostTitle = ({ size, img_url, nickname, title, regTime, recommend }) => {
   const sizeStyle = SIZES[size];
 
   return (
@@ -118,7 +122,9 @@ export const PostTitle = ({ size, img_url, nickname, title, date, recommend }) =
         <div className="recommend">
           <h1><HandThumbsUp /></h1><h3>{recommend}</h3>
         </div>
-        <div className="date">{date}</div>
+        {/* <div className="date">{date}</div> */}
+        <div className="date">{formatRegTime(regTime)}</div>
+
       </div>
 
     </StyledPostTitle>
