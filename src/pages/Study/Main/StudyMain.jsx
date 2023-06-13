@@ -61,7 +61,7 @@ overflow-x: hidden;
 .schedule_box {
     width: 400px;
     background-color: #f3f3f3;
-    height: 475px;
+    height: auto;
     display: flex;
     justify-content:center;
     display: flex;

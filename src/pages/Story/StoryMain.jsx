@@ -136,11 +136,6 @@ const StoryMain = () => {
 
   const navigate = useNavigate();
 
-
-
-
-
-
   // const onClickWrite = () => {
   //   navigate('/Story/Write');
   // }
